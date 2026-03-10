@@ -1,0 +1,67 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# Table of Contents for Jupyter Book
+# ──────────────────────────────────────────────────────────────────────────────
+
+format: jb-book
+root: index
+
+parts:
+
+  - caption: "Front Matter"
+    chapters:
+      - file: frontmatter/foreword
+        title: "Foreword"
+      - file: frontmatter/contents
+        title: "Table of Contents"
+      - file: frontmatter/preface
+        title: "Preface"
+      - file: frontmatter/copyright
+        title: "Copyright and Citation"
+      - file: frontmatter/acknowledgments
+        title: "Dedication and Acknowledgments"
+      - file: frontmatter/about_author
+        title: "About the Author"
+
+  - caption: "Part I — The Anatomy of Population Data"
+    chapters:
+      - file: chapters/01_vitals
+        title: "Ch. 1 — The Vitals of Data"
+      - file: chapters/02_middle
+        title: "Ch. 2 — The Middle and the Mess"
+      - file: chapters/03_margin
+        title: "Ch. 3 — The Margin of Error"
+
+  - caption: "Part II — Making Decisions Under Uncertainty"
+    chapters:
+      - file: chapters/04_chance
+        title: "Ch. 4 — The Laws of Chance"
+      - file: chapters/05_hypothesis
+        title: "Ch. 5 — The Hypothesis Gamble"
+      - file: chapters/06_twogroups
+        title: "Ch. 6 — A Tale of Two Groups"
+
+  - caption: "Part III — Complex Connections"
+    chapters:
+      - file: chapters/07_scaling
+        title: "Ch. 7 — Scaling Up"
+      - file: chapters/08_future
+        title: "Ch. 8 — Reading the Future"
+
+  - caption: "Part IV — Consolidation and Examination Preparation"
+    chapters:
+      - file: chapters/09_review
+        title: "Ch. 9 — Course Review and Exam Preparation"
+
+  - caption: "Appendices"
+    chapters:
+      - file: appendices/data_dictionary
+        title: "Appendix A — Data Dictionary"
+      - file: appendices/glossary
+        title: "Appendix B — Glossary"
+
+  - caption: "Back Matter"
+    chapters:
+      - file: backmatter/references
+        title: "References and Further Reading"
+      - file: backmatter/contribute
+        title: "How to Contribute"

@@ -1,0 +1,39 @@
+# ──────────────────────────────────────────────────────────────────────────────
+# Jupyter Book configuration
+# Book: A Little Bit of Everything in Biostatistics for Health Science Students
+# Course: HS 4510 — University of the People
+# ──────────────────────────────────────────────────────────────────────────────
+
+# Book identity
+title                 : "A Little Bit of Everything in Biostatistics for Health Science Students"
+author                : ""          # Add your name here
+copyright             : "2026"
+logo                  : ""          # Optional: path to a logo image (e.g. logo.png)
+
+# Notebook execution — set to 'off' because all chapters are pure Markdown
+execute:
+  execute_notebooks   : "off"
+
+# HTML output settings
+html:
+  use_repository_button : true      # Shows a GitHub link at the top of every page
+  use_issues_button     : true      # Lets readers report issues directly from the page
+  use_edit_page_button  : true      # Lets readers suggest edits on GitHub
+  repository_url        : "https://github.com/yourusername/biostats-book"   # ← Update this
+  repository_branch     : "main"
+  home_page_in_navbar   : true
+  extra_navbar          : ""        # Optional extra HTML in the navbar
+  google_analytics_id   : ""        # Optional: paste your GA4 ID here
+
+# MyST Markdown extensions — required for LaTeX math rendering
+parse:
+  myst_enable_extensions:
+    - dollarmath       # Enables $...$ inline math and $$...$$ display math
+    - amsmath          # Enables LaTeX environments like \begin{align}
+    - colon_fence      # Enables ::: admonition blocks (callout boxes)
+    - deflist          # Enables definition lists
+    - html_image       # Enables HTML <img> tags inside Markdown
+
+# BibTeX references file (optional — add citations with {cite}`key`)
+bibtex_bibfiles:
+  - references.bib
