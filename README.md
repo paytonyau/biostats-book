@@ -50,42 +50,7 @@ Both software packages are **free**:
 
 ## Read Online
 
-> 🌐 **Live book:** `https://yourusername.github.io/biostats-book`
-> *(Update this URL once deployed — see Publishing section below)*
-
----
-
-## Build Locally
-
-**Requirements:** Python 3.8 or later.
-
-```bash
-# 1. Install Jupyter Book
-pip install jupyter-book
-
-# 2. Clone this repository
-git clone https://github.com/yourusername/biostats-book.git
-cd biostats-book
-
-# 3. Build the HTML book
-jupyter-book build biostats-book/
-
-# 4. Open in your browser
-open biostats-book/_build/html/index.html
-```
-
----
-
-## Publish to GitHub Pages
-
-```bash
-pip install ghp-import
-ghp-import -n -p -f biostats-book/_build/html
-```
-
-Your book will be live at `https://yourusername.github.io/biostats-book`.
-Update `repository_url` in `_config.yml` to match your actual GitHub URL.
-
+> 🌐 **Live book:** `https://paytonyau.github.io/biostats-book`
 ---
 
 ## Repository Structure
@@ -121,7 +86,7 @@ biostats-book/
 This textbook is released under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) licence. You are free to share and adapt the material for any purpose, provided appropriate credit is given.
 
 **Citation:**
-> Yau, P. T. O. (*year*). *A Little Bit of Everything in Biostatistics for Health Science Students*. GitHub. `https://github.com/yourusername/biostats-book`
+> Payton Tung On Yau and Suhirthakumar Puvanendran, A Little Bit of Everything in Biostatistics for Health Science Students (GitHub, 2025), `https://github.com/paytonyau/biostats-book.`
 
 ---
 
