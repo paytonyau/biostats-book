@@ -3,28 +3,27 @@
 # Book: A Little Bit of Everything in Biostatistics for Health Science Students
 # ------------------------------------------------------------------------------
 
-# Book identity
 title: "A Little Bit of Everything in Biostatistics for Health Science Students"
 author: "Payton Tung On Yau and Suhirthakumar Puvanendran"
 copyright: "2026"
 logo: ""
 
-# Notebook execution — set to 'off' because all chapters are pure Markdown
 execute:
   execute_notebooks: "off"
 
-# HTML output settings
+# The HTML settings for the buttons
 html:
   use_repository_button: true
   use_issues_button: true
   use_edit_page_button: true
-  repository_url: "https://github.com/paytonyau/biostats-book"
-  repository_branch: "main"
   home_page_in_navbar: true
-  extra_navbar: ""
-  google_analytics_id: ""
 
-# MyST Markdown extensions — required for LaTeX math rendering
+# THIS IS THE PIECE THAT WAS MISSING CAUSING THE CRASH:
+repository:
+  url: "https://github.com/paytonyau/biostats-book"
+  branch: "main"
+  path_to_book: ""
+
 parse:
   myst_enable_extensions:
     - dollarmath
@@ -33,6 +32,5 @@ parse:
     - deflist
     - html_image
 
-# BibTeX references file
 bibtex_bibfiles:
   - references.bib
