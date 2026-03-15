@@ -39,8 +39,6 @@ This teaching subset is provided for **educational use only**. It is not appropr
 
 All figures in this textbook were generated programmatically using Python (matplotlib) by the authors and are released under CC BY-NC-SA 4.0.
 
-The schematic Broad Street dot map (Figure 1.1) is an original illustrative figure inspired by Dr John Snow's 1854 epidemiological work, which is in the public domain. The schematic does not reproduce any copyrighted original.
-
 ---
 
 ## Software
