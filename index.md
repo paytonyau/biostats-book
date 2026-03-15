@@ -2,8 +2,8 @@
 ## By Payton Yau and Suhirthakumar Puvanendran | Version 1.0
 
 
-```{figure} ../images/cover.png
-:name: fig-intro-vis
+```{figure} images/cover.png
+:name: Book Cover
 :width: 80%
 :align: center
 
