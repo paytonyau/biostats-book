@@ -1,10 +1,10 @@
 # A Little Bit of Everything in Biostatistics for Health Science Students
-## By Payton Yau and Suhirthakumar Puvanendran | Version 1.0
+### By Payton Yau and Suhirthakumar Puvanendran | Version 1.0
 
 
 ```{figure} images/cover.png
 :name: Book Cover
-:width: 80%
+:width: 50%
 :align: center
 
 ```
