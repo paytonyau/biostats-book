@@ -1,10 +1,6 @@
-# A Little Bit of Everything in Biostatistics for Health Science Students
-
----
-
 # Chapter 2: The Middle and the Mess
 ## *Measures of Central Tendency and Variability*
-
+---
 > **Dataset:** Framingham Heart Study teaching subset — `framingham_teaching.csv`, n = 500 participants, baseline examination.
 
 ---

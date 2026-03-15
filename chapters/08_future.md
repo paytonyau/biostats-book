@@ -1,10 +1,6 @@
-# A Little Bit of Everything in Biostatistics for Health Science Students
-
----
-
 # Chapter 8: Reading the Future
 ## *Correlation, Regression, and Survival Analysis*
-
+---
 > **Dataset:** Framingham Heart Study teaching subset — `framingham_teaching.csv`, n = 500 participants.
 
 ---

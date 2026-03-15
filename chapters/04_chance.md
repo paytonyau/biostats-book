@@ -1,10 +1,6 @@
-# A Little Bit of Everything in Biostatistics for Health Science Students
-
----
-
 # Chapter 4: The Laws of Chance
 ## *Probability Distributions and Normality Assessment*
-
+---
 > **Dataset:** Framingham Heart Study teaching subset — `framingham_teaching.csv`, n = 500 participants, baseline examination.
 
 ---

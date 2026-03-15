@@ -1,10 +1,6 @@
-# A Little Bit of Everything in Biostatistics for Health Science Students
-
----
-
 # Chapter 5: The Hypothesis Gamble
 ## *Hypothesis Testing, P-Values, and Statistical Power*
-
+---
 > **Dataset:** Framingham Heart Study teaching subset — `framingham_teaching.csv`, n = 500 participants.
 
 ---

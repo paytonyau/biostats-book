@@ -1,11 +1,6 @@
-# A Little Bit of Everything in Biostatistics for Health Science Students
-
----
-
 # Chapter 7: Scaling Up
-
 ## *ANOVA, Chi-Square, and Categorical Comparisons*
-
+---
 > **Dataset:** Framingham Heart Study teaching subset — `framingham_teaching.csv`, n = 500 participants.
 
 ---

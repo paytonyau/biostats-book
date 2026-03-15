@@ -1,9 +1,6 @@
-# A Little Bit of Everything in Biostatistics for Health Science Students
-
----
-
 # Chapter 1: The Vitals of Data
 ## *Understanding Types of Data and Levels of Measurement*
+---
 
 > **Unit:** 1 | **Part:** I — Describing the World in Numbers
 >

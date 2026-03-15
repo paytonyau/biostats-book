@@ -1,10 +1,6 @@
-# A Little Bit of Everything in Biostatistics for Health Science Students
-
----
-
 # Chapter 3: The Margin of Error
 ## *Uncertainty, Sampling, and Confidence Intervals*
-
+---
 > **Dataset:** Framingham Heart Study teaching subset — `framingham_teaching.csv`, n = 500 participants, baseline examination.
 
 ---
