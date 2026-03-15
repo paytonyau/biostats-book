@@ -1,70 +1,39 @@
-# Preface: Why Numbers Need Health Professionals
+# Preface
 
-If you are reading this, you are training to become a nurse, a public health officer, an epidemiologist, a biomedical scientist, or a health services administrator. You entered this field to save lives, treat illness, and improve the health of communities. You almost certainly did not enter this field because you love calculus.
+## Why We Wrote This Book
 
-Yet Biostatistics is a required component of nearly every health science curriculum. And too often, it is taught as though the audience is a room full of mathematics students — drowning clinicians and public health practitioners in Greek symbols, abstract probability puzzles, and formulas derived from coin flips and card decks that bear no visible relationship to the work of caring for patients or managing disease outbreaks.
+The question we hear most often from health science students encountering biostatistics for the first time is not "what does this formula mean?" It is "why does this matter?"
 
-This book exists to close that gap.
+This book is our answer to that question.
 
----
+We wrote it because the standard approach to teaching biostatistics — abstract formulas first, clinical context later, if at all — produces graduates who can pass an exam but cannot interpret a confidence interval on a drug trial report. We wrote it because health science students deserve a textbook that treats them as future clinicians and public health practitioners, not as apprentice mathematicians.
 
-## The Purpose of This Book
+Most importantly, we wrote it because the dataset at the heart of this book earns its place there. The Framingham Heart Study did not just produce important findings — it invented the methodology of risk factor epidemiology. Every cardiovascular risk score used in clinical practice today (QRISK, Framingham Risk Score, SCORE2) descends from the work done in this study. Using Framingham data to teach biostatistics to health science students is not an arbitrary pedagogical choice. It is teaching the methods through the study that created them.
 
-The purpose of this guide is not to turn you into a statistician. The purpose is to turn you into an **evidence-based practitioner** — someone who can read a research paper critically, design a small-scale health study rigorously, run a dataset through software correctly, and translate the numerical output into a decision that affects real people.
+## How This Book Is Different
 
-Throughout these chapters, we do not work with abstract textbook problems. Instead, we work as an epidemiological investigation team examining one of the most consequential public health datasets in history: **Dr John Snow's record of the 1854 Broad Street cholera outbreak in London**. Every concept — from data types and descriptive statistics in Chapter 1, to confidence intervals in Chapter 3, to regression and prediction in Chapter 8 — is taught through this single, historically documented case. You never have to re-learn a new dataset to learn a new formula.
+**One dataset, nine chapters.** Every statistical method in this book is demonstrated on the same 500 participants. Students do not need to learn a new clinical context in each chapter. They learn one context deeply — and apply progressively more powerful analytical tools to it.
 
-The questions we answer are real questions:
+**Plain English before formulas.** Every key concept is introduced with a plain-language statement before the formal definition. The formula follows the intuition, not the other way around.
 
-- Is the cluster of deaths near the Broad Street pump statistically significant, or could it be chance?
-- How confident can we be in our estimate of the mean age of victims?
-- Does distance from the pump predict household mortality, and by how much?
-- Were the brewery workers who drank beer instead of water genuinely protected, or is that apparent effect a statistical artefact?
+**Honest about limitations.** Where a method has assumptions that matter, we say so. Where a common misinterpretation exists, we name it explicitly. Where a statistical test is technically incorrect for the data (as OLS regression is for censored survival times), we explain why and show the correct alternative.
 
-These are the kinds of questions that determine whether a pump handle gets removed, whether a hospital ward gets quarantined, or whether a vaccine programme gets funded. Biostatistics is not an academic exercise. It is a decision-making tool. This book teaches it as one.
+**Epidemiology built in, not bolted on.** Incidence rates, relative risk, odds ratios, Kaplan-Meier curves, and the log-rank test are not appendices. They are woven through the chapters where they belong, taught using the variables in the dataset that require them.
 
----
+## A Note on the Teaching Dataset
 
-## Who This Book Is For
+The Framingham teaching subset used in this book (n = 500) is derived from data provided by the NHLBI for educational use. It has been processed to ensure participant anonymity. It is appropriate for teaching and illustrative analysis only — it should not be used for research publication or clinical decision-making.
 
-This book was written for students enrolled in **HS 4510 Biostatistics** at the University of the People, and for any health science undergraduate who needs a practical, applied introduction to the subject. No prior statistical knowledge is assumed. Familiarity with basic algebra — the ability to substitute numbers into a formula and compute the result — is sufficient preparation for everything in these pages.
+The dataset is available as `framingham_teaching.csv` in the book's data folder and can be loaded in R with a single line of code.
 
-If you have previously attempted a biostatistics course and found it inaccessible, this book is especially for you. The emphasis throughout is on *meaning*: what does this number represent? What decision does this result support? What would it mean for a patient, a community, or a public health policy?
+## For Instructors
 
----
+Each chapter is self-contained and can be taught independently, though the book is designed to be read sequentially. Chapters 1–3 assume no prior statistical knowledge. Chapters 4–6 build on descriptive statistics and introduce inferential reasoning. Chapters 7–8 extend to multiple groups and relationships. Chapter 9 consolidates all methods and introduces survival analysis.
 
-## What This Book Does Differently
+Lab exercises are provided in both PSPP (free, open-source) and R. Either tool is sufficient for all labs in this book.
 
-**One dataset, nine chapters.** Most biostatistics textbooks introduce a new dataset with every new concept, forcing students to spend cognitive energy on unfamiliar data rather than unfamiliar statistics. This book uses the Snow cholera dataset throughout. By Chapter 5, you know this dataset well enough to focus entirely on what the hypothesis test is doing — not on what the variables mean.
+*Payton Yau*
+*Nottingham Trent University / University of the People*
 
-**Software first, theory second.** Every chapter includes a parallel Lab Manual section with step-by-step instructions for both **PSPP** (a free, open-source, point-and-click alternative to SPSS) and **R / RStudio** (the industry standard for epidemiological research). You do not need to wait until you have mastered the mathematics to run your first analysis. You run it in Week 1, alongside reading about data types.
-
-**Interpretation over computation.** Modern health practitioners do not compute t-statistics by hand. Software computes the numbers. What practitioners must do — and what too few courses teach explicitly — is read the output correctly, communicate the findings accurately, and recognise when the result is being misinterpreted. Every chapter in this book includes worked output interpretation tables, correct-versus-incorrect statement comparisons, and plain-language reporting templates.
-
-**The human element.** This book acknowledges something most biostatistics textbooks ignore entirely: numbers are not the whole picture. Chapter 5 covers sampling design, because a perfect analysis of a badly collected sample produces a confidently wrong answer. Chapter 7 covers the comparison of proportions and relative risk, because epidemiology lives in attack rates and risk differences, not only in means. And the course review in Chapter 9 includes an ethics section, because every row in a health dataset represents a human being, and the responsibility that carries does not appear in any formula.
-
----
-
-## How to Use This Book
-
-Each chapter corresponds to one week of the HS 4510 course. Work through the conceptual sections before opening PSPP or R. Attempt the Review Questions before checking any answers. Use the Key Terms table as a self-test before the chapter examination.
-
-Chapter 9 is different from all the others. It contains no new theory. It is a dedicated examination preparation resource: a complete formula reference, a test-selection decision guide, and full cheat sheets for both PSPP and R. Keep it open during your revision.
-
----
-
-## A Note on Language
-
-This book uses **British English spelling** throughout — *whilst*, *recognise*, *practise* (verb), *licence* (noun), *colour* — consistent with the international conventions of the University of the People and the majority of the peer-reviewed epidemiology literature.
-
-Statistical notation follows standard conventions: population parameters in Greek letters (μ, σ, ρ), sample statistics in Roman letters (x̄, s, r). Every formula is introduced with a plain-language description before the symbolic notation is presented.
-
----
-
-When you open a dataset, remember: every row was once a person.
-
-The numbers are tools. You are the practitioner.
-
----
-
-*— Payton Tung On Yau*
+*Suhirthakumar Puvanendran*
+*Birkbeck, University of London / University of West London*

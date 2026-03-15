@@ -1,12 +1,11 @@
 # ──────────────────────────────────────────────────────────────────────────────
 # Jupyter Book configuration
 # Book: A Little Bit of Everything in Biostatistics for Health Science Students
-# Course: HS 4510 — University of the People
 # ──────────────────────────────────────────────────────────────────────────────
 
 # Book identity
 title                 : "A Little Bit of Everything in Biostatistics for Health Science Students"
-author                : ""          # Add your name here
+author                : "Payton Yau and Suhirthakumar Puvanendran"
 copyright             : "2026"
 logo                  : ""          # Optional: path to a logo image (e.g. logo.png)
 
@@ -19,7 +18,7 @@ html:
   use_repository_button : true      # Shows a GitHub link at the top of every page
   use_issues_button     : true      # Lets readers report issues directly from the page
   use_edit_page_button  : true      # Lets readers suggest edits on GitHub
-  repository_url        : "https://github.com/yourusername/biostats-book"   # ← Update this
+  repository_url        : "https://github.com/paytonyau/biostats-book"   # ← Update this
   repository_branch     : "main"
   home_page_in_navbar   : true
   extra_navbar          : ""        # Optional extra HTML in the navbar

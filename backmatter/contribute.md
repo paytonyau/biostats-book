@@ -25,7 +25,7 @@ Suggestions that have been particularly valuable in previous revisions include:
 
 - Alternative phrasings for p-value interpretation that worked better for non-native English speakers
 - Additional PSPP screenshots for steps that students found ambiguous
-- Worked examples grounded in settings other than the 1854 cholera outbreak (maternal health, HIV surveillance, hospital-acquired infections)
+- Worked examples grounded in settings other than the Framingham Heart Study outbreak (maternal health, HIV surveillance, hospital-acquired infections)
 
 ---
 

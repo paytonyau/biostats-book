@@ -2,7 +2,7 @@
 
 ## Primary Dataset
 
-The worked examples throughout this book use Dr John Snow's 1854 Broad Street cholera outbreak data, distributed as `Snow.deaths` in the R package `HistData`:
+The worked examples throughout this book use Dr John Snow's 1854 Broad Street cholera outbreak data, distributed as `framingham_teaching.csv` in the R package `HistData`:
 
 > Friendly, M. (2022). *HistData: Data Sets from the History of Statistics and Data Visualization*. R package version 0.8-7. https://CRAN.R-project.org/package=HistData
 

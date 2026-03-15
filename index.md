@@ -1,16 +1,16 @@
 # A Little Bit of Everything in Biostatistics for Health Science Students
 
-**An Applied Open-Source Textbook for HS 4510 — University of the People**
+**An Applied Open-Source Textbook for Health Science Undergraduates, Epidemiology Students, and Self-Directed Learners in Public Health**
 
 ---
 
 ## About This Book
 
-Most biostatistics textbooks are written for mathematics students. This book is written for people who want to save lives.
+Most biostatistics textbooks are written for mathematics students. This book is written for people who want to understand disease — and prevent it.
 
-Built around the real-world public health investigation that ended the 1854 Broad Street cholera outbreak in London, every chapter in this book teaches statistical reasoning through a single, historically documented dataset. Every formula is connected to a decision. Every p-value has a consequence. And every row in the data was once a person.
+Every chapter is built around a single, historically influential dataset: a teaching subset of the **Framingham Heart Study**, the longest-running cardiovascular epidemiology study in history. Since 1948, researchers in Framingham, Massachusetts have followed thousands of participants to identify the risk factors for heart disease — high blood pressure, high cholesterol, smoking, diabetes, obesity — concepts so fundamental to modern medicine that we have forgotten they had to be *discovered*.
 
-This book is designed for health science, nursing, and epidemiology students who need to understand the *why* behind statistical methods — not just the mechanics — so they can apply them confidently in practice.
+This book uses that dataset to teach statistics the way it should be taught: through real variables with real clinical meanings, where a regression slope tells you something about survival, and a Chi-Square result tells you something about who is most at risk.
 
 ---
 
@@ -18,46 +18,48 @@ This book is designed for health science, nursing, and epidemiology students who
 
 By the end of this book you will be able to:
 
-1. Classify any health dataset by data type and select the correct descriptive statistics.
-2. Construct and interpret confidence intervals and explain what uncertainty in a measurement means.
-3. Select, run, and correctly interpret the principal methods of statistical inference — including t-tests, ANOVA, Chi-Square, correlation, and regression.
-4. Design a study using appropriate sampling methods and explain why sampling design determines the validity of inference.
-5. Communicate statistical results accurately and ethically to a public health audience.
+- Classify any health variable at the correct level of measurement
+- Calculate and interpret descriptive statistics and confidence intervals
+- Select and run the correct statistical test for any research scenario
+- Interpret p-values, effect sizes, and confidence intervals correctly
+- Produce and read Kaplan-Meier survival curves and log-rank tests
+- Use PSPP and R to analyse real epidemiological data
 
 ---
 
 ## The Dataset
 
-Every worked example in this book uses **Dr John Snow's 1854 Broad Street cholera outbreak dataset** — `Snow.deaths` from the R package `HistData`. The same dataset appears in every chapter, so you spend your cognitive effort on statistics, not on learning new data with every new concept.
+**The Framingham Heart Study Teaching Subset** — 500 participants, 22 variables, baseline examination.
+
+*Data derived from the Framingham Heart Study teaching dataset, provided by the National Heart, Lung, and Blood Institute (NHLBI/NIH) for educational purposes. Original study: Framingham Heart Study (N01-HC-25195). This teaching subset is for educational use only and is not appropriate for research publication.*
+
+```r
+# Load the dataset in R
+fram_data <- read.csv("data/framingham_teaching.csv")
+```
 
 ---
 
-## Software
+## How This Book Is Organised
 
-This book includes side-by-side lab instructions for two free tools:
+The book is divided into four parts across nine chapters:
 
-- **PSPP** — A free, open-source alternative to SPSS with a point-and-click interface. Ideal for practitioners who prefer a visual workflow.
-- **R and RStudio** — The industry standard for epidemiological research. Ideal for researchers who want reproducible, scriptable analyses.
+**Part I — Describing the World in Numbers** (Chapters 1–3): What kind of data do we have? How do we summarise it? How confident can we be in our estimates?
 
-All R code in this book is fully annotated and can be run line by line. No prior programming experience is required.
+**Part II — Testing What We Think We Know** (Chapters 4–6): What are the laws of chance? How do we test a hypothesis? How do we compare two groups?
+
+**Part III — Comparing More Than Two Groups** (Chapters 7–8): How do we compare three or more groups? How do we measure and model relationships?
+
+**Part IV — Putting It All Together** (Chapter 9): How do we select the right test? How do we read and report survival data? What have we learned?
 
 ---
 
 ## How to Use This Book
 
-The nine chapters follow the structure of the HS 4510 course — one chapter per week. Each chapter contains:
+Each chapter follows the same structure: a plain-English introduction, worked examples using the Framingham data, a lab manual in both PSPP and R, a Test Your Knowledge exercise with a dropdown solution, key terms, review questions, and a summary.
 
-- **Learning objectives** stated precisely at the outset
-- **Conceptual explanation** anchored to the Snow dataset
-- **Worked examples** with every arithmetic step shown
-- **🔬 Lab Manual** with parallel PSPP and R instructions
-- **Key Terms** table
-- **Review Questions** graded from recall to application
-- **Chapter Summary** with a forward link to the next chapter
-
-Chapter 9 is a dedicated course review containing a complete formula reference, a test-selection decision guide, and cheat sheets for both PSPP and R — everything you need for the final examination in a single place.
+You do not need a mathematics background. You need curiosity about disease and the patience to work through examples.
 
 ---
 
-```{tableofcontents}
-```
+*A Little Bit of Everything in Biostatistics for Health Science Students* is an open-source textbook. It is free to read, use, and adapt under its open licence. Source files are available at the GitHub repository linked above.
