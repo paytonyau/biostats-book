@@ -1,6 +1,16 @@
 # A Little Bit of Everything in Biostatistics for Health Science Students
+## By Payton Yau and Suhirthakumar Puvanendran | Version 1.0
+
+
+```{figure} ../images/cover.png
+:name: fig-intro-vis
+:width: 80%
+:align: center
+
+```
 
 **An Applied Open-Source Textbook for Health Science Undergraduates, Epidemiology Students, and Self-Directed Learners in Public Health**
+
 
 ---
 
