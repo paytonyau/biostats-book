@@ -2,26 +2,24 @@
 
 **An open, applied biostatistics textbook for health science undergraduates, epidemiology students, and self-directed learners in public health.**
 
-Written by **Payton Yau**, Lecturer in Computational Biology, Nottingham Trent University and **Suhirthakumar Puvanendran**, Lecturer in Bioinformatics, Birkbeck, University of London.
-
 ---
 
 ## What This Book Covers
 
-This textbook teaches biostatistics through one real historical dataset — Framingham Heart Study's record — from the first chapter to the last. You never have to re-learn a new dataset to learn a new method.
+This textbook teaches biostatistics through two real, historically significant datasets—from the first chapter to the last. Rather than confusing students with hypothetical scenarios or random numbers, every statistical concept is grounded in actual public health data. We use the legendary **Framingham Heart Study** to explore observational epidemiology and cardiovascular risk, and the **Anorexia Clinical Trial** dataset to explore experimental design and psychological interventions. By returning to these same cohorts chapter after chapter, students can focus entirely on mastering the statistics rather than re-learning a new clinical scenario every week.
 
 | Part | Chapters | Topics |
 |---|---|---|
-| Part I — The Anatomy of Population Data | 1–3 | Data types, descriptive statistics, confidence intervals |
-| Part II — Making Decisions Under Uncertainty | 4–6 | Probability, hypothesis testing, t-tests |
-| Part III — Complex Connections | 7–8 | ANOVA, proportions, chi-square, correlation, regression |
-| Part IV — Consolidation | 9 | Formula reference, test selection guide, PSPP and R cheat sheets |
+| **Part I — Describing the World in Numbers** | 1–3 | Study design, data types, descriptive statistics, confidence intervals |
+| **Part II — Testing What We Think We Know** | 4–6 | Probability distributions, hypothesis testing, t-tests (independent & paired) |
+| **Part III — Comparing More Than Two Groups** | 7–8 | ANOVA, proportions, chi-square, correlation, regression, survival analysis |
+| **Part IV — Putting It All Together** | 9 | Course review, test selection guide, cheat sheets, epidemiological measures |
 
 Every chapter includes:
 - Step-by-step **Lab Manual** instructions for both **PSPP** (free, point-and-click) and **R / RStudio**
 - **Test Your Knowledge** exercises with hidden solutions
 - **Key Takeaways** summary boxes
-- A **Glossary** and **Data Dictionary** in the appendices
+- A **Glossary** and **Data Dictionaries** in the appendices
 
 ---
 
@@ -50,17 +48,18 @@ Both software packages are **free**:
 
 ## Read Online
 
-> 🌐 **Live book:** `https://paytonyau.github.io/biostats-book`
+> 🌐 **Live book:** [https://paytonyau.github.io/biostats-book](https://paytonyau.github.io/biostats-book)
+
 ---
 
 ## Repository Structure
 
-```
+```text
 biostats-book/
 ├── _config.yml              # Book settings
 ├── _toc.yml                 # Navigation structure
 ├── index.md                 # Landing page
-├── frontmatter/             # Foreword, Preface, About the Author, etc.
+├── frontmatter/             # Preface, About the Authors, Copyright, etc.
 ├── chapters/                # Chapters 1–9
 │   ├── 01_vitals.md
 │   ├── 02_middle.md
@@ -72,7 +71,7 @@ biostats-book/
 │   ├── 08_future.md
 │   └── 09_review.md
 ├── appendices/
-│   ├── data_dictionary.md   # Codebook for framingham_teaching.csv dataset
+│   ├── data_dictionary.md   # Codebooks for Framingham and Anorexia datasets
 │   └── glossary.md          # All key terms, A–Z
 └── backmatter/
     ├── references.md
@@ -86,10 +85,10 @@ biostats-book/
 This textbook is released under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) licence. You are free to share and adapt the material for any purpose, provided appropriate credit is given.
 
 **Citation:**
-> Payton Tung On Yau and Suhirthakumar Puvanendran, A Little Bit of Everything in Biostatistics for Health Science Students (GitHub, 2025), `https://github.com/paytonyau/biostats-book.`
+> Payton Yau, Suhirthakumar Puvanendran, and Jarunee Nualyong. (2026). *A Little Bit of Everything in Biostatistics for Health Science Students*. Published online at: https://paytonyau.github.io/biostats-book
 
 ---
 
 ## Contributing
 
-Found a typo, broken code, or a concept that could be explained better? See [How to Contribute](biostats-book/backmatter/contribute.md) or open a GitHub Issue.
+Found a typo, broken code, or a concept that could be explained better? See [How to Contribute](backmatter/contribute.md) or open a GitHub Issue.

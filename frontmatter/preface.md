@@ -1,39 +1,24 @@
 # Preface
 
-## Why We Wrote This Book
+In 1948, a small city in Massachusetts made medical history — not by developing a new drug or performing a landmark surgery, but by simply deciding to watch.
 
-The question we hear most often from health science students encountering biostatistics for the first time is not "what does this formula mean?" It is "why does this matter?"
+The Framingham Heart Study enrolled over 5,000 men and women and committed to following them for the rest of their lives. Researchers recorded blood pressure, cholesterol, and smoking habits, then waited to see who developed disease. What they discovered transformed medicine, proving that high blood pressure and smoking were not just facts of life, but risk factors that could be managed. This represents the peak of Observational Epidemiology: learning by watching the world as it is.
 
-This book is our answer to that question.
+However, public health does not stop at observation. Once a problem is identified, we must test the solution. This requires Experimental Epidemiology, or the clinical trial. In this book, we complement the Framingham data with a classic Anorexia Clinical Trial dataset. While Framingham teaches us how to identify the risks that lead to heart disease, the anorexia data teaches us how to measure whether a psychological intervention—such as Family Therapy or Cognitive Behavioral Therapy—actually works to improve a patient’s health.
 
-We wrote it because the standard approach to teaching biostatistics — abstract formulas first, clinical context later, if at all — produces graduates who can pass an exam but cannot interpret a confidence interval on a drug trial report. We wrote it because health science students deserve a textbook that treats them as future clinicians and public health practitioners, not as apprentice mathematicians.
+## Why This Book Exists
+Most biostatistics textbooks are written for mathematics students. This book is written for people who want to understand disease — and prevent it. We believe that statistics should be taught through real variables with real clinical meanings. In these pages, a regression slope isn't just a line; it’s a tool that tells you something about survival. A p-value isn't just a decimal; it’s a piece of evidence used to decide if a therapy is effective.
 
-Most importantly, we wrote it because the dataset at the heart of this book earns its place there. The Framingham Heart Study did not just produce important findings — it invented the methodology of risk factor epidemiology. Every cardiovascular risk score used in clinical practice today (QRISK, Framingham Risk Score, SCORE2) descends from the work done in this study. Using Framingham data to teach biostatistics to health science students is not an arbitrary pedagogical choice. It is teaching the methods through the study that created them.
+## The Datasets
+Every row of data in this book represents a real person.
 
-## How This Book Is Different
+- The Framingham Subset: 500 participants, 22 variables. This dataset is the foundation for our lessons on descriptive statistics, risk, and long-term cardiovascular outcomes.
 
-**One dataset, nine chapters.** Every statistical method in this book is demonstrated on the same 500 participants. Students do not need to learn a new clinical context in each chapter. They learn one context deeply — and apply progressively more powerful analytical tools to it.
+- The Anorexia Subset: 72 participants, 3 variables. This "small-sample" dataset allows us to explore the nuances of clinical trials, paired measurements, and psychological health interventions.
 
-**Plain English before formulas.** Every key concept is introduced with a plain-language statement before the formal definition. The formula follows the intuition, not the other way around.
+## How to Use This Book
+Each chapter follows a consistent structure: a plain-English introduction to the theory, worked examples using our two datasets, and a practical lab manual for both PSPP and R. You do not need a mathematics background to succeed here. You only need curiosity about human health and the patience to work through the data.
 
-**Honest about limitations.** Where a method has assumptions that matter, we say so. Where a common misinterpretation exists, we name it explicitly. Where a statistical test is technically incorrect for the data (as OLS regression is for censored survival times), we explain why and show the correct alternative.
+Statistics, taught well, is not a requirement to be endured. It is the language in which the story of disease — and the story of its recovery — is told.
 
-**Epidemiology built in, not bolted on.** Incidence rates, relative risk, odds ratios, Kaplan-Meier curves, and the log-rank test are not appendices. They are woven through the chapters where they belong, taught using the variables in the dataset that require them.
-
-## A Note on the Teaching Dataset
-
-The Framingham teaching subset used in this book (n = 500) is derived from data provided by the NHLBI for educational use. It has been processed to ensure participant anonymity. It is appropriate for teaching and illustrative analysis only — it should not be used for research publication or clinical decision-making.
-
-The dataset is available as `framingham_teaching.csv` in the book's data folder and can be loaded in R with a single line of code.
-
-## For Instructors
-
-Each chapter is self-contained and can be taught independently, though the book is designed to be read sequentially. Chapters 1–3 assume no prior statistical knowledge. Chapters 4–6 build on descriptive statistics and introduce inferential reasoning. Chapters 7–8 extend to multiple groups and relationships. Chapter 9 consolidates all methods and introduces survival analysis.
-
-Lab exercises are provided in both PSPP (free, open-source) and R. Either tool is sufficient for all labs in this book.
-
-*Payton Yau*
-*Nottingham Trent University / University of the People*
-
-*Suhirthakumar Puvanendran*
-*Birkbeck, University of London / University of West London*
+*Payton Yau, Suhirthakumar Puvanendran, and Jarunee Nualyong* March 2026

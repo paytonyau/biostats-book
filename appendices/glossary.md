@@ -34,11 +34,14 @@ A method for controlling the family-wise Type I error rate when running k simult
 **Categorical data** [Ch. 1]
 Data that places each observation into a named group or category rather than measuring it on a numerical scale. Includes nominal and ordinal variables. Cannot be meaningfully averaged.
 
+**Censored observation** [Ch. 8]
+A survival analysis term for a participant whose event of interest has not occurred by the end of the study period. Their survival time is known to be at least a certain length, but the exact time of the event remains unknown.
+
 **Central Limit Theorem (CLT)** [Ch. 4]
 The mathematical theorem stating that the sampling distribution of the sample mean (x̄) approaches a Normal distribution as sample size increases, regardless of the population's underlying distribution. Justifies Normal-based inference for n ≥ 30.
 
 **Chi-Square statistic (χ²)** [Ch. 7]
-A test statistic measuring the overall discrepancy between observed and expected cell frequencies in a contingency table. Computed as χ² = Σ(O − E)²/E. Used in the Chi-Square Test for Independence.
+A test statistic measuring the overall discrepancy between observed and expected cell frequencies in a contingency table. Computed as $\chi^2 = \sum(O - E)^2/E$. Used in the Chi-Square Test for Independence.
 
 **Chi-Square Test for Independence** [Ch. 7]
 A hypothesis test that assesses whether two categorical variables are statistically independent, comparing the pattern of observed frequencies against the pattern expected under H₀ of no association.
@@ -47,10 +50,10 @@ A hypothesis test that assesses whether two categorical variables are statistica
 A probability sampling design in which naturally occurring groups (clusters) are randomly selected, and all individuals within selected clusters are surveyed. Practical for geographically dispersed populations; requires larger samples due to intra-cluster correlation.
 
 **Coefficient of Determination (R²)** [Ch. 8]
-The proportion of variance in the outcome variable (y) explained by the predictor variable (x) in a linear regression model. Ranges from 0 to 1. Calculated as R² = r². Multiply by 100 to express as a percentage.
+The proportion of variance in the outcome variable (y) explained by the predictor variable (x) in a linear regression model. Ranges from 0 to 1. Calculated as $R^2 = r^2$. Multiply by 100 to express as a percentage.
 
 **Confidence Interval (CI)** [Ch. 3]
-A range of values constructed from a sample that, over many repeated samples, would contain the true population parameter the stated percentage of the time (e.g., 95%). Formula for a 95% CI: x̄ ± 1.96 × SE.
+A range of values constructed from a sample that, over many repeated samples, would contain the true population parameter the stated percentage of the time (e.g., 95%). Formula for a 95% CI: $\bar{x} \pm 1.96 \times SE$.
 
 **Confounding variable** [Ch. 8]
 A variable associated with both the predictor and the outcome that creates a spurious or distorted apparent relationship between them. Confounding is the primary reason correlation does not imply causation.
@@ -87,6 +90,9 @@ A standardised measure of the magnitude of a statistical result, independent of 
 **Expected count (E)** [Ch. 7]
 The cell frequency predicted under the Null Hypothesis of independence in a Chi-Square test. Calculated as E = (Row total × Column total) / Grand total. All expected counts must be ≥ 5 for the Chi-Square approximation to be valid.
 
+**Experimental design** [Ch. 1]
+A study design (such as a Randomized Controlled Trial) in which researchers actively intervene and control the assignment of treatments to test efficacy and establish cause-and-effect.
+
 **Extrapolation** [Ch. 8]
 Using a regression model to make predictions for values of x outside the range of the original data. Unreliable because the linear relationship observed within the data range may not extend beyond it.
 
@@ -98,7 +104,7 @@ Using a regression model to make predictions for values of x outside the range o
 The test statistic produced by ANOVA. Defined as the ratio of between-group variance (MS_Between) to within-group variance (MS_Within). Values substantially greater than 1 indicate group separation. Reported as F(df_between, df_within).
 
 **Family-wise error rate (FWER)** [Ch. 7]
-The probability of making at least one Type I error across a family of k simultaneous hypothesis tests. Quantified as FWER = 1 − (1 − α)^k.
+The probability of making at least one Type I error across a family of k simultaneous hypothesis tests. Quantified as $FWER = 1 - (1 - \alpha)^k$.
 
 **Fisher's Exact Test** [Ch. 7]
 An exact alternative to the Chi-Square test used when any expected cell count falls below 5. Computes the exact probability of the observed table without large-sample assumptions. Valid regardless of table size.
@@ -128,6 +134,13 @@ A continuous measurement scale with equal, meaningful distances between values b
 
 ---
 
+## K
+
+**Kaplan-Meier estimator** [Ch. 8]
+A non-parametric method used to estimate the survival probability over time. It correctly accounts for censored observations by recalculating the probability of survival each time an event occurs.
+
+---
+
 ## L
 
 **Levene's Test** [Ch. 6]
@@ -135,6 +148,9 @@ A hypothesis test for the equality of variances across two or more groups. Used 
 
 **Level of measurement** [Ch. 1]
 The formal classification of a variable (nominal, ordinal, interval, or ratio) that determines which mathematical operations may legitimately be applied to it and which statistical tests are appropriate.
+
+**Log-rank test** [Ch. 8]
+A hypothesis test used to compare the survival curves (generated by the Kaplan-Meier estimator) of two or more independent groups to see if their survival experiences significantly differ.
 
 ---
 
@@ -156,6 +172,9 @@ The inflation of the family-wise Type I error rate that occurs when performing m
 
 ## N
 
+**Negative Predictive Value (NPV)** [Ch. 9]
+The probability that a patient who tests negative for a disease truly does not have the disease. Highly dependent on the prevalence of the condition in the population.
+
 **Nominal data** [Ch. 1]
 The lowest level of measurement. Data that places observations into named categories with no natural rank order. Examples: blood type, pump name, diagnosis code. Only mode is a valid central tendency measure.
 
@@ -165,9 +184,18 @@ A continuous, symmetric, bell-shaped probability distribution fully defined by i
 **Null Hypothesis (H₀)** [Ch. 5]
 The default hypothesis of no effect, no difference, or no association. Assumed to be true until the data provide sufficient evidence to reject it.
 
+**Number Needed to Treat / Harm (NNT / NNH)** [Ch. 7]
+An epidemiological measure indicating how many people must receive an intervention (or be exposed to a risk factor) to prevent (or cause) one additional outcome event. Calculated as $1 / RD$.
+
 ---
 
 ## O
+
+**Observational design** [Ch. 1]
+A study design (such as a prospective cohort) in which researchers monitor participants over time without intervening. Used to identify natural risk factors and associations.
+
+**Odds Ratio (OR)** [Ch. 7]
+A measure of association comparing the odds of an outcome in an exposed group to the odds in an unexposed group. Used primarily in case-control studies where relative risk cannot be calculated.
 
 **Ordinal data** [Ch. 1]
 A level of measurement where categories have a natural rank order but the distances between ranks are not equal or measurable. Examples: pain severity scale, disease stage rating. Median is the appropriate central tendency measure.
@@ -193,6 +221,9 @@ The overall proportion across both groups combined, used as the best estimate of
 
 **Population** [Ch. 3]
 The complete set of individuals or units about which a researcher wishes to draw conclusions. Population parameters are denoted with Greek letters (μ, σ, ρ).
+
+**Positive Predictive Value (PPV)** [Ch. 9]
+The probability that a patient who tests positive for a disease truly has the disease. Dependent on the underlying prevalence of the condition in the screened population.
 
 **Post-hoc test** [Ch. 7]
 A follow-up analysis run after a significant ANOVA to identify which specific pairs of groups differ significantly. Must be run only after a significant omnibus F-test.
@@ -232,6 +263,9 @@ A subset of individuals drawn from a population to represent it. Sample statisti
 **Sampling frame** [Ch. 5]
 The practical list or enumeration from which the sample is actually drawn. Should match the target population as closely as possible.
 
+**Sensitivity (Se)** [Ch. 9]
+The proportion of actual positive cases (people who truly have the disease) that are correctly identified as positive by a diagnostic test.
+
 **Shapiro-Wilk test** [Ch. 4]
 A formal hypothesis test of Normality. H₀: the data are Normally distributed. p > 0.05 → do not reject Normality (proceed with parametric tests). p < 0.05 → evidence of non-Normality (consider non-parametric alternatives).
 
@@ -246,6 +280,9 @@ A measure of the asymmetry of a distribution. Positive (right) skew: long tail o
 
 **Spearman's rho (rs)** [Ch. 8]
 A non-parametric alternative to Pearson's r that measures the strength of a monotonic (not necessarily linear) relationship between two variables. Appropriate when Normality is violated or the relationship is non-linear.
+
+**Specificity (Sp)** [Ch. 9]
+The proportion of actual negative cases (people who truly do not have the disease) that are correctly identified as negative by a diagnostic test.
 
 **Standard Deviation (s)** [Ch. 2]
 The square root of the variance: s = √s². Measures spread in the same units as the original variable. The most interpretable measure of variability for a symmetric distribution.

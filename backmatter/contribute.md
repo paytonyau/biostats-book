@@ -46,8 +46,6 @@ Please keep pull requests focused: one correction or one addition per pull reque
 
 If you would like to translate this book into another language, please open an issue to discuss it first. A translation should be maintained as a separate repository with a clear attribution statement linking back to this original. The CC BY 4.0 licence permits this as long as attribution is preserved.
 
-Languages in which a translation would be particularly valuable for the University of the People student community include Arabic, French, Portuguese, and Spanish.
-
 ---
 
 ## Using This Book in Your Course

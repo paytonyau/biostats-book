@@ -1,6 +1,5 @@
 # A Little Bit of Everything in Biostatistics for Health Science Students
-### By Payton Yau and Suhirthakumar Puvanendran | Version 1.0
-
+### By Payton Yau, Suhirthakumar Puvanendran, and Jarunee Nualyong | Version 1.0
 
 ```{figure} images/cover.png
 :name: Book Cover
@@ -18,7 +17,11 @@
 
 Most biostatistics textbooks are written for mathematics students. This book is written for people who want to understand disease — and prevent it.
 
-Every chapter is built around a single, historically influential dataset: a teaching subset of the **Framingham Heart Study**, the longest-running cardiovascular epidemiology study in history. Since 1948, researchers in Framingham, Massachusetts have followed thousands of participants to identify the risk factors for heart disease — high blood pressure, high cholesterol, smoking, diabetes, obesity — concepts so fundamental to modern medicine that we have forgotten they had to be *discovered*.
+To give you a complete picture of public health research, this book is built around two historically influential datasets representing the two halves of epidemiology:
+
+1. **Observational Epidemiology:** A teaching subset of the **Framingham Heart Study**, the longest-running cardiovascular epidemiology study in history. Since 1948, researchers in Framingham, Massachusetts have followed thousands of participants to identify the risk factors for heart disease — high blood pressure, high cholesterol, smoking, diabetes, obesity — concepts so fundamental to modern medicine that we have forgotten they had to be *discovered*.
+
+2. **Experimental Epidemiology:** The **Anorexia Clinical Trial** dataset. This tracks patients undergoing psychological therapies, allowing us to test interventions and prove whether a treatment actually changes a physiological outcome (body weight).
 
 This book uses that dataset to teach statistics the way it should be taught: through real variables with real clinical meanings, where a regression slope tells you something about survival, and a Chi-Square result tells you something about who is most at risk.
 
@@ -39,7 +42,7 @@ By the end of this book you will be able to:
 
 ## The Dataset
 
-**The Framingham Heart Study Teaching Subset** — 500 participants, 22 variables, baseline examination.
+1. **The Framingham Heart Study Teaching Subset** — 500 participants, 22 variables, baseline examination.
 
 *Data derived from the Framingham Heart Study teaching dataset, provided by the National Heart, Lung, and Blood Institute (NHLBI/NIH) for educational purposes. Original study: Framingham Heart Study (N01-HC-25195). This teaching subset is for educational use only and is not appropriate for research publication.*
 
@@ -48,6 +51,15 @@ By the end of this book you will be able to:
 fram_data <- read.csv("data/framingham_teaching.csv")
 ```
 
+2. **The Clinical Trial Dataset (Anorexia)** — 72 participants, 3 variables, before-and-after treatment.
+
+*This dataset tracks weight changes in young female patients undergoing treatments for anorexia nervosa. It is built directly into R's MASS package, requiring no external downloads.*
+
+```r
+# Load the built-in dataset in R (MASS is pre-installed)
+library(MASS)
+data(anorexia)
+```
 ---
 
 ## How This Book Is Organised

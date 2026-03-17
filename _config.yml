@@ -4,12 +4,12 @@
 # ------------------------------------------------------------------------------
 
 title: "A Little Bit of Everything in Biostatistics for Health Science Students"
-author: "Payton Yau and Suhirthakumar Puvanendran"
+author: "Payton Yau, Suhirthakumar Puvanendran and Jarunee Nualyong"
 copyright: "2026"
-logo: ""
+logo: "images/logo.png"  # UPGRADE 1: Point this to an actual image file (e.g., book cover) to replace the default Jupyter logo
 
 execute:
-  execute_notebooks: "off"
+  execute_notebooks: "off"  # Perfect since you are providing the R/PSPP code for them to run locally
 
 # The HTML settings for the buttons
 html:
@@ -17,8 +17,10 @@ html:
   use_issues_button: true
   use_edit_page_button: true
   home_page_in_navbar: true
+  # UPGRADE 2: Add a custom footer or announcement banner if desired
+  # announcement: "Welcome to the 2026 Edition of A Little Bit of Everything in Biostatistics!"
 
-# THIS IS THE PIECE THAT WAS MISSING CAUSING THE CRASH:
+# Repository configuration
 repository:
   url: "https://github.com/paytonyau/biostats-book"
   branch: "main"
@@ -31,6 +33,14 @@ parse:
     - colon_fence
     - deflist
     - html_image
+    - linkify       # UPGRADE 3: Automatically turns bare URLs (like your references) into clickable links
+    - substitution  # UPGRADE 4: Allows you to define variables (like dataset sizes) globally
+
+# UPGRADE 5: Sphinx configurations for textbooks
+sphinx:
+  config:
+    numfig: true            # Automatically numbers your figures and tables (e.g., Fig 1, Fig 2)
+    math_numfig: true       # Automatically numbers your LaTeX equations
 
 bibtex_bibfiles:
   - references.bib

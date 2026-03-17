@@ -6,6 +6,9 @@ This textbook would not exist in its present form without the extraordinary gene
 
 We are grateful to the **National Heart, Lung, and Blood Institute (NHLBI)** of the National Institutes of Health and to **Boston University** for making a teaching subset of the Framingham data available for educational use. The data used in this textbook is provided under the NHLBI teaching dataset programme (Framingham Heart Study, N01-HC-25195).
 
+## Clinical Trial Data (The Anorexia Dataset)
+We extend our thanks to **David J. Hand** and the co-authors of *A Handbook of Small Data Sets*, as well as **Bill Venables** and **Brian Ripley**, the authors of the `MASS` package in R. By preserving and sharing the results of clinical trials in psychotherapy, they have provided an invaluable resource for teaching students how to measure the effectiveness of health interventions.
+
 ## Students and Colleagues
 
 We thank all the health science students whose questions, confusions, and insights have shaped every chapter of this book. A textbook is always, at heart, a record of what students needed to hear.

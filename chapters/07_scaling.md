@@ -1,11 +1,12 @@
 # Chapter 7: Scaling Up
 ## *ANOVA, Chi-Square, and Categorical Comparisons*
 ---
-> **Dataset:** Framingham Heart Study teaching subset — `framingham_teaching.csv`, n = 500 participants.
+> **Datasets:** > 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500)
+> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72)
 
 ---
 
-```{admonition} Learning Objectives
+````{admonition} Learning Objectives
 :class: note
 
 By the end of this chapter, you will be able to:
@@ -15,11 +16,11 @@ By the end of this chapter, you will be able to:
 - Compare two proportions and calculate risk difference and relative risk
 - Run and interpret a **Chi-Square test** and **Fisher's Exact Test**
 - Calculate and interpret **Cramér's V** as an effect size
-```
+````
 
 ## Before You Begin: Beyond Two Groups
 
-Chapters 5–6 handled one or two groups. Cardiovascular epidemiology routinely compares three or more, or examines whether risk factors are associated with disease outcomes. This chapter extends the toolkit in two directions:
+Chapters 5–6 handled one or two groups. Health science routinely compares three or more, or examines whether risk factors are associated with disease outcomes. This chapter extends the toolkit in two directions:
 
 1. **Three or more continuous groups** → One-Way ANOVA
 2. **Two categorical variables** → Chi-Square / Fisher's Exact Test
@@ -27,8 +28,6 @@ Chapters 5–6 handled one or two groups. Cardiovascular epidemiology routinely 
 ## Section 1: The Multiple Comparisons Problem
 
 > 💡 **Plain English first:** Run enough tests and you will eventually get a "significant" result by chance. With α = 0.05, every test has a 5% false-positive rate. Run 14 independent tests and you have ~50% chance of at least one spurious positive.
-
-### 1.1 Why Repeated T-Tests Fail
 
 ### 1.1 Why Repeated T-Tests Fail
 
@@ -44,11 +43,12 @@ ANOVA performs a single omnibus test comparing all groups simultaneously, protec
 
 ## Section 2: One-Way ANOVA
 
-### 2.1 Research Question
+### 2.1 Research Questions
 
-**Framingham:** Does mean TOTCHOL differ across education levels (`EDUC` = 1–4)?
+**Observational (Framingham):** Does mean TOTCHOL differ across education levels (`EDUC` = 1–4)?
+**Experimental (Anorexia):** Does mean weight gain (`Weight_Change`) differ across the three psychological treatment groups (`Treat` = CBT, FT, Control)?
 
-- $H_0: \mu_1 = \mu_2 = \mu_3 = \mu_4$ (all group means equal)
+- $H_0: \mu_1 = \mu_2 = \mu_3 = ...$ (all group means equal)
 - $H_1:$ At least one group mean differs from the others
 
 ### 2.2 The F-Statistic
@@ -72,7 +72,7 @@ $$\eta^2 = SS_{Between} / SS_{Total}$$
 
 ### 2.3 Post-Hoc Tests — Tukey's HSD
 
-A significant F tells you *something* differs among the four education groups. **Tukey's HSD** identifies *which specific pairs* differ, whilst maintaining the family-wise error rate at α.
+A significant F tells you *something* differs among the groups. **Tukey's HSD** identifies *which specific pairs* differ, whilst maintaining the family-wise error rate at α.
 
 Only apply Tukey's HSD *after* a significant omnibus F — running post-hoc tests after a non-significant ANOVA is invalid.
 
@@ -152,7 +152,7 @@ V < 0.1 negligible; 0.1–0.29 small; 0.30–0.49 moderate; ≥ 0.50 large.
 
 ### Objective
 
-Part 1: ANOVA — does mean TOTCHOL differ across education levels?
+Part 1: ANOVA — does mean TOTCHOL differ across education levels? Does therapy type affect weight gain?
 Part 2: Chi-Square — is smoking associated with CHD incidence?
 Part 3: Proportions — calculate RR and RD for smoking → CHD.
 
@@ -179,7 +179,7 @@ fram_data$CURSMOKE <- factor(fram_data$CURSMOKE, levels=c(0,1),
 fram_data$ANYCHD   <- factor(fram_data$ANYCHD, levels=c(0,1),
   labels=c("No_CHD","CHD_event"))
 
-# ══ Part 1: One-Way ANOVA ════════════════════════════
+# ══ Part 1a: One-Way ANOVA (Framingham Data) ═════════
 
 tapply(fram_data$TOTCHOL, fram_data$EDUC, mean, na.rm=TRUE)
 tapply(fram_data$TOTCHOL, fram_data$EDUC, sd,   na.rm=TRUE)
@@ -201,7 +201,20 @@ boxplot(TOTCHOL ~ EDUC, data = fram_data,
         xlab = "Education", ylab = "TOTCHOL (mg/dL)",
         col = c("#FEE0D2","#FDD0A2","#C7E9C0","#BDD7EE"))
 
-# ══ Part 2: Chi-Square ════════════════════════════════
+# ══ Part 1b: One-Way ANOVA (Anorexia Trial Data) ═════
+
+library(MASS)
+data(anorexia)
+
+# First, calculate the outcome variable: Weight Gain
+anorexia$Weight_Change <- anorexia$Postwt - anorexia$Prewt
+
+# Run ANOVA to compare weight gain across the 3 therapy groups
+anova_anorexia <- aov(Weight_Change ~ Treat, data = anorexia)
+summary(anova_anorexia)
+TukeyHSD(anova_anorexia)
+
+# ══ Part 2: Chi-Square (Framingham Data) ═════════════
 
 tbl <- table(fram_data$CURSMOKE, fram_data$ANYCHD)
 print(tbl)
@@ -234,7 +247,8 @@ prop.test(tbl)    # Two-proportion z-test
 
 **What to examine:**
 
-- **ANOVA:** Does TOTCHOL significantly differ by education level? Which specific pairs differ in Tukey's HSD? Is η² small, medium, or large? Does higher education predict lower or higher cholesterol?
+- **ANOVA (Framingham):** Does TOTCHOL significantly differ by education level? Which specific pairs differ in Tukey's HSD? Is η² small, medium, or large? 
+- **ANOVA (Anorexia):** Did the type of psychological therapy significantly impact weight gain? Look at the Tukey results to see which specific therapy (FT or CBT) outperformed the Control group.
 - **Chi-Square:** Is there a statistically significant association between smoking and CHD? Is Cramér's V large enough to be clinically meaningful?
 - **RR:** How much more likely are smokers to have a CHD event compared to non-smokers?
 
@@ -317,13 +331,15 @@ cat("eta-squared =", round(eta_sq_bmi, 3))
 
 2. Run `aov(SYSBP ~ EDUC, data=fram_data)` and `TukeyHSD()` in R. Which education groups differ in mean SYSBP? Interpret the pattern in terms of social determinants of cardiovascular health.
 
-3. A Chi-Square test comparing smoking status and DEATH returns χ²(1) = 4.8, p = 0.028, Cramér's V = 0.10. Write a complete one-paragraph interpretation.
+3. Using the Anorexia dataset, run `aov(Weight_Change ~ Treat, data = anorexia)` and perform `TukeyHSD()`. Which specific psychological therapy proved significantly better at increasing patient weight than the Control group? 
 
-4. Calculate RR for the association between prevalent hypertension (`PREVHYP`) and any CHD event (`ANYCHD`). Interpret the result in plain clinical language.
+4. A Chi-Square test comparing smoking status and DEATH returns χ²(1) = 4.8, p = 0.028, Cramér's V = 0.10. Write a complete one-paragraph interpretation.
 
-5. Run `chisq.test(table(fram_data$BPMEDS, fram_data$ANYCHD))`. Check expected cell counts. Are they all ≥ 5? If not, which test should you use instead, and why?
+5. Calculate RR for the association between prevalent hypertension (`PREVHYP`) and any CHD event (`ANYCHD`). Interpret the result in plain clinical language.
 
-```{admonition} Key Takeaways
+6. Run `chisq.test(table(fram_data$BPMEDS, fram_data$ANYCHD))`. Check expected cell counts. Are they all ≥ 5? If not, which test should you use instead, and why?
+
+````{admonition} Key Takeaways
 :class: tip
 
 - **ANOVA** protects Type I error when comparing ≥3 means simultaneously.
@@ -332,7 +348,7 @@ cat("eta-squared =", round(eta_sq_bmi, 3))
 - **RR** and **RD** quantify the epidemiological burden of a risk factor.
 - **Chi-Square** tests categorical associations. Expected cells < 5 → Fisher's Exact.
 - **Cramér's V** measures association strength (0–1).
-```
+````
 
 *Next: **Chapter 8 — Reading the Future** introduces correlation, regression, and survival analysis.*
 

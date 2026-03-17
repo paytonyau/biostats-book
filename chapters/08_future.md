@@ -1,11 +1,12 @@
 # Chapter 8: Reading the Future
 ## *Correlation, Regression, and Survival Analysis*
 ---
-> **Dataset:** Framingham Heart Study teaching subset — `framingham_teaching.csv`, n = 500 participants.
+> **Datasets:** > 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500)
+> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72)
 
 ---
 
-```{admonition} Learning Objectives
+````{admonition} Learning Objectives
 :class: note
 
 By the end of this chapter, you will be able to:
@@ -16,7 +17,7 @@ By the end of this chapter, you will be able to:
 - Read and construct a **Kaplan-Meier survival curve**
 - Interpret and run the **log-rank test**
 - Explain why OLS regression is not valid for censored survival data
-```
+````
 
 ## Before You Begin: From Groups to Relationships and Survival
 
@@ -25,7 +26,7 @@ Chapters 5–7 asked: *are these groups different?* This chapter asks two new qu
 1. **How are two continuous variables related?** — Correlation and regression
 2. **How do we analyse time-to-event data?** — Survival analysis
 
-Both questions are essential in cardiovascular epidemiology. Does age predict blood pressure? Does BMI predict cholesterol? And — the clinical question that defined Framingham — does smoking shorten the time to a cardiovascular event?
+Both questions are essential in health science. Does age predict blood pressure? Does a patient's baseline weight predict their final weight after therapy? And — the clinical question that defined Framingham — does smoking shorten the time to a cardiovascular event?
 
 ## Section 1: Correlation
 
@@ -87,16 +88,19 @@ $$\hat{y} = \beta_0 + \beta_1 x$$
 
 If $\beta_1 = 0.6$, this means: each additional year of age is associated with a predicted increase of 0.6 mmHg in systolic BP.
 
-### 2.2 Why Use AGE → SYSBP for Regression?
+**Anorexia Trial example:** Does a patient's weight before treatment (`Prewt`) predict their final weight after treatment (`Postwt`)? 
+Here, we can fit a regression line to see if heavier patients at baseline remain heavier at follow-up, or if the therapy equalizes outcomes.
 
-Both AGE and SYSBP are continuous ratio variables. Neither is censored. OLS regression is fully valid.
+### 2.2 Why Use AGE → SYSBP or Prewt → Postwt for Regression?
+
+In both examples, the variables are continuous ratio measurements. Neither is censored. OLS regression is fully valid.
 
 > **Why NOT use time-to-event variables (TIMECHD, TIMEDTH) in OLS regression?**
 > These are **censored survival data** — participants still alive at the end of follow-up have their time recorded but the true time-to-event is unknown. OLS regression ignores this censoring and produces biased, invalid estimates. The correct method for censored data is **survival analysis** (Section 3).
 
 ### 2.3 The Coefficient of Determination ($R^2$)
 
-> 💡 **Plain English first:** $R^2$ tells you what proportion of the variation in SYSBP is explained by AGE. $R^2 = 0.15$ means age explains 15% of the variation — the other 85% is due to genetics, diet, stress, medication, and other unmeasured factors.
+> 💡 **Plain English first:** $R^2$ tells you what proportion of the variation in the outcome is explained by the predictor. $R^2 = 0.15$ means the predictor explains 15% of the variation — the other 85% is due to unmeasured factors.
 >
 > ⚡ **Common mistake:** $r$ and $R^2$ are different. $r = 0.39$ describes *direction and strength*. $R^2 = 0.15$ describes the *proportion of variance explained*. Students frequently confuse the two.
 
@@ -131,7 +135,6 @@ OLS regression ignores censoring and underestimates true survival times. Surviva
 
 The **Kaplan-Meier (KM) estimator** calculates the probability of surviving beyond each time point, accounting for censoring.
 
-
 At each event time $t$, the KM survival probability is updated:
 
 $$S(t) = S(t-1) \times \left(1 - \frac{\text{events at } t}{\text{at risk at } t}\right)$$
@@ -156,8 +159,9 @@ A significant log-rank test (p < 0.05) means the two groups have statistically d
 ## 🔬 Lab Manual — Chapter 8
 
 ### Objective
-Part 1: Correlation and regression — does AGE predict SYSBP?
-Part 2: Survival analysis — do smokers and non-smokers have different all-cause survival?
+Part 1: Correlation and regression — does AGE predict SYSBP? (Framingham)
+Part 2: Regression — does baseline weight predict final weight? (Anorexia)
+Part 3: Survival analysis — do smokers and non-smokers have different all-cause survival? (Framingham)
 
 ### Option A — PSPP
 
@@ -175,7 +179,7 @@ Part 2: Survival analysis — do smokers and non-smokers have different all-caus
 fram_data <- read.csv("data/framingham_teaching.csv")
 library(survival)
 
-# ══ Part 1: Correlation ═══════════════════════════════
+# ══ Part 1: Correlation (Framingham) ═════════════════
 
 # Scatterplot: AGE vs SYSBP
 plot(fram_data$AGE, fram_data$SYSBP,
@@ -193,7 +197,7 @@ cor.test(fram_data$CIGPDAY, fram_data$TOTCHOL, method = "spearman")
 cor(fram_data[, c("AGE","SYSBP","DIABP","TOTCHOL","BMI","GLUCOSE")],
     use = "complete.obs")
 
-# ══ Part 2: Simple linear regression ═══════════════════
+# ══ Part 2a: Simple linear regression (Framingham) ═══
 
 model <- lm(SYSBP ~ AGE, data = fram_data)
 summary(model)
@@ -210,10 +214,22 @@ predict(model, newdata = data.frame(AGE = 55), interval = "prediction")
 # Diagnostic plots
 par(mfrow = c(2,2)); plot(model); par(mfrow = c(1,1))
 
-# Add regression line to scatterplot
-abline(model, col = "#C00000", lwd = 2)
+# ══ Part 2b: Simple linear regression (Anorexia) ═════
+library(MASS)
+data(anorexia)
 
-# ══ Part 3: Survival analysis ══════════════════════════
+# Does baseline weight predict final weight?
+model_wt <- lm(Postwt ~ Prewt, data = anorexia)
+summary(model_wt)
+
+# Plot the relationship
+plot(anorexia$Prewt, anorexia$Postwt,
+     main = "Baseline vs Final Weight",
+     xlab = "Baseline Weight (lbs)", ylab = "Final Weight (lbs)",
+     pch = 16, col = "#C00000")
+abline(model_wt, lwd = 2)
+
+# ══ Part 3: Survival analysis (Framingham) ═══════════
 
 # Code smoking status
 fram_data$SMOKE_LABEL <- factor(fram_data$CURSMOKE, levels=c(0,1),
@@ -244,7 +260,8 @@ cat("Log-rank p-value:", round(1 - pchisq(logrank_test$chisq, df=1), 4), "\n")
 ```
 
 **What to examine:**
-- **Regression:** What is β₁? For each year of age, how much does predicted SYSBP increase? Is R² close to 0.15–0.20 (age explains ~15–20% of BP variation)?
+- **Regression (Framingham):** What is β₁? For each year of age, how much does predicted SYSBP increase? 
+- **Regression (Anorexia):** Look at the $R^2$ value for `model_wt`. What percentage of the variance in a patient's final weight is explained simply by how much they weighed at the start of the trial?
 - **Diagnostic plots:** Do residuals show a pattern? Is the Q-Q plot approximately diagonal?
 - **KM curves:** Do smokers' survival curves separate from non-smokers' over time? Which group has lower median survival?
 - **Log-rank test:** Is p < 0.05? Does smoking significantly reduce survival?
@@ -304,13 +321,15 @@ print(lr2)
 
 2. Fit `lm(SYSBP ~ AGE)`. Write the regression equation. Predict SYSBP for participants aged 40 and 65. Is it valid to predict for a participant aged 25? Explain.
 
-3. Explain why OLS regression (`lm(TIMEDTH ~ CURSMOKE)`) would give a biased, invalid answer for the question "does smoking reduce survival time?" What is the correct method?
+3. Using the Anorexia dataset, look at the output of `lm(Postwt ~ Prewt)`. If a patient weighed 85 lbs at baseline, what is their predicted weight at follow-up based on this model?
 
-4. Run the KM analysis comparing survival by smoking status. Describe the curves: which group has worse survival? What is the approximate median survival time for each group?
+4. Explain why OLS regression (`lm(TIMEDTH ~ CURSMOKE)`) would give a biased, invalid answer for the question "does smoking reduce survival time?" What is the correct method?
 
-5. The log-rank test returns $\chi^2(1) = 3.8$, $p = 0.051$. Interpret this result. At $\alpha = 0.05$, what do you conclude? What would a power analysis suggest about this result?
+5. Run the KM analysis comparing survival by smoking status. Describe the curves: which group has worse survival? What is the approximate median survival time for each group?
 
-```{admonition} Key Takeaways
+6. The log-rank test returns $\chi^2(1) = 3.8$, $p = 0.051$. Interpret this result. At $\alpha = 0.05$, what do you conclude? What would a power analysis suggest about this result?
+
+````{admonition} Key Takeaways
 :class: tip
 
 - **Pearson's r** (−1 to +1): strength and direction of linear association.
@@ -319,7 +338,7 @@ print(lr2)
 - **Do NOT use OLS on censored survival data** — use Kaplan-Meier + log-rank test.
 - **KM curve**: steps down at each death; median survival = time where curve crosses 0.50.
 - **Log-rank test**: tests whether two KM curves are statistically different.
-```
+````
 
 *Next: **Chapter 9 — The Full Picture** consolidates all methods and provides examination preparation.*
 

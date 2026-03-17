@@ -1,38 +1,54 @@
 # Chapter 1: The Vitals of Data
-## *Understanding Types of Data and Levels of Measurement*
+## *Understanding Study Design and Levels of Measurement*
 ---
 
 > **Unit:** 1 | **Part:** I — Describing the World in Numbers
 >
-> **Dataset:** Framingham Heart Study teaching subset — `framingham_teaching.csv`, n = 500 participants, baseline examination.
+> **Datasets:** > 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500) — Observational
+> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72) — Experimental
 
 ---
 
-```{admonition} Learning Objectives
+````{admonition} Learning Objectives
 :class: note
 
 By the end of this chapter, you will be able to:
 
+- Differentiate between **observational** and **experimental** study designs
 - Distinguish between **categorical** and **continuous** data
 - Identify the four levels of measurement: nominal, ordinal, interval, and ratio
-- Classify every variable in the Framingham dataset at the correct level
-- Load the dataset in PSPP and R and inspect its structure
-```
+- Classify every variable in our datasets at the correct level
+- Load the datasets in PSPP and R and inspect their structure
+````
 
 ## Why This Chapter Comes First
 
-Before calculating a single mean or p-value, you must answer one question: **What kind of data do I actually have?**
+Before calculating a single mean or p-value, you must answer two fundamental questions: **How was this data collected?** and **What kind of data do I actually have?**
 
-This is not housekeeping. It determines every statistical test you can legitimately run. Apply the wrong test to the wrong data type and the software will still produce a number — it will simply be wrong.
+This is not housekeeping. It determines every statistical test you can legitimately run. Apply the wrong test to the wrong data type and the software will still produce a number — it will simply be mathematically meaningless.
 
-The Framingham Heart Study began in 1948 with one question: what causes cardiovascular disease? Researchers measured blood pressure, drew blood for cholesterol, asked about smoking, recorded body weight. To use those measurements analytically, they first had to understand what type of data each variable represented. A systolic blood pressure of 0 mmHg means cardiac arrest. An education level of 0 means something entirely different. Getting that distinction right is where all analysis begins.
+### Observational vs. Experimental Design
+
+In public health, data generally comes from one of two study designs, both of which we will use throughout this book:
+
+**1. Observational Epidemiology (The Framingham Heart Study)**
+* **The Method:** Researchers observe participants over time without intervening. They measure variables (like blood pressure or smoking habits) and wait to see who develops disease.
+* **The Goal:** To identify *risk factors* and understand how a disease develops naturally. 
+* **The Limitation:** We can find strong associations, but proving direct cause-and-effect is difficult because we do not control the environment.
+
+**2. Experimental Epidemiology (The Anorexia Clinical Trial)**
+* **The Method:** Researchers actively intervene. Patients are assigned to different groups (e.g., standard care, Cognitive Behavioral Therapy, Family Therapy). 
+* **The Goal:** To test the effectiveness of a specific treatment or cure. 
+* **The Strength:** Because researchers control the intervention, this design provides the strongest evidence for cause-and-effect.
+
+Whether you are watching a disease progress or testing a psychological therapy, the next step is looking at the actual measurements. A systolic blood pressure of 0 mmHg means cardiac arrest. An education level of 0 means something entirely different. Getting that distinction right is where all analysis begins.
 
 ```{figure} ../images/ch01_framingham_intro.png
 :name: fig-intro-vis
 :width: 80%
 :align: center
 
-**Figure 1.1 Visualising Relationships and Distributions in the Framingham Study.** These two graphs illustrate foundational concepts in Chapter 1. (A) Scatterplot of Systolic Blood Pressure vs. Age reveals a pattern in two continuous (Ratio) variables, suggesting as Age increases, BP tends to rise. (B) A grouped dot plot contrasts the distribution of Systolic BP (Ratio variable) across two Nominal categories: non-smokers and smokers, illustrating how we compare a numeric outcome across distinct groups.
+**Figure 1.1 Visualising Relationships and Distributions in the Framingham Study.** These two graphs illustrate foundational concepts in Chapter 1. (A) Scatterplot of Systolic Blood Pressure vs. Age reveals a pattern in two continuous (Ratio) variables, suggesting as Age increases, BP tends to rise. (B) A grouped dot plot contrasts the distribution of Systolic BP (Ratio variable) across two Nominal categories: non-smokers and smokers.
 ```
 
 ## Section 1: The Two Families of Data
@@ -45,11 +61,12 @@ Categorical data places each observation into a named group. The values do not r
 
 **Key diagnostic question:** *Can I calculate a meaningful average of this variable?* If no → categorical.
 
-**Examples from the Framingham dataset:**
-- **`SEX`** — 1 = Male, 2 = Female. The average of 1 and 2 is 1.5, representing no actual person.
-- **`CURSMOKE`** — 0 = non-smoker, 1 = current smoker. Two categories, not quantities.
-- **`ANYCHD`** — did a coronary heart disease event occur during follow-up? 0 = No, 1 = Yes.
-- **`DIABETES`** — 0 = no diabetes, 1 = diabetes present.
+**Examples:**
+- **`SEX`** (Framingham) — 1 = Male, 2 = Female. The average of 1 and 2 is 1.5, representing no actual person.
+- **`Treat`** (Anorexia) — CBT, FT, or Cont (Control). Three distinct therapy groups.
+- **`CURSMOKE`** (Framingham) — 0 = non-smoker, 1 = current smoker. Two categories, not quantities.
+- **`ANYCHD`** (Framingham) — did a coronary heart disease event occur during follow-up? 0 = No, 1 = Yes.
+- **`DIABETES`** (Framingham) — 0 = no diabetes, 1 = diabetes present.
 
 > ⚡ **Common mistake:** Storing a category as a number does not make it numeric. `SEX = 2` does not mean "two units of femaleness." Always convert categorical variables to factors in R before analysis.
 
@@ -66,7 +83,7 @@ Categorical data places each observation into a named group. The values do not r
 | Measurable distances | ✗ No |
 | True zero | ✗ No |
 
-**Framingham examples:** `SEX`, `CURSMOKE`, `DIABETES`, `BPMEDS`, `ANYCHD`, `DEATH`, `STROKE` — all binary categories stored as 0/1 integers. The numbers are labels, not quantities.
+**Examples:** `SEX`, `CURSMOKE`, `DIABETES`, `BPMEDS`, `ANYCHD`, `DEATH`, `STROKE` (Framingham); `Treat` (Anorexia).
 
 > **A common error to avoid:** `ANYCHD` is coded 0 and 1. A student who calculates the mean ANYCHD and reports "0.31" as a statistic is not wrong — this *is* a proportion (31% had a CHD event). But interpreting 0.31 as an "average CHD level" would be meaningless. The mean of a binary 0/1 variable gives you a proportion, not a numerical average.
 
@@ -99,11 +116,12 @@ Continuous data records a genuine numerical measurement where arithmetic operati
 
 **Key diagnostic question:** *Does this number represent a real measurement where the gaps between values are equal and meaningful?* If yes → continuous.
 
-**Framingham examples:**
-- **`SYSBP`** — systolic blood pressure in mmHg. 140 mmHg is genuinely higher than 120 mmHg by exactly 20 mmHg.
-- **`TOTCHOL`** — total cholesterol in mg/dL.
-- **`AGE`** — age in years at examination.
-- **`BMI`** — body mass index in kg/m².
+**Examples:**
+- **`SYSBP`** (Framingham) — systolic blood pressure in mmHg. 140 mmHg is genuinely higher than 120 mmHg by exactly 20 mmHg.
+- **`TOTCHOL`** (Framingham) — total cholesterol in mg/dL.
+- **`Prewt` / `Postwt`** (Anorexia) — body weight in pounds.
+- **`AGE`** (Framingham) — age in years at examination.
+- **`BMI`** (Framingham) — body mass index in kg/m².
 
 ### 1.5 Interval Data
 
@@ -134,22 +152,23 @@ In the Framingham dataset, the **year of birth** (derivable from age and study s
 
 > ⚡ **Common mistake:** Ask: *does zero mean complete absence?* Temperature 0°C ≠ no temperature (interval). Blood pressure 0 mmHg = cardiac arrest, no measurable pressure (ratio). Age 0 = newborn (ratio).
 
-**Framingham examples:**
+**Examples:**
 - **`SYSBP`**: 0 mmHg = no measurable blood pressure. 160 mmHg is twice 80 mmHg. ✓ Ratio.
 - **`AGE`**: 0 years = newborn. Age 60 is twice as long a life as age 30. ✓ Ratio.
 - **`BMI`**: 0 kg/m² = no body mass. 30 is 1.5× the value of 20. ✓ Ratio.
 - **`CIGPDAY`**: 0 cigarettes = does not smoke at all. ✓ Ratio.
+- **`Prewt`**: 0 lbs = no body weight. ✓ Ratio.
 
 > **Why this matters clinically:** Systolic blood pressure is ratio data. Saying "this patient's BP is twice the normal value" is a legitimate and clinically actionable ratio statement. The value 0 mmHg is medically unambiguous. Treating BP as interval data would make such ratio statements invalid.
 
 ## Section 2: The Four Levels — Quick Reference
 
-| Level | Order? | Equal distances? | True zero? | Framingham example |
+| Level | Order? | Equal distances? | True zero? | Examples |
 |---|---|---|---|---|
-| **Nominal** | No | No | No | `SEX`, `CURSMOKE`, `ANYCHD` |
+| **Nominal** | No | No | No | `SEX`, `CURSMOKE`, `ANYCHD`, `Treat` |
 | **Ordinal** | Yes | No | No | `EDUC` (education level 1–4) |
 | **Interval** | Yes | Yes | No | Year of birth; temperature |
-| **Ratio** | Yes | Yes | Yes | `AGE`, `SYSBP`, `BMI`, `TOTCHOL` |
+| **Ratio** | Yes | Yes | Yes | `AGE`, `SYSBP`, `BMI`, `TOTCHOL`, `Prewt` |
 
 ```{figure} ../images/ch01_levels_of_measurement.png
 :name: fig-levels
@@ -172,8 +191,16 @@ Cancer stage (I–IV) is entered as 1–4. A mean stage of 2.3 is reported. The 
 **Scenario C — Interval treated as ratio:**
 A researcher says patients examined in 1968 were "twice as recent" as those examined in 984 CE. Nonsense — calendar year has no true zero, so ratios are invalid.
 
-## Section 4: Classifying the Full Framingham Dataset
+## Section 4: Classifying the Datasets
 
+**1. The Anorexia Clinical Trial**
+| Variable | Description | Level | Reasoning |
+|---|---|---|---|
+| `Treat` | Therapy group | Nominal | Three unordered categories (CBT, FT, Cont) |
+| `Prewt` | Baseline weight (lbs) | Ratio | 0 lbs = no mass; ratio valid |
+| `Postwt` | Follow-up weight (lbs) | Ratio | 0 lbs = no mass; ratio valid |
+
+**2. The Framingham Heart Study**
 | Variable | Description | Level | Reasoning |
 |---|---|---|---|
 | `RANDID` | Participant ID number | Nominal | A label — ID 1050 is not "more" than ID 1025 |
@@ -202,9 +229,9 @@ A researcher says patients examined in 1968 were "twice as recent" as those exam
 ## 🔬 Lab Manual — Chapter 1
 
 ### Objective
-Load the Framingham teaching dataset in PSPP and R. Assign the correct variable types and measurement levels. Perform a first inspection of the data structure.
+Load the datasets in PSPP and R. Assign the correct variable types and measurement levels. Perform a first inspection of the data structure.
 
-### Option A — PSPP
+### Option A — PSPP (Framingham Data)
 
 1. Open PSPP → **File → New → Data**.
 2. Click the **Variable View** tab.
@@ -231,15 +258,14 @@ Load the Framingham teaching dataset in PSPP and R. Assign the correct variable 
 4. Import the CSV: **File → Import Data → CSV**.
 5. Save as `framingham_study.sav`.
 
-### Option B — R / RStudio
+### Option B — R / RStudio (Both Datasets)
 
 ```r
 # -------------------------------------------------------
-# Chapter 1 Lab: Loading the Framingham Teaching Dataset
-# Source: framingham_teaching.csv (in data/ folder)
+# Chapter 1 Lab: Loading the Datasets
 # -------------------------------------------------------
 
-# Load the dataset
+# --- PART 1: The Observational Dataset (Framingham) ---
 fram_data <- read.csv("data/framingham_teaching.csv")
 
 # First look
@@ -278,6 +304,15 @@ fram_data$DEATH <- factor(fram_data$DEATH,
 str(fram_data)
 summary(fram_data$EDUC)     # Should show ordered factor with 4 levels
 summary(fram_data$ANYCHD)   # Should show counts for each outcome
+
+# --- PART 2: The Experimental Dataset (Anorexia) ---
+# The anorexia dataset is built directly into the MASS package.
+library(MASS)
+data(anorexia)
+
+# The 'Treat' variable is already a factor, but let's check the structure
+str(anorexia)
+summary(anorexia)
 ```
 
 **What to look for:**
@@ -285,6 +320,7 @@ summary(fram_data$ANYCHD)   # Should show counts for each outcome
 - `EDUC` should show as `Ord.factor` — an ordered factor.
 - `AGE`, `SYSBP`, `BMI`, `TOTCHOL` should remain `int` or `num`.
 - `summary(fram_data$SYSBP)` shows min, quartiles, mean, max. What is the median systolic BP in this cohort? Is it above the clinical threshold of 120 mmHg?
+- In the Anorexia data, `Treat` should show as a `Factor` with 3 levels, and weights as numeric.
 
 ### 🧪 Test Your Knowledge
 
@@ -310,40 +346,39 @@ table(fram_data$EDUC)               # Frequency count — reveals the modal cate
 
 | Term | Definition |
 |---|---|
+| **Observational design** | Studying a population without active intervention to find risk factors. |
+| **Experimental design** | Actively intervening to test the efficacy of a treatment (e.g., a clinical trial). |
 | **Categorical data** | Data placing observations into named groups; arithmetic is not meaningful. |
 | **Continuous data** | Data measured on a numerical scale; arithmetic operations produce valid results. |
-| **Nominal** | Categories with no natural order. Examples: `SEX`, `CURSMOKE`, `ANYCHD`. |
+| **Nominal** | Categories with no natural order. Examples: `SEX`, `CURSMOKE`, `ANYCHD`, `Treat`. |
 | **Ordinal** | Ranked categories with unequal gaps. Example: `EDUC` (education level 1–4). |
 | **Interval** | Numerical scale with equal gaps but no true zero. Example: calendar year. |
-| **Ratio** | Numerical scale with equal gaps and a true zero. Examples: `AGE`, `SYSBP`, `BMI`. |
+| **Ratio** | Numerical scale with equal gaps and a true zero. Examples: `AGE`, `SYSBP`, `BMI`, `Prewt`. |
 | **Level of measurement** | The classification of a variable that determines which mathematical operations are legitimate. |
 | **True zero** | A zero value representing complete absence of the measured quantity. |
 
 ## Review Questions
 
-1. Classify each Framingham variable at the correct level of measurement and justify your answer: `HEARTRTE`, `GLUCOSE`, `BPMEDS`, `CIGPDAY`, `EDUC`.
+1. Explain the primary difference between observational epidemiology (like Framingham) and experimental epidemiology (like the Anorexia trial).
+2. Classify each Framingham variable at the correct level of measurement and justify your answer: `HEARTRTE`, `GLUCOSE`, `BPMEDS`, `CIGPDAY`, `EDUC`.
+3. `ANYCHD` is stored as 0 and 1. A student calculates the mean ANYCHD across all 500 participants and gets 0.31. (a) What does this number mean? (b) Is calculating the mean of a 0/1 variable meaningful? (c) What is the correct level of measurement for `ANYCHD`?
+4. A hospital records each patient's diastolic blood pressure in mmHg. Classify this variable at the correct level and justify every step.
+5. Explain why `EDUC` (education level 1–4) is ordinal rather than interval. Give a specific example of an interval statement that would be invalid for this variable.
+6. In R, after loading the dataset, run `str(fram_data)`. Which variables does R initially classify as `int` that should actually be treated as nominal or ordinal factors? Write the code to correct each one.
+7. A researcher averages the `EDUC` scores across all participants and reports "mean education = 2.1." Another researcher reports "the modal education level is '0–11 years' (Level 1), seen in 193/500 participants." Which summary is more appropriate and why?
 
-2. `ANYCHD` is stored as 0 and 1. A student calculates the mean ANYCHD across all 500 participants and gets 0.31. (a) What does this number mean? (b) Is calculating the mean of a 0/1 variable meaningful? (c) What is the correct level of measurement for `ANYCHD`?
-
-3. A hospital records each patient's diastolic blood pressure in mmHg. Classify this variable at the correct level and justify every step.
-
-4. Explain why `EDUC` (education level 1–4) is ordinal rather than interval. Give a specific example of an interval statement that would be invalid for this variable.
-
-5. In R, after loading the dataset, run `str(fram_data)`. Which variables does R initially classify as `int` that should actually be treated as nominal or ordinal factors? Write the code to correct each one.
-
-6. A researcher averages the `EDUC` scores across all participants and reports "mean education = 2.1." Another researcher reports "the modal education level is '0–11 years' (Level 1), seen in 193/500 participants." Which summary is more appropriate and why?
-
-```{admonition} Key Takeaways
+````{admonition} Key Takeaways
 :class: tip
 
+- **Study Design:** Observational watches for risks; Experimental tests interventions.
 - **Two data families:** Categorical (named groups) vs. Continuous (measurable quantities).
 - **Four levels:** Nominal → Ordinal → Interval → Ratio. Each adds one property.
 - **Framingham dataset:** `SEX`, `CURSMOKE`, `DIABETES`, `ANYCHD`, `DEATH` = nominal; `EDUC` = ordinal; `AGE`, `SYSBP`, `BMI`, `TOTCHOL` = ratio.
 - **Common error:** Numeric storage ≠ numeric meaning. Always convert categorical variables to factors in R.
 - **Ratio vs interval:** Ask — does zero mean complete absence? BP 0 = cardiac arrest (ratio). Year 0 = arbitrary reference (interval).
-```
+````
 
-*Next: **Chapter 2 — The Middle and the Mess** uses the ratio variables to calculate the descriptive statistics that characterise the Framingham cohort at baseline.*
+*Next: **Chapter 2 — The Middle and the Mess** uses the ratio variables to calculate the descriptive statistics that characterise our datasets.*
 
 ---
 

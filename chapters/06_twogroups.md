@@ -1,11 +1,12 @@
 # Chapter 6: A Tale of Two Groups
 ## *Independent and Paired Samples T-Tests*
 ---
-> **Dataset:** Framingham Heart Study teaching subset — `framingham_teaching.csv`, n = 500 participants.
+> **Datasets:** > 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500)
+> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72)
 
 ---
 
-```{admonition} Learning Objectives
+````{admonition} Learning Objectives
 :class: note
 
 By the end of this chapter, you will be able to:
@@ -14,7 +15,7 @@ By the end of this chapter, you will be able to:
 - State and check the assumptions of each test
 - Apply Levene's test and Welch's correction
 - Run and interpret both tests in PSPP and R
-```
+````
 
 ## Before You Begin: The Research Design Question
 
@@ -26,11 +27,11 @@ Chapter 5 compared one group to a known value. Most health research compares **t
 
 **Independent design:** Two completely different groups of unrelated individuals.
 
-*Framingham example:* Do smokers and non-smokers have different mean systolic blood pressure? Each participant appears in exactly one group.
+*Framingham example:* Do smokers and non-smokers have different mean systolic blood pressure? Each participant appears in exactly one group. This is classic observational epidemiology.
 
 **Paired design:** The same individuals measured twice, or matched pairs.
 
-*Clinical example:* 30 hypertensive patients have SYSBP measured before and after 8 weeks on a new antihypertensive. The same 30 patients contribute both measurements.
+*Anorexia Clinical Trial example:* 72 patients have their body weight measured before (`Prewt`) and after (`Postwt`) a psychological intervention. The exact same 72 patients contribute both measurements. This is classic experimental epidemiology.
 
 **The decision rule:** Same individual (or matched pair) contributes to both groups → **Paired**. Completely unrelated individuals → **Independent**.
 
@@ -46,7 +47,7 @@ Chapter 5 compared one group to a known value. Most health research compares **t
 
 ### 1.2 Why Pairing Increases Power
 
-When each participant serves as their own control, all the natural between-person variation in BP (due to age, genetics, fitness, diet) is removed from the analysis. We are asking: did the *change* in BP differ from zero? Because between-person variability is usually much larger than the treatment effect, pairing can dramatically increase power.
+When each participant serves as their own control, all the natural between-person variation (due to genetics, height, baseline metabolism) is removed from the analysis. We are asking: did the *change* in weight differ from zero? Because between-person variability is usually much larger than the treatment effect, pairing can dramatically increase statistical power.
 
 ## Section 2: The Independent Samples T-Test
 
@@ -81,17 +82,13 @@ R's `t.test()` applies Welch's correction by default — the safer option in all
 
 ## Section 3: The Paired Samples T-Test
 
-> 💡 **Plain English first:** A paired t-test is a one-sample t-test on the *differences*. For each person, calculate (after − before). Then test whether those difference scores average to zero.
-
-> ⚡ **Common mistake:** Pre/post measurements are paired — not independent. Using an independent t-test on pre/post data discards the pairing and can give the wrong answer.
+> 💡 **Plain English first:** A paired t-test is essentially a one-sample t-test on the *differences*. For each person, calculate (after − before). Then test whether those difference scores average to zero.
 
 ### 3.1 Research Question
 
-The Framingham dataset does not contain pre/post measurements. To demonstrate the paired t-test, we use a clinically realistic example:
+To demonstrate the paired t-test, we turn to our experimental `anorexia` dataset. Patients in a clinical trial had their weight measured at baseline (`Prewt`) and at the end of the study (`Postwt`). Did their body weight significantly change?
 
-30 Framingham participants identified as hypertensive are enrolled in a 12-week lifestyle intervention. SYSBP is measured before and after.
-
-- $H_0: \mu_{diff} = 0$ (mean BP change = 0 — no effect of intervention)
+- $H_0: \mu_{diff} = 0$ (mean weight change = 0 — no effect of time/intervention)
 - $H_1: \mu_{diff} \neq 0$
 
 ### 3.2 The Formula
@@ -115,12 +112,12 @@ Where $\bar{d}$ = mean of difference scores, $s_d$ = SD of difference scores, $n
 ## 🔬 Lab Manual — Chapter 6
 
 ### Objective
-Part 1: Independent t-test — does mean SYSBP differ between smokers and non-smokers?
-Part 2: Paired t-test — does a lifestyle intervention reduce SYSBP?
+Part 1: Independent t-test — does mean SYSBP differ between smokers and non-smokers in the Framingham cohort?
+Part 2: Paired t-test — did patient weight significantly change during the Anorexia clinical trial?
 
 ### Option A — PSPP
 
-**Independent t-test:**
+**Independent t-test (Framingham):**
 1. **Analyze → Compare Means → Independent-Samples T Test**.
 2. Move `SYSBP` to Test Variables; `CURSMOKE` to Grouping Variable.
 3. **Define Groups:** Group 1 = 0, Group 2 = 1. **Continue → OK**.
@@ -132,11 +129,10 @@ Part 2: Paired t-test — does a lifestyle intervention reduce SYSBP?
 # Chapter 6 Lab: Independent and Paired T-Tests
 # -------------------------------------------------------
 
+# ══ Part 1: Independent t-test (Framingham Data) ═════
 fram_data <- read.csv("data/framingham_teaching.csv")
 fram_data$CURSMOKE <- factor(fram_data$CURSMOKE, levels=c(0,1),
-  labels=c("Non-smoker","Smoker"))
-
-# ══ Part 1: Independent t-test ═══════════════════════
+  labels=c("Non-smoker","Smoker"))
 
 # Descriptives by smoking group
 tapply(fram_data$SYSBP, fram_data$CURSMOKE, mean)
@@ -154,7 +150,7 @@ leveneTest(SYSBP ~ CURSMOKE, data = fram_data)
 t.test(SYSBP ~ CURSMOKE, data = fram_data)
 
 # Effect size: Cohen's d
-m1 <- mean(fram_data$SYSBP[fram_data$CURSMOKE=="Smoker"],   na.rm=TRUE)
+m1 <- mean(fram_data$SYSBP[fram_data$CURSMOKE=="Smoker"],   na.rm=TRUE)
 m2 <- mean(fram_data$SYSBP[fram_data$CURSMOKE=="Non-smoker"],na.rm=TRUE)
 s_pool <- sd(fram_data$SYSBP, na.rm=TRUE)
 d <- (m1 - m2) / s_pool
@@ -162,61 +158,56 @@ cat("Cohen's d =", round(d, 3), "\n")
 
 # Visualise
 boxplot(SYSBP ~ CURSMOKE, data = fram_data,
-        main = "Systolic BP by Smoking Status",
-        xlab = "Smoking Status", ylab = "SYSBP (mmHg)",
-        col = c("#BDD7EE","#FEE0D2"))
+        main = "Systolic BP by Smoking Status",
+        xlab = "Smoking Status", ylab = "SYSBP (mmHg)",
+        col = c("#BDD7EE","#FEE0D2"))
 
-# ══ Part 2: Paired t-test ════════════════════════════
+# ══ Part 2: Paired t-test (Anorexia Data) ════════════
+library(MASS)
+data(anorexia)
 
-# Hypothetical pre/post BP data — 30 hypertensive participants
-set.seed(42)
-before <- c(158,162,155,170,148,165,172,160,153,168,
-            157,163,151,175,161,159,167,154,171,156,
-            164,169,152,173,158,161,166,155,170,163)
-after  <- before - rnorm(30, mean=8, sd=5)   # intervention reduces BP by ~8 mmHg
-after  <- round(after)
-
-difference_scores <- after - before
+# Calculate difference scores: Weight Gain (After - Before)
+difference_scores <- anorexia$Postwt - anorexia$Prewt
 
 # Check Normality of DIFFERENCES (not raw values)
 shapiro.test(difference_scores)
 hist(difference_scores,
-     main = "BP Change (After − Before)",
-     xlab = "Change in SYSBP (mmHg)",
-     col = "#C7E9C0", border = "white")
+     main = "Weight Change in Trial (Postwt − Prewt)",
+     xlab = "Change in Weight (lbs)",
+     col = "#C7E9C0", border = "white")
 
 # Paired t-test
-t.test(after, before, paired = TRUE)
+t.test(anorexia$Postwt, anorexia$Prewt, paired = TRUE)
 ```
 
 **What to examine:**
 - **Independent t-test:** Is mean SYSBP higher in smokers than non-smokers? Is the difference statistically significant? Is Cohen's d > 0.2 (small), > 0.5 (medium)?
 - **Levene's test:** If p < 0.05, Welch's correction (default in R) is appropriate.
-- **Paired t-test:** Is the mean BP reduction after the lifestyle intervention significantly different from zero? The paired design eliminates between-person variability — the test focuses entirely on whether *individuals* changed.
+- **Paired t-test:** Look at the p-value. Did the patients' weight significantly change from baseline to follow-up? The paired design eliminates natural variations in height and body type, focusing entirely on whether *individuals* changed.
 
 ### 🧪 Test Your Knowledge
 
-Compare mean TOTCHOL between diabetic (`DIABETES=1`) and non-diabetic (`DIABETES=0`) participants. **(a)** Is this independent or paired? **(b)** State H₀ and H₁. **(c)** Run the test and interpret the output including Cohen's d.
+Compare mean TOTCHOL between diabetic (`DIABETES=1`) and non-diabetic (`DIABETES=0`) participants in the Framingham dataset. **(a)** Is this independent or paired? **(b)** State H₀ and H₁. **(c)** Run the test and interpret the output including Cohen's d.
 
 ````{dropdown} Show Solution
 ```r
 # (a) Independent — diabetic and non-diabetic are two different groups
-#     of different individuals.
+#     of different individuals.
 
 # (b) H_0: \mu_{TOTCHOL(diabetes)} = \mu_{TOTCHOL(no diabetes)}
-#     H_1: \mu_{TOTCHOL(diabetes)} \neq \mu_{TOTCHOL(no diabetes)}
+#     H_1: \mu_{TOTCHOL(diabetes)} \neq \mu_{TOTCHOL(no diabetes)}
 
 # (c) R code:
 fram_data$DIABETES <- factor(fram_data$DIABETES, levels=c(0,1),
-  labels=c("No diabetes","Diabetes"))
+  labels=c("No diabetes","Diabetes"))
 
 tapply(fram_data$TOTCHOL, fram_data$DIABETES, mean)
 t.test(TOTCHOL ~ DIABETES, data = fram_data)
 
 # Effect size:
-m_diab  <- mean(fram_data$TOTCHOL[fram_data$DIABETES=="Diabetes"], na.rm=TRUE)
+m_diab  <- mean(fram_data$TOTCHOL[fram_data$DIABETES=="Diabetes"], na.rm=TRUE)
 m_nodiab<- mean(fram_data$TOTCHOL[fram_data$DIABETES=="No diabetes"], na.rm=TRUE)
-d_chol  <- abs(m_diab - m_nodiab) / sd(fram_data$TOTCHOL, na.rm=TRUE)
+d_chol  <- abs(m_diab - m_nodiab) / sd(fram_data$TOTCHOL, na.rm=TRUE)
 cat("Cohen's d =", round(d_chol, 3))
 ```
 ````
@@ -237,13 +228,13 @@ cat("Cohen's d =", round(d_chol, 3))
 
 2. Explain why Welch's t-test is preferred over the standard equal-variance t-test as a default in modern practice.
 
-3. In the paired t-test example, why is the Shapiro-Wilk test applied to the *difference scores* rather than to the before and after measurements separately?
+3. In the paired t-test example using the Anorexia dataset, why is the Shapiro-Wilk test applied to the *difference scores* rather than to the `Prewt` and `Postwt` measurements separately?
 
 4. Run `t.test(SYSBP ~ CURSMOKE, data=fram_data)` in R. Report t, df, p, and the 95% CI for the difference. Is the difference clinically meaningful given the SD of SYSBP (~22 mmHg)?
 
-5. Explain, using the concept of between-person variability, why a paired t-test for a pre/post BP study would have higher power than an independent t-test on the same data.
+5. Explain, using the concept of between-person variability, why a paired t-test for a pre/post weight study would have higher power than an independent t-test comparing the baseline group to the follow-up group.
 
-```{admonition} Key Takeaways
+````{admonition} Key Takeaways
 :class: tip
 
 - **Independent:** two unrelated groups; t = (x̄₁ − x̄₂)/SE_diff.
@@ -251,7 +242,7 @@ cat("Cohen's d =", round(d_chol, 3))
 - **Levene's test** → check equal variances. **Welch's correction** → safer default.
 - **Never** run independent t-test on pre/post data from the same individuals.
 - Always report Cohen's d — statistical significance alone is not enough.
-```
+````
 
 *Next: **Chapter 7 — Scaling Up** extends to three or more groups and categorical associations.*
 

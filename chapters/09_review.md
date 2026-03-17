@@ -1,11 +1,12 @@
 # Chapter 9: The Full Picture
 ## *Course Review and Examination Preparation*
 ---
-> **Dataset:** Framingham Heart Study teaching subset — `framingham_teaching.csv`, n = 500 participants.
+> **Datasets:** > 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500)
+> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72)
 
 ---
 
-```{admonition} Learning Objectives
+````{admonition} Learning Objectives
 :class: note
 
 By the end of this chapter, you will be able to:
@@ -15,24 +16,24 @@ By the end of this chapter, you will be able to:
 - Write an APA-style statistical reporting statement for each test type
 - Use the PSPP and R cheat sheets for rapid reference
 - Interpret Kaplan-Meier curves and log-rank tests in a clinical report
-```
+````
 
 ## How to Use This Chapter
 
-This chapter consolidates and connects all methods from Chapters 1–8 using the Framingham dataset as the unifying thread. Read Part I for the big picture. Use Part II when selecting a test in an exam or assignment. Use Part III in the lab with PSPP or R open.
+This chapter consolidates and connects all methods from Chapters 1–8 using our observational and experimental datasets as the unifying threads. Read Part I for the big picture. Use Part II when selecting a test in an exam or assignment. Use Part III in the lab with PSPP or R open.
 
 ## Part I — Course Summary
 
-| Chapter | Topic | Key concept | Framingham example |
+| Chapter | Topic | Key concept | Dataset Examples |
 |---|---|---|---|
-| 1 — The Vitals | Levels of measurement | Nominal → Ordinal → Interval → Ratio | `ANYCHD` = nominal; `EDUC` = ordinal; `AGE`, `SYSBP`, `BMI` = ratio |
+| 1 — The Vitals | Levels of measurement | Nominal → Ordinal → Interval → Ratio | `ANYCHD`/`Treat` = nominal; `EDUC` = ordinal; `AGE`/`Prewt` = ratio |
 | 2 — The Middle | Descriptive statistics | Mean, median, SD; skewness | `SYSBP` ≈ Normal → mean; `CIGPDAY` skewed → median |
 | 3 — The Margin | SE and CI | SE = s/√n; CI = x̄ ± 1.96×SE | 95% CI for mean SYSBP ≈ [129.7, 133.5] mmHg |
 | 4 — Laws of Chance | Distributions and Normality | Normal, Binomial, Poisson; CLT; Q-Q | `SYSBP` ≈ Normal; `CIGPDAY` severely right-skewed |
 | 5 — Hypothesis | Hypothesis testing | H₀, H₁, p-value, Type I/II, power | Mean TOTCHOL vs 200 mg/dL reference: t-test |
-| 6 — Two Groups | Two-sample tests | Independent vs paired; Levene; Welch | SYSBP by smoking: independent t-test |
-| 7 — Scaling Up | ANOVA and categorical | F-statistic; Tukey; Chi-Square; RR; RD | TOTCHOL across EDUC: ANOVA; smoking × CHD: Chi-Square |
-| 8 — Future | Correlation, regression, survival | r; ŷ = β₀+β₁x; KM curves; log-rank | AGE → SYSBP: regression; smoking → survival: KM + log-rank |
+| 6 — Two Groups | Two-sample tests | Independent vs paired; Levene; Welch | SYSBP by smoking (independent); Pre/Post weight (paired) |
+| 7 — Scaling Up | ANOVA and categorical | F-statistic; Tukey; Chi-Square; RR; RD | TOTCHOL by EDUC (ANOVA); Therapy type by Weight Gain (ANOVA) |
+| 8 — Future | Correlation, regression, survival | r; ŷ = β₀+β₁x; KM curves; log-rank | AGE → SYSBP (regression); smoking → survival (KM + log-rank) |
 
 ### Key Formulas
 
@@ -93,8 +94,8 @@ This chapter consolidates and connects all methods from Chapters 1–8 using the
 - Three or more → One-Way ANOVA + Tukey's HSD
 
 **Step 3 — Independent or paired?**
-- Independent (different individuals) → Independent Samples T-Test
-- Paired (same individuals, or matched) → Paired Samples T-Test
+- Independent (different individuals, e.g., smokers vs non-smokers) → Independent Samples T-Test
+- Paired (same individuals measured twice, e.g., baseline vs follow-up weight) → Paired Samples T-Test
 
 **Step 4 — Assumptions satisfied?**
 - Check Normality (n ≥ 30 → CLT applies; n < 30 → Shapiro-Wilk + histogram)
@@ -113,6 +114,9 @@ This chapter consolidates and connects all methods from Chapters 1–8 using the
 
 **Independent t-test:**
 > Smokers (M = 133.2, SD = 22.4) had significantly higher SYSBP than non-smokers (M = 130.1, SD = 21.5), t(498) = 1.97, p = .049, 95% CI [0.02, 6.2], d = 0.14.
+
+**Paired t-test:**
+> Patients' body weight significantly increased from baseline (M = 82.4, SD = 5.1) to follow-up (M = 85.1, SD = 5.8) after the intervention, t(71) = 4.12, p < .001, d = 0.49.
 
 **One-way ANOVA:**
 > A one-way ANOVA revealed a significant effect of education level on TOTCHOL, F(3, 496) = X.XX, p = .XXX, η² = .XX. Tukey's HSD indicated [specific pairs].
@@ -149,6 +153,7 @@ This chapter consolidates and connects all methods from Chapters 1–8 using the
 ```r
 # ── Load data ─────────────────────────────────────────
 fram_data <- read.csv("data/framingham_teaching.csv")
+library(MASS); data(anorexia)  # Experimental dataset
 
 # ── Factor conversions ────────────────────────────────
 fram_data$SEX      <- factor(fram_data$SEX, levels=c(1,2), labels=c("Male","Female"))
@@ -180,11 +185,15 @@ leveneTest(SYSBP ~ CURSMOKE, data = fram_data)
 t.test(SYSBP ~ CURSMOKE, data = fram_data)
 
 # ── Paired t ──────────────────────────────────────────
-t.test(after, before, paired = TRUE)
+t.test(anorexia$Postwt, anorexia$Prewt, paired = TRUE)
 
 # ── One-Way ANOVA ─────────────────────────────────────
 anova_res <- aov(TOTCHOL ~ EDUC, data = fram_data)
 summary(anova_res); TukeyHSD(anova_res)
+
+# ANOVA for Anorexia Weight Gain
+anorexia$Weight_Change <- anorexia$Postwt - anorexia$Prewt
+anova_anorexia <- aov(Weight_Change ~ Treat, data = anorexia)
 
 # ── Chi-Square and proportions ────────────────────────
 tbl <- table(fram_data$CURSMOKE, fram_data$ANYCHD)
@@ -199,6 +208,9 @@ cor.test(fram_data$CIGPDAY, fram_data$TOTCHOL, method="spearman")
 model <- lm(SYSBP ~ AGE, data = fram_data)
 summary(model); confint(model)
 par(mfrow=c(2,2)); plot(model); par(mfrow=c(1,1))
+
+# Regression for Anorexia weights
+model_wt <- lm(Postwt ~ Prewt, data = anorexia)
 
 # ── Survival analysis ─────────────────────────────────
 library(survival)
@@ -253,12 +265,13 @@ Suppose we use a glucose threshold of ≥ 110 mg/dL to screen for diabetes. The 
 
 | Design | Direction | What you measure | Key strength | Key limitation |
 |---|---|---|---|---|
-| **RCT** | Forward | Incidence, RR | Randomisation controls confounding | Expensive; ethical constraints |
-| **Cohort** | Forward | Incidence, RR, survival | Temporal precedence established | Time and cost; loss to follow-up |
+| **RCT / Experimental** | Forward | Incidence, RR, efficacy | Randomisation controls confounding | Expensive; ethical constraints |
+| **Cohort (Observational)** | Forward | Incidence, RR, survival | Temporal precedence established | Time and cost; loss to follow-up |
 | **Case-control** | Backward | OR (not RR) | Efficient for rare diseases | Recall bias; cannot calculate incidence |
 | **Cross-sectional** | Snapshot | Prevalence, OR | Fast and cheap | Cannot establish temporality |
 
-The Framingham Heart Study is a **prospective cohort** — the strongest observational design for identifying risk factors.
+The Framingham Heart Study is a **prospective observational cohort** — the strongest observational design for identifying risk factors. 
+The Anorexia trial is an **Experimental RCT** — the gold standard for testing active interventions.
 
 ---
 
@@ -268,23 +281,25 @@ In 1948, researchers in Framingham, Massachusetts enrolled 5,209 people and aske
 
 They did not know the answer. They had hypotheses — smoking, diet, stress, genetics — but no proof. What they had was a commitment to measuring carefully, following up rigorously, and applying rigorous statistical methods to what they found.
 
-Over the next 75 years, the Framingham Heart Study produced over 3,000 publications. It established that high blood pressure damages arteries. It proved that smoking causes heart attacks. It showed that high cholesterol predicts myocardial infarction. It coined the term *risk factor*. It built the evidence base for every cardiovascular prevention guideline in use today.
+Over the next 75 years, the Framingham Heart Study produced over 3,000 publications. It established that high blood pressure damages arteries. It proved that smoking causes heart attacks. It showed that high cholesterol predicts myocardial infarction. It coined the term *risk factor*. It built the evidence base for every cardiovascular prevention guideline in use today. 
 
-The statistical methods in this course are not academic exercises. They are the tools that produced that evidence. The t-tests, ANOVA, Chi-Square, regression, and Kaplan-Meier analyses in these chapters are, in their essentials, the same analyses that Framingham investigators ran — manually, on paper, in the 1950s — to identify the preventable causes of the disease that was killing more Americans than anything else.
+But observation is only half the story. Once a public health problem is identified, we must test a solution. That is why this book paired the Framingham cohort with the Anorexia Clinical Trial. The 72 patients in that experimental dataset represent the other pillar of health science: the clinical intervention. When you ran a paired t-test or an ANOVA on their outcomes, you were evaluating the very psychological therapies that save lives and restore well-being.
 
-The 500 participants in our teaching dataset represent 500 real lives. When you calculate the Relative Risk of CHD for smokers vs non-smokers, you are not solving a textbook problem. You are replicating — in miniature — the analysis that eventually convinced governments to ban smoking in public spaces, put health warnings on cigarette packets, and save millions of lives.
+The statistical methods in this course are not academic exercises. They are the tools that produced that evidence. The t-tests, ANOVA, Chi-Square, regression, and Kaplan-Meier analyses in these chapters are, in their essentials, the same analyses that Framingham investigators and clinical researchers rely on every day.
+
+The participants in our teaching datasets represent real lives. When you calculate the Relative Risk of CHD for smokers, or measure the efficacy of Family Therapy, you are not solving a textbook problem. You are replicating — in miniature — the analyses that eventually convinced governments to ban smoking in public spaces, shaped modern psychiatric care, and saved millions of lives.
 
 That is what statistics is for.
 
-```{admonition} Key Takeaways
+````{admonition} Key Takeaways
 :class: tip
 
 - **Test selection:** outcome type → number of groups → independence → assumptions.
 - **Effect size** is always required alongside p-value.
 - **Survival data** (censored) requires KM curves + log-rank, not OLS regression.
 - **Correlation ≠ causation** — confounding, reverse causation, and coincidence are always alternatives.
-- **The Framingham dataset** covers all 8 chapters: measurement, descriptives, CI, distributions, t-tests, ANOVA, Chi-Square, regression, and survival.
-```
+- **The Datasets:** Between the observational Framingham cohort and the experimental Anorexia trial, you have now practiced every core statistical method required in modern health science.
+````
 
 ---
 

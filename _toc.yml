@@ -8,8 +8,6 @@ root: index
 parts:
   - caption: "Front Matter"
     chapters:
-      - file: frontmatter/foreword
-        title: "Foreword"
       - file: frontmatter/contents
         title: "Table of Contents"
       - file: frontmatter/preface
@@ -54,7 +52,7 @@ parts:
   - caption: "Appendices"
     chapters:
       - file: appendices/data_dictionary
-        title: "Appendix A — Data Dictionary"
+        title: "Appendix A — Data Dictionaries"
       - file: appendices/glossary
         title: "Appendix B — Glossary"
 
