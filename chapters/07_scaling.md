@@ -1,8 +1,9 @@
 # Chapter 7: Scaling Up
 ## *ANOVA, Chi-Square, and Categorical Comparisons*
 ---
-> **Datasets:** > 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500)
-> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72)
+> **Datasets:** 
+> 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500) — Observational
+> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72) — Experimental
 
 ---
 

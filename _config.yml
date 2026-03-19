@@ -39,7 +39,7 @@ parse:
 # UPGRADE 5: Sphinx configurations for textbooks
 sphinx:
   config:
-    numfig: true            # Automatically numbers your figures and tables (e.g., Fig 1, Fig 2)
+    numfig: false              # Disable automatic numbering of figures, tables, and code blocks            
     math_numfig: true       # Automatically numbers your LaTeX equations
 
 bibtex_bibfiles:

@@ -1,8 +1,9 @@
 # Chapter 8: Reading the Future
 ## *Correlation, Regression, and Survival Analysis*
 ---
-> **Datasets:** > 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500)
-> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72)
+> **Datasets:** 
+> 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500) — Observational
+> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72) — Experimental
 
 ---
 
@@ -138,6 +139,15 @@ The **Kaplan-Meier (KM) estimator** calculates the probability of surviving beyo
 At each event time $t$, the KM survival probability is updated:
 
 $$S(t) = S(t-1) \times \left(1 - \frac{\text{events at } t}{\text{at risk at } t}\right)$$
+
+```{figure} ../images/ch08_km_annotated.png
+:name: fig-km-annotated
+:width: 95%
+:align: center
+
+**Figure 8.3 Annotated Kaplan-Meier Survival Curves.** ① Each vertical drop marks an event (death or CHD event). ② Tick marks ( | ) on the curve indicate censored observations — patients who left the study or whose follow-up ended before the event occurred. ③ The median survival time is the point where the curve crosses S(t) = 0.50, shown here for the smoker group at approximately 2,240 days (6 years). Non-smokers did not reach median survival within the 10-year follow-up — their survival curve remains above 0.50 throughout, indicating a better prognosis.
+```
+
 
 The resulting KM curve:
 - Starts at 1.0 (everyone alive at baseline)
