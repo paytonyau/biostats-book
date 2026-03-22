@@ -4,24 +4,23 @@
 
 *A Little Bit of Everything in Biostatistics for Health Science Students*
 
-Copyright © 2026 Payton Yau, Suhirthakumar Puvanendran and Jarunee Nualyong.
+Copyright © 2026 Payton Yau, Suhirthakumar Puvanendran, and Jarunee Nualyong.
 
-This textbook is published under a **Creative Commons Attribution–NonCommercial–ShareAlike 4.0 International (CC BY-NC-SA 4.0)** licence.
+This textbook is published under a **Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)** licence.
 
 You are free to:
 - **Share** — copy and redistribute the material in any medium or format
 - **Adapt** — remix, transform, and build upon the material
 
 Under the following terms:
-- **Attribution** — You must give appropriate credit to the authors and cite the original work.
-- **NonCommercial** — You may not use the material for commercial purposes.
-- **ShareAlike** — If you remix or adapt the material, you must distribute your contributions under the same licence.
+- **Attribution** — You must give appropriate credit to the authors, provide a link to the licence, and indicate if changes were made.
+- **NonCommercial** — You may not use the material for commercial purposes. This material is strictly for educational, academic, and non-profit use.
 
-Full licence text: [https://creativecommons.org/licenses/by-nc-sa/4.0/](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+Full licence text: [https://creativecommons.org/licenses/by-nc/4.0/](https://creativecommons.org/licenses/by-nc/4.0/)
 
 ---
 
-## Teaching Dataset
+## Teaching Datasets
 
 ### 1. The Framingham Heart Study (Observational)
 The Framingham Heart Study teaching dataset (`framingham_teaching.csv`) is derived from data provided by the **National Heart, Lung, and Blood Institute (NHLBI)** of the National Institutes of Health, under the Framingham Heart Study (Contract No. N01-HC-25195).
@@ -37,17 +36,16 @@ This teaching subset is provided for **educational use only**. It is not appropr
 ### 2. The Anorexia Clinical Trial (Experimental)
 The `anorexia` dataset is an experimental dataset used to teach the effectiveness of psychological interventions. It is sourced from the `MASS` library in R and was originally published in *A Handbook of Small Data Sets*.
 
->Like the Framingham subset, this data is used here for *pedagogical purposes*. While it is based on real clinical outcomes, students should treat the results as a learning exercise in biostatistical methods rather than a clinical guide for eating disorder treatment.
+> Like the Framingham subset, this data is used here for **pedagogical purposes**. While it is based on real clinical outcomes, students should treat the results as a learning exercise in biostatistical methods rather than a clinical guide for eating disorder treatment.
 
-Citation for the dataset:
-
->Hand, D. J., Daly, F., Lunn, A. D., McConway, K. J. and Ostrowski, E. (1994) A Handbook of Small Data Sets. London: Chapman and Hall. Data originally from Hand et al.
+**Citation for the dataset:**
+> Hand, D. J., Daly, F., Lunn, A. D., McConway, K. J., and Ostrowski, E. (1994). *A Handbook of Small Data Sets*. London: Chapman and Hall. Data originally from Hand et al.
 
 ---
 
 ## Figures
 
-All figures in this textbook were generated programmatically using Python (matplotlib) by the authors and are released under CC BY-NC-SA 4.0.
+All figures in this textbook were generated programmatically by the authors (using R and Python) and are released under the CC BY-NC 4.0 licence.
 
 ---
 
@@ -55,8 +53,8 @@ All figures in this textbook were generated programmatically using Python (matpl
 
 This book uses two free, open-source statistical software packages:
 
-- **PSPP** — GNU PSPP, free software released under the GNU General Public Licence (GPL). [https://www.gnu.org/software/pspp/](https://www.gnu.org/software/pspp/)
 - **R** — R Project for Statistical Computing, released under GPL-2. [https://www.r-project.org/](https://www.r-project.org/)
+- **PSPP** — GNU PSPP, a free software alternative to SPSS released under the GNU General Public Licence (GPL). [https://www.gnu.org/software/pspp/](https://www.gnu.org/software/pspp/)
 
 ---
 
