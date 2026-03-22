@@ -353,6 +353,40 @@ cor.test(fram_data$AGE, fram_data$SYSBP, method = "spearman")
 
 ---
 
+
+## Non-Parametric Equivalents — Quick Reference
+
+When parametric assumptions are violated (non-Normal data, small samples, or ordinal outcomes), use the non-parametric equivalent. These tests rank the data rather than assuming a specific distribution.
+
+| Parametric Test | When to use it | Non-Parametric Equivalent | When to switch |
+|---|---|---|---|
+| One-Sample T-Test | Continuous outcome vs known value | **Wilcoxon Signed-Rank Test** (one-sample) | n < 30 and non-Normal |
+| Independent Samples T-Test | Two unrelated groups, continuous outcome | **Mann-Whitney U Test** (Wilcoxon Rank-Sum) | Non-Normal, small n, or ordinal outcome |
+| Paired Samples T-Test | Same individuals measured twice | **Wilcoxon Signed-Rank Test** (paired) | Difference scores non-Normal and n < 30 |
+| One-Way ANOVA | Three or more groups, continuous outcome | **Kruskal-Wallis Test** | Non-Normal within groups or ordinal outcome |
+| Pearson's r | Linear association, two continuous variables | **Spearman's Rho (ρ)** | Skewed data, outliers, or ordinal variables |
+
+> ⚡ **Common mistake:** Many students automatically reach for non-parametric tests whenever data "looks skewed." Remember the Central Limit Theorem — with n ≥ 30 per group, parametric tests are robust to moderate non-Normality. Non-parametric tests have lower statistical power than their parametric equivalents, so switching unnecessarily increases the risk of a Type II error.
+
+**In R:**
+
+```r
+# Mann-Whitney U (independent groups)
+wilcox.test(SYSBP ~ CURSMOKE, data = fram_data)
+
+# Wilcoxon signed-rank (paired)
+wilcox.test(after, before, paired = TRUE)
+
+# Kruskal-Wallis (3+ groups)
+kruskal.test(TOTCHOL ~ EDUC, data = fram_data)
+
+# Spearman's rho
+cor.test(fram_data$AGE, fram_data$SYSBP, method = "spearman")
+```
+
+
+---
+
 ## A Final Word
 
 In 1948, researchers in Framingham, Massachusetts enrolled 5,209 people and asked: *what causes heart disease?*
