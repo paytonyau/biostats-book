@@ -50,7 +50,7 @@ If you would like to translate this book into another language, please open an i
 
 ## Using This Book in Your Course
 
-You are welcome to use this book, or any part of it, in your own teaching without seeking permission — the CC BY 4.0 licence covers this explicitly. If you do use it, the authors would be grateful to hear about it: knowing where and how the book is being used helps prioritise improvements.
+You are welcome to use this book, or any part of it, in your own teaching without seeking permission, the CC BY 4.0 licence covers this explicitly. If you do use it, the authors would be grateful to hear about it: knowing where and how the book is being used helps prioritise improvements.
 
 Please send a brief note to us with the subject line "Course adoption" if you adopt the book for a course.
 
@@ -58,7 +58,7 @@ Please send a brief note to us with the subject line "Course adoption" if you ad
 
 ## Acknowledgment Policy
 
-Contributions that result in a substantive change to the text — a corrected worked example, a new review question, a new code block — will be acknowledged in the Acknowledgments page of the next edition, with the contributor's name and the nature of the contribution, unless the contributor requests anonymity.
+Contributions that result in a substantive change to the text, a corrected worked example, a new review question, a new code block — will be acknowledged in the Acknowledgments page of the next edition, with the contributor's name and the nature of the contribution, unless the contributor requests anonymity.
 
 ---
 

@@ -4,7 +4,7 @@
 
 *A Little Bit of Everything in Biostatistics for Health Science Students*
 
-Copyright © 2026 Payton Yau and Suhirthakumar Puvanendran.
+Copyright © 2026 Payton Yau, Suhirthakumar Puvanendran and Jarunee Nualyong.
 
 This textbook is published under a **Creative Commons Attribution–NonCommercial–ShareAlike 4.0 International (CC BY-NC-SA 4.0)** licence.
 

@@ -84,6 +84,15 @@ The **Central Limit Theorem (CLT)** is the mathematical foundation of all hypoth
 
 **Why this matters:** `CIGPDAY` (cigarettes per day) in the Framingham dataset is severely right-skewed — 49% of participants have 0, and a few smoke 40–60 per day. The distribution of individual values is far from Normal. But with n = 500, the CLT guarantees that the *sampling distribution of the mean* is approximately Normal. This is what makes t-tests valid even when individual data is skewed.
 
+
+```{figure} ../images/ch04_clt.png
+:name: fig-clt
+:width: 95%
+:align: center
+
+**Figure 4.4 The Central Limit Theorem in Action.** The Framingham `CIGPDAY` variable is severely right-skewed — 49% of participants are non-smokers. As sample size increases from n = 5 to n = 100, the sampling distribution of the mean progressively approaches a Normal distribution (dashed curve), regardless of the shape of the original population. By n = 30, the distribution is already approximately Normal. this is why t-tests remain valid even when raw data is skewed, provided n ≥ 30.
+```
+
 ## Section 3: Epidemic Curves — Reading Disease Over Time
 
 An **epidemic curve (Epi Curve)** is a histogram where the x-axis represents time and each bar represents the number of new cases in that period. Reading the shape of the curve tells you how a disease spreads.
@@ -93,10 +102,10 @@ An **epidemic curve (Epi Curve)** is a histogram where the x-axis represents tim
 :width: 80%
 :align: center
 
-**Figure 4.2** Three epidemic curve shapes: point source (single sharp peak — e.g., a contaminated food event), propagated (successive waves — person-to-person transmission), and endemic (roughly constant background rate). Cardiovascular disease is endemic — a persistent, ongoing cause of morbidity and mortality, not a single outbreak event.
+**Figure 4.2** Three epidemic curve shapes: point source (single sharp peak — e.g., a contaminated food event), propagated (successive waves — person-to-person transmission), and endemic (roughly constant background rate). Cardiovascular disease is endemic, a persistent, ongoing cause of morbidity and mortality, not a single outbreak event.
 ```
 
-**The Framingham connection:** Cardiovascular disease is not an outbreak — it is an epidemic in the public health sense: a disease occurring at higher-than-expected rates in a population over a sustained period. The Framingham Study was designed precisely because heart disease had become the leading cause of death in post-war America and no one yet understood why. Plotting incident CHD events by year in the Framingham cohort produces an endemic-pattern curve — a persistent baseline incidence, not a single-source spike.
+**The Framingham connection:** Cardiovascular disease is not an outbreak — it is an epidemic in the public health sense: a disease occurring at higher-than-expected rates in a population over a sustained period. The Framingham Study was designed precisely because heart disease had become the leading cause of death in post-war America and no one yet understood why. Plotting incident CHD events by year in the Framingham cohort produces an endemic-pattern curve, a persistent baseline incidence, not a single-source spike.
 
 ## Section 4: Normality Assessment
 

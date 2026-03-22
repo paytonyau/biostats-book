@@ -4,7 +4,8 @@
 
 > **Unit:** 1 | **Part:** I — Describing the World in Numbers
 >
-> **Datasets:** > 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500) — Observational
+> **Datasets:** 
+> 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500) — Observational
 > 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72) — Experimental
 
 ---
@@ -142,7 +143,7 @@ In the Framingham dataset, the **year of birth** (derivable from age and study s
 
 ### 1.6 Ratio Data
 
-**Ratio** data has equal gaps *and* a **true zero** — a zero that genuinely means complete absence.
+**Ratio** data has equal gaps *and* a **true zero**, a zero that genuinely means complete absence.
 
 | Property | Ratio data |
 |---|---|
@@ -317,7 +318,7 @@ summary(anorexia)
 
 **What to look for:**
 - After conversion, `str()` should show `SEX`, `CURSMOKE`, `DIABETES`, `ANYCHD`, `DEATH` as `Factor`.
-- `EDUC` should show as `Ord.factor` — an ordered factor.
+- `EDUC` should show as `Ord.factor`, an ordered factor.
 - `AGE`, `SYSBP`, `BMI`, `TOTCHOL` should remain `int` or `num`.
 - `summary(fram_data$SYSBP)` shows min, quartiles, mean, max. What is the median systolic BP in this cohort? Is it above the clinical threshold of 120 mmHg?
 - In the Anorexia data, `Treat` should show as a `Factor` with 3 levels, and weights as numeric.

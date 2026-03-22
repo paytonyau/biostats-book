@@ -120,8 +120,8 @@ The **standard deviation** (s) takes the square root of the variance, returning 
 
 $$s = \sqrt{\frac{\sum (x_i - \bar{x})^2}{n - 1}}$$
 
-- A **small SD** means BPs cluster tightly around the mean — the cohort is homogeneous.
-- A **large SD** means BPs scatter widely — the cohort spans a broad clinical range.
+- A **small SD** means BPs cluster tightly around the mean, the cohort is homogeneous.
+- A **large SD** means BPs scatter widely, the cohort spans a broad clinical range.
 
 ```{figure} ../images/ch02_boxplot_anatomy.png
 :name: fig-boxplot

@@ -2,7 +2,7 @@
 
 ## Primary Datasets
 
-The worked examples throughout this book utilize two historically significant datasets representing observational and experimental epidemiology:
+The worked examples throughout this book use two historically significant datasets representing observational and experimental epidemiology:
 
 **1. The Framingham Heart Study Teaching Subset**
 > National Heart, Lung, and Blood Institute. *Framingham Heart Study Teaching Dataset*. Bethesda, MD: NHLBI; Provided for educational use under the NHLBI teaching dataset programme (N01-HC-25195).

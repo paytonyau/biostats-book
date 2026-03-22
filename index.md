@@ -15,7 +15,7 @@
 
 ## About This Book
 
-Most biostatistics textbooks are written for mathematics students. This book is written for people who want to understand disease — and prevent it.
+Most biostatistics textbooks are written for mathematics students. This book is written for people who want to understand disease, and prevent it.
 
 To give you a complete picture of public health research, this book is built around two historically influential datasets representing the two halves of epidemiology:
 

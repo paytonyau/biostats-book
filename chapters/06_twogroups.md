@@ -1,8 +1,9 @@
 # Chapter 6: A Tale of Two Groups
 ## *Independent and Paired Samples T-Tests*
 ---
-> **Datasets:** > 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500)
-> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72)
+> **Datasets:** 
+> 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500) — Observational
+> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72) — Experimental
 
 ---
 
@@ -42,7 +43,7 @@ Chapter 5 compared one group to a known value. Most health research compares **t
 :width: 85%
 :align: center
 
-**Figure 6.1** Independent vs paired design. In a paired design, the unit of analysis is the *difference score* for each individual — this eliminates between-person variability and increases statistical power.
+**Figure 6.1** Independent vs paired design. In a paired design, the unit of analysis is the *difference score* for each individual. this eliminates between-person variability and increases statistical power.
 ```
 
 ### 1.2 Why Pairing Increases Power
@@ -69,7 +70,7 @@ Before the independent t-test, check whether the two groups have similar varianc
 - **Levene's p > 0.05:** Assume equal variances → standard pooled-variance t-test.
 - **Levene's p ≤ 0.05:** Variances differ → use **Welch's t-test** (adjusts degrees of freedom).
 
-R's `t.test()` applies Welch's correction by default — the safer option in all cases.
+R's `t.test()` applies Welch's correction by default, the safer option in all cases.
 
 ### 2.4 Assumptions
 
@@ -108,6 +109,15 @@ Where $\bar{d}$ = mean of difference scores, $s_d$ = SD of difference scores, $n
 | Formula | $t = \frac{\bar{x}_1 - \bar{x}_2}{SE_{diff}}$ | $t = \frac{\bar{d}}{s_d / \sqrt{n}}$ |
 | df | $\approx n_1+n_2-2$ | $n-1$ (pairs) |
 | Power | Lower | Higher (removes between-person variability) |
+
+
+```{figure} ../images/ch06_difference_scores.png
+:name: fig-diff-scores
+:width: 95%
+:align: center
+
+**Figure 6.2 Paired T-Test — Difference Scores Visualised.** A hypothetical pre/post lifestyle intervention on 20 hypertensive Framingham participants. **(A)** Each line connects one patient's before and after measurement — green lines show BP decreased, red lines show it increased. **(B)** The difference score (After − Before) for each patient, the orange dashed line marks the mean difference. **(C)** The paired t-test tests whether the mean of these difference scores is significantly different from zero; t(19) = −8.02, p < 0.001.
+```
 
 ## 🔬 Lab Manual — Chapter 6
 

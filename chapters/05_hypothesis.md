@@ -12,7 +12,7 @@ By the end of this chapter, you will be able to:
 
 - Formulate null and alternative hypotheses for a clinical research question
 - Describe probability and non-probability sampling methods
-- Interpret a p-value correctly — and identify the four most common misinterpretations
+- Interpret a p-value correctly, and identify the four most common misinterpretations
 - Define Type I and Type II errors and explain the trade-off between them
 - Explain statistical power and the four factors that increase it
 - Run and interpret a one-sample t-test
@@ -58,7 +58,7 @@ This framework underpins every clinical trial, every drug approval, and every pu
 | **Purposive** | Deliberately selected for specific characteristics | Not generalisable beyond selected group |
 | **Snowball** | Participants recruit other participants | Network-dependent selection bias |
 
-**The Framingham limitation:** The original cohort was almost entirely White, from one Massachusetts town. This is a form of selection bias. Despite the study's size and rigour, its risk factor estimates may not apply equally to all ethnic and geographic populations — a limitation the investigators acknowledged explicitly.
+**The Framingham limitation:** The original cohort was almost entirely White, from one Massachusetts town. This is a form of selection bias. Despite the study's size and rigour, its risk factor estimates may not apply equally to all ethnic and geographic populations, a limitation the investigators acknowledged explicitly.
 
 ## Section 1b: Epidemiological Study Designs
 
@@ -72,7 +72,7 @@ The choice of statistical test depends partly on the study design that generated
 
 > 💡 **Plain English:** Cohort studies follow people *forward* (exposure → outcome). Case-control studies work *backward* (outcome → who had the exposure?). Cross-sectional studies are a snapshot — everyone measured at one moment.
 
-The Framingham Heart Study is a **prospective cohort study** — the gold standard for identifying risk factors. Risk factors were measured at baseline *before* heart disease developed, which establishes temporal precedence (an important criterion for causality).
+The Framingham Heart Study is a **prospective cohort study**, the gold standard for identifying risk factors. Risk factors were measured at baseline *before* heart disease developed, which establishes temporal precedence (an important criterion for causality).
 
 > ⚡ **Common mistake:** Cohort studies give **Relative Risk (RR)**. Case-control studies give **Odds Ratio (OR)**. In rare diseases, OR ≈ RR, but for common outcomes like CHD (31% in Framingham), they differ substantially. Always identify the study design before choosing which effect measure to report.
 
@@ -104,7 +104,7 @@ We assume $H_0$ is true and ask: if the true population mean really were 120 mmH
 - **Two-tailed:** $H_1: \mu \neq 120$. We test whether SYSBP differs in *either* direction.
 - **One-tailed:** $H_1: \mu > 120$. We predict a specific direction before seeing the data.
 
-**Default:** Use two-tailed tests unless there is a pre-registered, theory-driven justification for one direction. In the cardiovascular context, testing whether a cohort from the 1950s has *higher* BP than the modern reference is directionally intuitive — but two-tailed remains the conservative and more defensible choice.
+**Default:** Use two-tailed tests unless there is a pre-registered, theory-driven justification for one direction. In the cardiovascular context, testing whether a cohort from the 1950s has *higher* BP than the modern reference is directionally intuitive, but two-tailed remains the conservative and more defensible choice.
 
 ## Section 3: The P-Value
 
@@ -133,7 +133,7 @@ The **significance level (α)** is the threshold below which we reject H₀. Con
 | "p is the probability H₀ is true" | p *assumes* H₀ is true — it cannot evaluate whether H₀ is true |
 | "p = 0.03 means 3% chance result is due to chance" | Same error, different wording |
 | "p = 0.001 means the effect is large or important" | Small p = strong evidence against H₀, not large effect size |
-| "p = 0.06 means the result is not real" | It means evidence didn't reach threshold — study may be underpowered |
+| "p = 0.06 means the result is not real" | It means evidence did not reach threshold — study may be underpowered |
 
 > ⚡ **Common mistake:** Always report an effect size alongside the p-value. In the Framingham context, p < 0.001 for mean SYSBP vs 120 mmHg is not surprising with n = 500 — any small, potentially clinically trivial deviation from 120 will be statistically significant.
 
@@ -175,8 +175,8 @@ Conventional minimum: **power ≥ 0.80** (80%).
 ```
 
 **The four levers:**
-1. **Increase n** — the most reliable lever. Framingham's 5,209 original participants gave enormous power to detect modest risk factor effects.
-2. **Increase effect size** — if the true difference is larger, it is easier to detect.
+1. **Increase n**, the most reliable lever. Framingham's 5,209 original participants gave enormous power to detect modest risk factor effects.
+2. **Increase effect size**; if the true difference is larger, it is easier to detect.
 3. **Decrease σ** — more precise measurements reduce noise.
 4. **Increase α** — raising from 0.05 to 0.10 increases power but also Type I error.
 
@@ -203,6 +203,8 @@ $$t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}$$
 2. **p-value** — is the result statistically significant at α = 0.05?
 3. **95% CI for the mean** — does it include μ₀ = 120?
 4. **Sample mean** — is the difference clinically meaningful?
+
+
 
 ## 🔬 Lab Manual — Chapter 5
 
@@ -307,7 +309,7 @@ cat("Cohen's d =", round(d_chol, 3))
 :class: tip
 
 - **H₀** is assumed true until data provides sufficient evidence to reject it.
-- **p-value:** probability of the data *given* H₀ — not the probability H₀ is true.
+- **p-value:** probability of the data *given* H₀, not the probability H₀ is true.
 - **Type I error (α):** false positive. **Type II error (β):** false negative. They trade off.
 - **Power (1−β):** increased by larger n, larger effect size, lower variance, or higher α.
 - **Effect size (Cohen's d):** essential alongside p-value — statistical significance ≠ clinical importance.

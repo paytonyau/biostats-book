@@ -104,7 +104,7 @@ data(anorexia)
 Because these represent the exact same patient measured at two different times, they must be analysed using **paired** statistical tests (e.g., Paired T-Test) when comparing baseline to follow-up (Chapter 6).
 
 **Creating a Weight Gain Variable:**
-To analyze the effectiveness of the treatments across groups, you will often need to compute a new variable: `Weight_Change = Postwt - Prewt`. 
+To analyse the effectiveness of the treatments across groups, you will often need to compute a new variable: `Weight_Change = Postwt - Prewt`. 
 
 ---
 

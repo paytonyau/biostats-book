@@ -1,8 +1,9 @@
 # Chapter 7: Scaling Up
 ## *ANOVA, Chi-Square, and Categorical Comparisons*
 ---
-> **Datasets:** > 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500)
-> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72)
+> **Datasets:** 
+> 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500) — Observational
+> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72) — Experimental
 
 ---
 
@@ -40,6 +41,15 @@ With $k = 6$ comparisons, $\alpha = 0.05$: FWER = $1 - 0.95^6 \approx$ **26%** �
 ### 1.2 The Solution: One Protected Analysis
 
 ANOVA performs a single omnibus test comparing all groups simultaneously, protecting the Type I error rate at exactly α = 0.05.
+
+
+```{figure} ../images/ch07_fwer_inflation.png
+:name: fig-fwer
+:width: 90%
+:align: center
+
+**Figure 7.3 The Multiple Comparisons Problem — FWER Inflation.** Family-Wise Error Rate (FWER) = 1 − (1 − α)ᵏ at α = 0.05. With just 1 test the false positive risk is the intended 5% (green). By 3 tests it reaches 14% (orange). By 14 tests it exceeds 50%, a worse-than-coin-flip chance of at least one false positive (red). ANOVA solves this by performing a single omnibus test across all groups, keeping FWER fixed at exactly 5%.
+```
 
 ## Section 2: One-Way ANOVA
 
@@ -329,7 +339,7 @@ cat("eta-squared =", round(eta_sq_bmi, 3))
 
 1. Calculate the FWER for 6 pairwise comparisons at α = 0.05. Why is ANOVA preferable to running all 6 t-tests?
 
-2. Run `aov(SYSBP ~ EDUC, data=fram_data)` and `TukeyHSD()` in R. Which education groups differ in mean SYSBP? Interpret the pattern in terms of social determinants of cardiovascular health.
+2. Run `aov(SYSBP ~ EDUC, data=fram_data)` and `TukeyHSD()` in R. Which education groups differ in mean SYSBP? Interpret the pattern as evidence of social determinants of cardiovascular health.
 
 3. Using the Anorexia dataset, run `aov(Weight_Change ~ Treat, data = anorexia)` and perform `TukeyHSD()`. Which specific psychological therapy proved significantly better at increasing patient weight than the Control group? 
 

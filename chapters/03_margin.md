@@ -29,7 +29,7 @@ This is the shift from **descriptive** to **inferential** statistics. It require
 - **Sample statistic** — the value calculated from our specific 500 participants. Denoted $\bar{x}$ and $s$.
 - **Sampling error** — the inevitable, random difference between a sample statistic and the population parameter it estimates. Not a mistake — a mathematical certainty.
 
-Our 500 participants are a sample. Their mean SYSBP ($\bar{x}$) estimates the population mean ($\mu$) — but $\bar{x} \neq \mu$ exactly. How far off might it be? The standard error answers this.
+Our 500 participants are a sample. Their mean SYSBP ($\bar{x}$) estimates the population mean ($\mu$), but $\bar{x} \neq \mu$ exactly. How far off might it be? The standard error answers this.
 
 ### 1.2 Accuracy vs Precision
 
@@ -68,7 +68,7 @@ Our sample mean of 131.6 mmHg estimates the population mean, and we expect that 
 :width: 80%
 :align: center
 
-**Figure 3.2** The relationship between sample size and standard error. The Framingham study's large sample (here $n=500$) yields a very small SE — the mean blood pressure estimate is highly precise. Halving the sample to 250 would increase SE by a factor of $\sqrt{2} \approx 1.41$, not by double.
+**Figure 3.2** The relationship between sample size and standard error. The Framingham study's large sample (here $n=500$) yields a very small SE, the mean blood pressure estimate is highly precise. Halving the sample to 250 would increase SE by a factor of $\sqrt{2} \approx 1.41$, not by double.
 ```
 
 > **Key relationship:** SE = s/√n. To halve the SE, you must quadruple n. This has major implications for clinical trial design — precision is expensive.
@@ -105,7 +105,7 @@ We are 95% confident that the true mean systolic blood pressure in the populatio
 
 ### 3.4 Bias: What a CI Cannot Fix
 
-A CI quantifies **random error** — unavoidable sampling variation. It cannot fix **systematic bias** — a consistent, directional error in data collection.
+A CI quantifies **random error** — unavoidable sampling variation. It cannot fix **systematic bias**, a consistent, directional error in data collection.
 
 | Error type | Cause | Fixed by more data? | Example |
 |---|---|---|---|
@@ -117,6 +117,15 @@ A CI quantifies **random error** — unavoidable sampling variation. It cannot f
 
 **Epidemiological example:** The Framingham cohort was almost entirely White, drawn from one Massachusetts town. The mean SYSBP may be a precise estimate of *this population* whilst being a biased estimate of the broader American — let alone global — population. No amount of additional Framingham participants can fix selection bias.
 
+
+```{figure} ../images/ch03_ci_coverage.png
+:name: fig-ci-coverage
+:width: 90%
+:align: center
+
+**Figure 3.3 What '95% Confident' Really Means — CI Coverage Diagram.** Twenty independent samples of n = 40 drawn from the Framingham SYSBP data. Each horizontal line is one 95% CI; the dot marks the sample mean. Blue intervals capture the true mean (red line); red intervals miss it. Over many repetitions, approximately 95% of such intervals will contain μ, but any single interval either does or does not.
+```
+
 ## 🔬 Lab Manual — Chapter 3
 
 ### Objective
@@ -127,7 +136,7 @@ Calculate the SE and 95% CI for mean SYSBP and mean TOTCHOL. Compare CI widths a
 1. Open `framingham_study.sav`.
 2. **Analyze → Compare Means → One-Sample T Test**.
 3. Move `SYSBP` and `TOTCHOL` to the Test Variables box. Set Test Value = 0.
-4. Click **OK** — the CI appears in the output table.
+4. Click **OK**, the CI appears in the output table.
 
 ### Option B — R / RStudio
 

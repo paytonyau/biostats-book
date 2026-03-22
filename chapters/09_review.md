@@ -1,8 +1,9 @@
 # Chapter 9: The Full Picture
 ## *Course Review and Examination Preparation*
 ---
-> **Datasets:** > 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500)
-> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72)
+> **Datasets:** 
+> 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500) — Observational
+> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72) — Experimental
 
 ---
 
@@ -245,6 +246,15 @@ Health science courses require familiarity with measures beyond standard test st
 
 > **OR vs RR:** OR ≈ RR when the outcome is rare (< 10%). When common (like CHD at 31%), OR > RR and they should not be used interchangeably.
 
+
+```{figure} ../images/ch09_epi_2x2_table.png
+:name: fig-epi-2x2
+:width: 95%
+:align: center
+
+**Figure 9.2 The Epidemiological 2×2 Table — RD, RR, and OR from Real Framingham Data.** Smoking (exposure) vs CHD incidence (outcome) across 500 participants. a = smokers with CHD event; b = smokers without; c = non-smokers with CHD; d = non-smokers without. **Risk Difference** (RD = +14.7 pp): the absolute extra risk from smoking. **Relative Risk** (RR = 1.63): smokers are 63% more likely to develop CHD. **Odds Ratio** (OR = 2.01): the case-control equivalent — note OR > RR because CHD is common (31%), so they diverge substantially. NNH ≈ 7: approximately 7 smokers produce 1 extra CHD event.
+```
+
 ### Screening and Diagnostic Test Measures
 
 When a test (e.g., a high-glucose screening test for diabetes) is applied to a population, four measures describe its performance:
@@ -270,8 +280,76 @@ Suppose we use a glucose threshold of ≥ 110 mg/dL to screen for diabetes. The 
 | **Case-control** | Backward | OR (not RR) | Efficient for rare diseases | Recall bias; cannot calculate incidence |
 | **Cross-sectional** | Snapshot | Prevalence, OR | Fast and cheap | Cannot establish temporality |
 
-The Framingham Heart Study is a **prospective observational cohort** — the strongest observational design for identifying risk factors. 
-The Anorexia trial is an **Experimental RCT** — the gold standard for testing active interventions.
+The Framingham Heart Study is a **prospective observational cohort**, the strongest observational design for identifying risk factors. 
+The Anorexia trial is an **Experimental RCT**, the gold standard for testing active interventions.
+
+---
+
+
+## Non-Parametric Equivalents — Quick Reference
+
+When parametric assumptions are violated (non-Normal data, small samples, or ordinal outcomes), use the non-parametric equivalent. These tests rank the data rather than assuming a specific distribution.
+
+| Parametric Test | When to use it | Non-Parametric Equivalent | When to switch |
+|---|---|---|---|
+| One-Sample T-Test | Continuous outcome vs known value | **Wilcoxon Signed-Rank Test** (one-sample) | n < 30 and non-Normal |
+| Independent Samples T-Test | Two unrelated groups, continuous outcome | **Mann-Whitney U Test** (Wilcoxon Rank-Sum) | Non-Normal, small n, or ordinal outcome |
+| Paired Samples T-Test | Same individuals measured twice | **Wilcoxon Signed-Rank Test** (paired) | Difference scores non-Normal and n < 30 |
+| One-Way ANOVA | Three or more groups, continuous outcome | **Kruskal-Wallis Test** | Non-Normal within groups or ordinal outcome |
+| Pearson's r | Linear association, two continuous variables | **Spearman's Rho (ρ)** | Skewed data, outliers, or ordinal variables |
+
+> ⚡ **Common mistake:** Many students automatically reach for non-parametric tests whenever data "looks skewed." Remember the Central Limit Theorem — with n ≥ 30 per group, parametric tests are robust to moderate non-Normality. Non-parametric tests have lower statistical power than their parametric equivalents, so switching unnecessarily increases the risk of a Type II error.
+
+**In R:**
+
+```r
+# Mann-Whitney U (independent groups)
+wilcox.test(SYSBP ~ CURSMOKE, data = fram_data)
+
+# Wilcoxon signed-rank (paired)
+wilcox.test(after, before, paired = TRUE)
+
+# Kruskal-Wallis (3+ groups)
+kruskal.test(TOTCHOL ~ EDUC, data = fram_data)
+
+# Spearman's rho
+cor.test(fram_data$AGE, fram_data$SYSBP, method = "spearman")
+```
+
+
+---
+
+
+## Non-Parametric Equivalents — Quick Reference
+
+When parametric assumptions are violated (non-Normal data, small samples, or ordinal outcomes), use the non-parametric equivalent. These tests rank the data rather than assuming a specific distribution.
+
+| Parametric Test | When to use it | Non-Parametric Equivalent | When to switch |
+|---|---|---|---|
+| One-Sample T-Test | Continuous outcome vs known value | **Wilcoxon Signed-Rank Test** (one-sample) | n < 30 and non-Normal |
+| Independent Samples T-Test | Two unrelated groups, continuous outcome | **Mann-Whitney U Test** (Wilcoxon Rank-Sum) | Non-Normal, small n, or ordinal outcome |
+| Paired Samples T-Test | Same individuals measured twice | **Wilcoxon Signed-Rank Test** (paired) | Difference scores non-Normal and n < 30 |
+| One-Way ANOVA | Three or more groups, continuous outcome | **Kruskal-Wallis Test** | Non-Normal within groups or ordinal outcome |
+| Pearson's r | Linear association, two continuous variables | **Spearman's Rho (ρ)** | Skewed data, outliers, or ordinal variables |
+
+> ⚡ **Common mistake:** Many students automatically reach for non-parametric tests whenever data "looks skewed." Remember the Central Limit Theorem — with n ≥ 30 per group, parametric tests are robust to moderate non-Normality. Non-parametric tests have lower statistical power than their parametric equivalents, so switching unnecessarily increases the risk of a Type II error.
+
+**In R:**
+
+```r
+# Mann-Whitney U (independent groups)
+wilcox.test(SYSBP ~ CURSMOKE, data = fram_data)
+
+# Wilcoxon signed-rank (paired)
+wilcox.test(after, before, paired = TRUE)
+
+# Kruskal-Wallis (3+ groups)
+kruskal.test(TOTCHOL ~ EDUC, data = fram_data)
+
+# Spearman's rho
+cor.test(fram_data$AGE, fram_data$SYSBP, method = "spearman")
+```
+
 
 ---
 
@@ -279,7 +357,7 @@ The Anorexia trial is an **Experimental RCT** — the gold standard for testing 
 
 In 1948, researchers in Framingham, Massachusetts enrolled 5,209 people and asked: *what causes heart disease?*
 
-They did not know the answer. They had hypotheses — smoking, diet, stress, genetics — but no proof. What they had was a commitment to measuring carefully, following up rigorously, and applying rigorous statistical methods to what they found.
+They did not know the answer. They had hypotheses — smoking, diet, stress, genetics, but no proof. What they had was a commitment to measuring carefully, following up rigorously, and applying rigorous statistical methods to what they found.
 
 Over the next 75 years, the Framingham Heart Study produced over 3,000 publications. It established that high blood pressure damages arteries. It proved that smoking causes heart attacks. It showed that high cholesterol predicts myocardial infarction. It coined the term *risk factor*. It built the evidence base for every cardiovascular prevention guideline in use today. 
 
@@ -287,7 +365,7 @@ But observation is only half the story. Once a public health problem is identifi
 
 The statistical methods in this course are not academic exercises. They are the tools that produced that evidence. The t-tests, ANOVA, Chi-Square, regression, and Kaplan-Meier analyses in these chapters are, in their essentials, the same analyses that Framingham investigators and clinical researchers rely on every day.
 
-The participants in our teaching datasets represent real lives. When you calculate the Relative Risk of CHD for smokers, or measure the efficacy of Family Therapy, you are not solving a textbook problem. You are replicating — in miniature — the analyses that eventually convinced governments to ban smoking in public spaces, shaped modern psychiatric care, and saved millions of lives.
+The participants in our teaching datasets represent real lives. When you calculate the Relative Risk of CHD for smokers, or measure the efficacy of Family Therapy, you are not solving a textbook problem. You are replicating — in miniature, the analyses that eventually convinced governments to ban smoking in public spaces, shaped modern psychiatric care, and saved millions of lives.
 
 That is what statistics is for.
 

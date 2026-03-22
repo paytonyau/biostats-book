@@ -1,8 +1,9 @@
 # Chapter 8: Reading the Future
 ## *Correlation, Regression, and Survival Analysis*
 ---
-> **Datasets:** > 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500)
-> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72)
+> **Datasets:** 
+> 1. Framingham Heart Study teaching subset (`framingham_teaching.csv`, n = 500) — Observational
+> 2. Anorexia Clinical Trial (`anorexia` via `MASS` package, n = 72) — Experimental
 
 ---
 
@@ -26,7 +27,7 @@ Chapters 5–7 asked: *are these groups different?* This chapter asks two new qu
 1. **How are two continuous variables related?** — Correlation and regression
 2. **How do we analyse time-to-event data?** — Survival analysis
 
-Both questions are essential in health science. Does age predict blood pressure? Does a patient's baseline weight predict their final weight after therapy? And — the clinical question that defined Framingham — does smoking shorten the time to a cardiovascular event?
+Both questions are essential in health science. Does age predict blood pressure? Does a patient's baseline weight predict their final weight after therapy? And, the clinical question that defined Framingham — does smoking shorten the time to a cardiovascular event?
 
 ## Section 1: Correlation
 
@@ -98,6 +99,15 @@ In both examples, the variables are continuous ratio measurements. Neither is ce
 > **Why NOT use time-to-event variables (TIMECHD, TIMEDTH) in OLS regression?**
 > These are **censored survival data** — participants still alive at the end of follow-up have their time recorded but the true time-to-event is unknown. OLS regression ignores this censoring and produces biased, invalid estimates. The correct method for censored data is **survival analysis** (Section 3).
 
+
+```{figure} ../images/ch08_regression_annotated.png
+:name: fig-regression-annotated
+:width: 92%
+:align: center
+
+**Figure 8.4 Annotated Regression Line — AGE Predicts SYSBP.** Fitted line: ŷ = 113.4 + 0.38 × AGE. **β₀ = 113.4 mmHg** (green arrow), the predicted SYSBP when AGE = 0; this is a mathematical extrapolation beyond the data range. **β₁ = 0.38 mmHg/year** (red triangle) — each additional year of age is associated with a predicted increase of 0.38 mmHg in systolic blood pressure. The navy diamond shows the model prediction for a 60-year-old: ŷ = 136 mmHg. R² = 0.022: age explains approximately 2.2% of the variation in SYSBP.
+```
+
 ### 2.3 The Coefficient of Determination ($R^2$)
 
 > 💡 **Plain English first:** $R^2$ tells you what proportion of the variation in the outcome is explained by the predictor. $R^2 = 0.15$ means the predictor explains 15% of the variation — the other 85% is due to unmeasured factors.
@@ -138,6 +148,15 @@ The **Kaplan-Meier (KM) estimator** calculates the probability of surviving beyo
 At each event time $t$, the KM survival probability is updated:
 
 $$S(t) = S(t-1) \times \left(1 - \frac{\text{events at } t}{\text{at risk at } t}\right)$$
+
+```{figure} ../images/ch08_km_annotated.png
+:name: fig-km-annotated
+:width: 95%
+:align: center
+
+**Figure 8.3 Annotated Kaplan-Meier Survival Curves.** ① Each vertical drop marks an event (death or CHD event). ② Tick marks ( | ) on the curve indicate censored observations — patients who left the study or whose follow-up ended before the event occurred. ③ The median survival time is the point where the curve crosses S(t) = 0.50, shown here for the smoker group at approximately 2,240 days (6 years). Non-smokers did not reach median survival within the 10-year follow-up — their survival curve remains above 0.50 throughout, indicating a better prognosis.
+```
+
 
 The resulting KM curve:
 - Starts at 1.0 (everyone alive at baseline)
