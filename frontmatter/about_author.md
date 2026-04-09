@@ -1,14 +1,16 @@
 # About the Authors
 
-## Dr Payton Yau
+## Payton Yau, PhD, FHEA
 *(also known as Tung On Yau)*
 
 Dr Yau is a computational biologist whose research spans microbiology, oncology, and public health. He combines wet-lab and dry-lab expertise to analyse complex biomedical data, with published work on cancer biomarkers, transcriptomics, and epigenetics. He drove the creation of this textbook out of a methodological commitment to ensuring health science students are equipped with rigorous quantitative skills.
 
 **Academic Roles**
-* **Lecturer in Computational Biology**, Nottingham Trent University, UK (2016–Present)
-* **Associate Faculty in Health Science**, University of the People, USA (2022–Present)
-* **Research Associate**, SRUC, UK (2021–2024)
+* **Lecturer in Public Health**, (De Montfort University & Buckinghamshire New University Validated Programmes), LSST, UK (2025–Present)
+* **Lecturer in Computational Biology**, Nottingham Trent University, UK (2021–Present)
+* **Instructor in Health Science**, University of the People, USA (2022–Present)
+* **Research Associate**, SRUC(Scotland's Rural College), UK (2021–2024)
+* **Research Fellow**, Nottingham Trent University, UK (2016–2021)
 * **Research Assistant**, The Chinese University of Hong Kong, HK (2011–2014)
 
 **Education**
@@ -21,16 +23,17 @@ Bioinformatics · Computational Biology · Genomics & Metagenomics · Machine Le
 **Connect**
 * **NTU Profile:** [View Profile](https://www.ntu.ac.uk/staff-profiles/science-technology/payton-yau)
 
+
 ---
 
-## Dr Suhirthakumar Puvanendran
-*(also known as Dr S. Puvanendran or Dr kumar)*
+## Suhirthakumar Puvanendran, PhD, FHEA
 
 Dr Puvanendran is a bioinformatics researcher and Registered Nurse specialising in multi-omics integration and machine learning for early cancer detection. His dual perspective as a bedside clinician and a computational scientist grounds his conviction that quantitative literacy is not an optional skill for health graduates—it is essential clinical infrastructure.
 
 **Academic Roles**
-* **Associate Lecturer**, Birkbeck, University of London, UK (2025–Present)
-* **Lecturer**, University of West London, UK (2023–Present)
+* **Lecturer in Public Health**, (De Montfort University & Buckinghamshire New University Validated Programmes), LSST, UK (2025–Present)
+* **Associate Lecturer in Bioinformatics**, Birkbeck, University of London, UK (2025–Present)
+* **Lecturer in Bioinformatics**, University of West London, UK (2022–2024)
 
 **Education**
 * **PhD in Bioinformatics**, University of West London, UK
@@ -45,7 +48,7 @@ Cancer Genomics · Oncoinformatics · Multi-Omics Integration · Machine Learnin
 
 ---
 
-## Dr Jarunee Nualyong
+## Jarunee Nualyong, PhD
 
 
 Dr Nualyong is a psychology lecturer and consultant specialising in Cognitive Behavioural Therapy (CBT) and health psychology. Her expertise in emotion efficacy and group therapy interventions provides the crucial bridge between behavioral theory. 

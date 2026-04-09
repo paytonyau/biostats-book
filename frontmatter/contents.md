@@ -2,67 +2,75 @@
 
 ## Front Matter
 * Preface
-* Copyright and Citation
-* Dedication and Acknowledgments
+* Copyright
+* Acknowledgments
 * About the Authors
 
 ---
 
 ## Part I — Describing the World in Numbers
 
-**Chapter 1 — The Vitals of Data**
+**Chapter 1 — The Vitals of Data** 
 *Understanding Study Design and Levels of Measurement*
-Observational vs experimental design · Categorical vs continuous data · Nominal · Ordinal · Interval · Ratio · The datasets classified · Lab: Loading observational and experimental datasets in R
+Observational vs. experimental design · Categorical vs. continuous data · Nominal · Ordinal · Interval · Ratio · The datasets classified.
+**Lab:** Loading observational and experimental datasets in R and PSPP.
 
-**Chapter 2 — The Middle and the Mess**
+**Chapter 2 — The Middle and the Mess** 
 *Measures of Central Tendency and Variability*
-Mean · Median · Mode · Range · Variance · Standard deviation · Bessel's correction · Skewness · Box plots · Lab: Descriptive statistics for blood pressure and cholesterol
+Mean · Median · Mode · Range · Variance · Standard deviation · Bessel's correction · Skewness · Box plots.
+**Lab:** Descriptive statistics for blood pressure and cholesterol.
 
-**Chapter 3 — The Margin of Error**
+**Chapter 3 — The Margin of Error** 
 *Uncertainty, Sampling, and Confidence Intervals*
-Population parameters vs sample statistics · Standard error · 95% Confidence interval · Accuracy vs precision · Bias · Lab: Computing and interpreting CIs for key Framingham variables
+Population parameters vs. sample statistics · Standard error · 95% Confidence interval · Accuracy vs. precision · Bias.
+**Lab:** Computing and interpreting CIs for key Framingham variables.
 
 ---
 
 ## Part II — Testing What We Think We Know
 
-**Chapter 4 — The Laws of Chance**
+**Chapter 4 — The Laws of Chance** 
 *Probability Distributions and Normality Assessment*
-Normal distribution · Empirical Rule · Binomial · Poisson · Central Limit Theorem · Histogram · Q-Q plot · Shapiro-Wilk test · Epidemic curves · Lab: Normality assessment in PSPP and R
+Normal distribution · Empirical Rule · Binomial · Poisson · Central Limit Theorem · Histogram · Q-Q plot · Shapiro-Wilk test · Epidemic curves.
+**Lab:** Normality assessment in PSPP and R.
 
-**Chapter 5 — The Hypothesis Gamble**
+**Chapter 5 — The Hypothesis Gamble** 
 *Hypothesis Testing, P-Values, and Statistical Power*
-Sampling methods · H₀ and H₁ · P-value and its four misinterpretations · Type I and II errors · Statistical power · One-sample t-test · Lab: Is mean systolic BP different from a reference value?
+Sampling methods · H₀ and H₁ · P-value and its four misinterpretations · Type I and II errors · Statistical power · One-sample t-test.
+**Lab:** Is mean systolic BP different from a reference value?
 
-**Chapter 6 — A Tale of Two Groups**
-*Independent and Paired Samples T-Tests*
-Independent vs paired design · Levene's test · Welch's correction · Paired difference scores · Lab: Comparing blood pressure by smoking status; evaluating weight change in a clinical trial
+**Chapter 6 — A Tale of Two Groups** 
+*Independent and Paired Comparisons*
+Independent vs. paired design · Levene's test · Welch's correction · Independent and Paired t-tests · Non-parametric alternatives (Mann-Whitney U, Wilcoxon Signed-Rank).
+**Lab:** Comparing blood pressure by smoking status; evaluating weight change in a clinical trial.
 
 ---
 
 ## Part III — Comparing More Than Two Groups
 
-**Chapter 7 — Scaling Up**
+**Chapter 7 — Scaling Up** 
 *ANOVA, Chi-Square, and Categorical Comparisons*
-Multiple comparisons problem · FWER · One-way ANOVA · F-statistic · Tukey's HSD · η² · Comparing proportions · RR and RD · Chi-Square · Fisher's Exact Test · Cramér's V · Lab: Cholesterol across education groups; therapy type by weight gain; smoking × CHD association
+Multiple comparisons problem · FWER · One-way ANOVA · F-statistic · Tukey's HSD · Kruskal-Wallis · Comparing proportions · Relative Risk (RR) and Odds Ratios (OR) · Chi-Square · Fisher's Exact Test.
+**Lab:** Cholesterol across education groups; therapy type by weight gain; smoking × CHD association.
 
-**Chapter 8 — Reading the Future**
+**Chapter 8 — Reading the Future** 
 *Correlation, Regression, and Survival Analysis*
-Pearson's r · Spearman's rho · Correlation vs causation · Simple linear regression · β₀ and β₁ · R² · Regression assumptions · Kaplan-Meier curves · Log-rank test · Lab: Age predicts systolic BP; baseline weight predicts follow-up weight; survival by smoking status
+Pearson's r · Spearman's rho · Correlation vs. causation · Simple linear regression · Introduction to logistic regression · Kaplan-Meier curves · Log-rank test.
+**Lab:** Age predicts systolic BP; predicting CHD risk; survival by smoking status.
 
 ---
 
 ## Part IV — Putting It All Together
 
-**Chapter 9 — The Full Picture**
+**Chapter 9 — The Full Picture** 
 *Course Review and Examination Preparation*
-Course summary table · Key formulas · Effect size reference · Four-step test selection guide · APA reporting templates · PSPP cheat sheet · R cheat sheet · Epidemiology measures reference
+Course summary table · Key formulas · Effect size reference · Four-step test selection guide · APA reporting templates.
+**Lab:** Final review using PSPP and R cheat sheets.
 
 ---
 
-## Appendices
-* **Appendix A** — Data Dictionaries: Observational and Experimental Datasets
-* **Appendix B** — Statistical Glossary (63 terms, A–Z)
+## Data and Resources
+* **The `data/` Repository** — Access the Framingham and Anorexia datasets, alongside their complete Data Dictionaries.
 
 ## Back Matter
 * References and Further Reading

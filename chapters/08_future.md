@@ -12,28 +12,30 @@
 
 By the end of this chapter, you will be able to:
 
-- Calculate and interpret **Pearson's r** and **Spearman's rho**
-- Distinguish correlation from causation with specific examples
-- Fit and interpret a **simple linear regression** model
-- Read and construct a **Kaplan-Meier survival curve**
-- Interpret and run the **log-rank test**
-- Explain why OLS regression is not valid for censored survival data
+- Calculate and interpret **Pearson's r** and **Spearman's rho**.
+- Distinguish correlation from causation with specific clinical examples.
+- Fit and interpret a **simple linear regression** model.
+- Read and construct a **Kaplan-Meier survival curve**.
+- Interpret and run the **log-rank test**.
+- Explain why OLS regression is not valid for censored survival data.
 ````
 
 ## Before You Begin: From Groups to Relationships and Survival
 
-Chapters 5–7 asked: *are these groups different?* This chapter asks two new questions:
+Chapters 5 through 7 asked: *are these groups different?* This chapter asks two new questions:
 
-1. **How are two continuous variables related?** — Correlation and regression
-2. **How do we analyse time-to-event data?** — Survival analysis
+1. **How are two continuous variables related?** — Correlation and regression.
+2. **How do we analyse time-to-event data?** — Survival analysis.
 
-Both questions are essential in health science. Does age predict blood pressure? Does a patient's baseline weight predict their final weight after therapy? And, the clinical question that defined Framingham — does smoking shorten the time to a cardiovascular event?
+Both questions are essential in health science. Does age predict blood pressure? Does a patient's baseline weight predict their final weight after therapy? And, the clinical question that defined Framingham—does smoking shorten the time to a cardiovascular event?
+
+---
 
 ## Section 1: Correlation
 
 ### 1.1 Pearson's r
 
-> 💡 **Plain English first:** Pearson's r is a single number from −1 to +1 that captures how strongly two variables move together in a straight-line pattern.
+> 💡 **Plain English first:** Pearson's r is a single number ranging from −1 to +1 that captures how strongly two variables move together in a straight-line pattern.
 
 $$r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum(x_i-\bar{x})^2 \cdot \sum(y_i-\bar{y})^2}}$$
 
@@ -42,38 +44,40 @@ $$r = \frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sqrt{\sum(x_i-\bar{x})^2 \cdot
 :width: 85%
 :align: center
 
-**Figure 8.1** Scatterplots illustrating Pearson's r from −1.0 to +1.0. In the Framingham dataset, AGE and SYSBP would show a moderate positive correlation ($r \approx +0.3$ to $+0.4$); AGE and BMI a weak positive correlation; SYSBP and DIABP a strong positive correlation (both measure blood pressure in the same patient).
+**Figure 8.1** Scatterplots illustrating Pearson's r from −1.0 to +1.0. In the Framingham dataset, AGE and SYSBP would show a moderate positive correlation (r ≈ +0.3 to +0.4); AGE and BMI a weak positive correlation; SYSBP and DIABP a strong positive correlation (both measure blood pressure in the same patient).
 ```
 
 **Framingham examples:**
-- AGE vs SYSBP: moderate positive r — older participants tend to have higher systolic BP.
-- SYSBP vs DIABP: strong positive r — they are two measures from the same cardiovascular system.
-- TOTCHOL vs BMI: weak to moderate positive r — higher body weight is associated with higher cholesterol, but the relationship is noisy.
+- **AGE vs SYSBP:** Moderate positive r — older participants tend to have higher systolic blood pressure.
+- **SYSBP vs DIABP:** Strong positive r — they are two measures from the same cardiovascular system.
+- **TOTCHOL vs BMI:** Weak to moderate positive r — higher body weight is associated with higher cholesterol, but the relationship is noisy.
 
 **Assumptions of Pearson's r:**
-- Both variables continuous (interval or ratio)
-- Linear relationship — check with scatterplot
-- Approximate bivariate Normality
-- No severe outliers
+- Both variables are continuous (interval or ratio).
+- There is a linear relationship (always check with a scatterplot first).
+- Approximate bivariate Normality.
+- No severe outliers.
 
 ### 1.2 Spearman's Rho
 
-**Spearman's rho (ρ)** correlates the *ranks* of variables rather than raw values. Use when:
-- Data is ordinal (e.g., `EDUC`)
-- Data is continuous but skewed (e.g., `CIGPDAY`)
-- Outliers are present
+**Spearman's rho ($\rho$)** correlates the *ranks* of variables rather than their raw mathematical values. Use it when:
+- Data is ordinal (e.g., `EDUC`).
+- Data is continuous but heavily skewed (e.g., `CIGPDAY` — cigarettes per day).
+- Severe outliers are present.
 
 ### 1.3 Correlation Is Not Causation
 
-> A large, significant r does not prove causation. Three alternative explanations always exist.
+> A large, statistically significant r does not prove causation. Three alternative explanations always exist.
 
-| Explanation | Framingham example |
+| Explanation | Framingham Example |
 |---|---|
-| **Confounding** | AGE correlates with both SYSBP and TOTCHOL — age confounds a BP–cholesterol correlation |
-| **Reverse causation** | Does high BP cause high BMI, or high BMI cause high BP? |
-| **Coincidence** | In large datasets, spurious correlations appear by chance |
+| **Confounding** | AGE correlates with both SYSBP and TOTCHOL — age is a confounding variable driving a spurious BP–cholesterol correlation. |
+| **Reverse Causation** | Does high blood pressure cause high BMI, or does high BMI cause high blood pressure? |
+| **Coincidence** | In large datasets, completely unrelated variables will occasionally correlate by pure mathematical chance. |
 
-The Framingham Study was longitudinal — participants were followed over time, and risk factors were measured *before* outcomes occurred. This temporal ordering (exposure before disease) is necessary but not sufficient for causal inference. Confounding by unmeasured variables remains possible.
+The Framingham Study was longitudinal—participants were followed over time, and risk factors were measured *before* outcomes occurred. This temporal ordering (exposure before disease) is necessary, but still not sufficient, for causal inference. Confounding by unmeasured variables is always a risk in observational epidemiology.
+
+---
 
 ## Section 2: Simple Linear Regression
 
@@ -82,23 +86,24 @@ The Framingham Study was longitudinal — participants were followed over time, 
 $$\hat{y} = \beta_0 + \beta_1 x$$
 
 **Framingham example:** Does age predict systolic blood pressure?
-- $x$ = AGE (predictor)
-- $\hat{y}$ = predicted SYSBP (outcome)
-- $\beta_0$ = predicted SYSBP when AGE = 0 (mathematically necessary but not clinically interpretable here)
-- $\beta_1$ = change in predicted SYSBP for each additional year of age
+- $x$ = AGE (The predictor / independent variable)
+- $\hat{y}$ = Predicted SYSBP (The outcome / dependent variable)
+- $\beta_0$ = The intercept (Predicted SYSBP when AGE = 0)
+- $\beta_1$ = The slope (Change in predicted SYSBP for each additional year of age)
 
-If $\beta_1 = 0.6$, this means: each additional year of age is associated with a predicted increase of 0.6 mmHg in systolic BP.
+If $\beta_1 = 0.6$, this means: *Each additional year of age is associated with a predicted increase of 0.6 mmHg in systolic blood pressure.*
+
+> ⚡ **The Danger of Extrapolation:** $\beta_0$ tells us the predicted blood pressure for a 0-year-old (a newborn). However, the youngest person in the Framingham cohort is 32. Using a regression model to predict outcomes for values outside the original data range is called **extrapolation**. It is highly dangerous and often produces biologically impossible numbers. 
 
 **Anorexia Trial example:** Does a patient's weight before treatment (`Prewt`) predict their final weight after treatment (`Postwt`)? 
-Here, we can fit a regression line to see if heavier patients at baseline remain heavier at follow-up, or if the therapy equalizes outcomes.
+Here, we can fit a regression line to see if heavier patients at baseline remain heavier at follow-up, or if the therapy equalizes their outcomes.
 
 ### 2.2 Why Use AGE → SYSBP or Prewt → Postwt for Regression?
 
-In both examples, the variables are continuous ratio measurements. Neither is censored. OLS regression is fully valid.
+In both examples above, the variables are continuous ratio measurements. Neither is censored. OLS (Ordinary Least Squares) regression is fully valid.
 
-> **Why NOT use time-to-event variables (TIMECHD, TIMEDTH) in OLS regression?**
-> These are **censored survival data** — participants still alive at the end of follow-up have their time recorded but the true time-to-event is unknown. OLS regression ignores this censoring and produces biased, invalid estimates. The correct method for censored data is **survival analysis** (Section 3).
-
+> **Why NOT use time-to-event variables (TIMEDTH) in OLS regression?**
+> These are **censored survival data**. Participants who are still alive at the end of the 10-year follow-up have their time recorded as 3,650 days, but their *true* time-to-death is unknown. OLS regression ignores this censoring, treating 3,650 as the actual time of death, which produces severely biased estimates. The correct method for censored data is **survival analysis** (Section 3).
 
 ```{figure} ../images/ch08_regression_annotated.png
 :name: fig-regression-annotated
@@ -110,9 +115,9 @@ In both examples, the variables are continuous ratio measurements. Neither is ce
 
 ### 2.3 The Coefficient of Determination ($R^2$)
 
-> 💡 **Plain English first:** $R^2$ tells you what proportion of the variation in the outcome is explained by the predictor. $R^2 = 0.15$ means the predictor explains 15% of the variation — the other 85% is due to unmeasured factors.
+> 💡 **Plain English first:** $R^2$ tells you what proportion of the variation in the outcome is explained by your predictor. $R^2 = 0.15$ means your predictor explains 15% of the variation—the other 85% is due to unmeasured factors and biological noise.
 >
-> ⚡ **Common mistake:** $r$ and $R^2$ are different. $r = 0.39$ describes *direction and strength*. $R^2 = 0.15$ describes the *proportion of variance explained*. Students frequently confuse the two.
+> ⚡ **Common mistake:** Pearson's $r$ and $R^2$ are different. Pearson's $r$ can be negative (showing a downward slope). $R^2$ is strictly a positive proportion (ranging from 0 to 1, or 0% to 100%). 
 
 $$R^2 = r^2 \text{ (for simple linear regression)}$$
 
@@ -126,24 +131,26 @@ $$R^2 = r^2 \text{ (for simple linear regression)}$$
 **Figure 8.2** Regression diagnostic plots. Residuals vs Fitted: check for patterns (linearity, homoscedasticity). Q-Q plot of residuals: check Normality. Both are produced by `plot(model)` in R.
 ```
 
-| Assumption | Diagnostic |
+| Assumption | Diagnostic Tool |
 |---|---|
-| **Linearity** | Scatterplot; Residuals vs Fitted (no pattern = good) |
-| **Independence** | Design-level |
-| **Homoscedasticity** | Residuals vs Fitted (uniform spread) |
-| **Normal residuals** | Q-Q plot of residuals |
+| **Linearity** | Scatterplot; Residuals vs Fitted plot (no distinct pattern = good) |
+| **Independence** | Verified by study design |
+| **Homoscedasticity** | Residuals vs Fitted plot (requires an even, uniform spread of points) |
+| **Normal residuals** | Q-Q plot of residuals (points should hug the diagonal line) |
+
+---
 
 ## Section 3: Survival Analysis
 
 ### 3.1 Why Survival Analysis?
 
-The Framingham dataset contains `TIMEDTH` (days to death) and `DEATH` (0/1 indicator). Participants who were still alive at the end of follow-up have their time recorded, but their true time-to-death is unknown — they are **censored observations**.
+The Framingham dataset contains `TIMEDTH` (days to death) and `DEATH` (0/1 indicator). Participants who were still alive at the end of follow-up have their time recorded, but their true time-to-death is unknown—they are **censored observations**.
 
-OLS regression ignores censoring and underestimates true survival times. Survival analysis handles this correctly.
+Survival analysis uses specialized mathematics to handle this correctly, allowing us to use the data from patients who survived the entire study without skewing our averages.
 
 ### 3.2 The Kaplan-Meier Curve
 
-The **Kaplan-Meier (KM) estimator** calculates the probability of surviving beyond each time point, accounting for censoring.
+The **Kaplan-Meier (KM) estimator** calculates the probability of surviving beyond each specific time point, properly accounting for censoring.
 
 At each event time $t$, the KM survival probability is updated:
 
@@ -154,33 +161,34 @@ $$S(t) = S(t-1) \times \left(1 - \frac{\text{events at } t}{\text{at risk at } t
 :width: 95%
 :align: center
 
-**Figure 8.3 Annotated Kaplan-Meier Survival Curves.** ① Each vertical drop marks an event (death or CHD event). ② Tick marks ( | ) on the curve indicate censored observations — patients who left the study or whose follow-up ended before the event occurred. ③ The median survival time is the point where the curve crosses S(t) = 0.50, shown here for the smoker group at approximately 2,240 days (6 years). Non-smokers did not reach median survival within the 10-year follow-up — their survival curve remains above 0.50 throughout, indicating a better prognosis.
+**Figure 8.3 Annotated Kaplan-Meier Survival Curves.** ① Each vertical drop marks an event (death). ② Tick marks ( | ) on the curve indicate censored observations — patients who left the study or whose follow-up ended before the event occurred. ③ The median survival time is the point where the curve crosses S(t) = 0.50, shown here for the smoker group at approximately 2,240 days. Non-smokers did not reach median survival within the follow-up — their survival curve remains above 0.50 throughout, indicating a better prognosis.
 ```
 
-
 The resulting KM curve:
-- Starts at 1.0 (everyone alive at baseline)
-- Steps downward at each death event
-- Remains flat when only censored observations occur
-- The **median survival time** is the point where the curve crosses 0.50
+- Starts at 1.0 (everyone is alive at baseline).
+- Steps downward only when a death event occurs.
+- Remains flat (with a vertical tick mark) when a censored observation occurs.
+- The **median survival time** is the exact point on the X-axis where the curve drops below 0.50 on the Y-axis.
 
 ### 3.3 The Log-Rank Test
 
-The **log-rank test** compares KM curves between two or more groups.
+The **log-rank test** formally compares Kaplan-Meier curves between two or more groups.
 
-**Framingham research question:** Does survival time differ between smokers and non-smokers?
+**Framingham research question:** Does overall survival time differ between smokers and non-smokers?
 
-- H₀: The survival curves for smokers and non-smokers are identical
-- H₁: The survival curves differ
+- $H_0:$ The survival curves for smokers and non-smokers are identical.
+- $H_1:$ The survival curves differ.
 
-A significant log-rank test (p < 0.05) means the two groups have statistically different survival experiences. Combined with the KM plot, this provides both the statistical test and the visual comparison.
+A significant log-rank test ($p < 0.05$) means the two groups have statistically different survival experiences. Combined with the KM plot, this provides both the statistical evidence and the visual clinical context.
+
+---
 
 ## 🔬 Lab Manual — Chapter 8
 
 ### Objective
-Part 1: Correlation and regression — does AGE predict SYSBP? (Framingham)
-Part 2: Regression — does baseline weight predict final weight? (Anorexia)
-Part 3: Survival analysis — do smokers and non-smokers have different all-cause survival? (Framingham)
+**Part 1:** Correlation and regression — does AGE predict SYSBP? (Framingham)
+**Part 2:** Regression — does baseline weight predict final weight? (Anorexia)
+**Part 3:** Survival analysis — do smokers and non-smokers have different all-cause survival? (Framingham)
 
 ### Option A — PSPP
 
@@ -196,6 +204,8 @@ Part 3: Survival analysis — do smokers and non-smokers have different all-caus
 # -------------------------------------------------------
 
 fram_data <- read.csv("data/framingham_teaching.csv")
+
+# The survival package comes pre-installed with R, but must be loaded
 library(survival)
 
 # ══ Part 1: Correlation (Framingham) ═════════════════
@@ -209,7 +219,7 @@ plot(fram_data$AGE, fram_data$SYSBP,
 # Pearson's r
 cor.test(fram_data$AGE, fram_data$SYSBP, method = "pearson")
 
-# Spearman's rho (for CIGPDAY — skewed)
+# Spearman's rho (for CIGPDAY — heavily skewed)
 cor.test(fram_data$CIGPDAY, fram_data$TOTCHOL, method = "spearman")
 
 # Correlation matrix
@@ -221,7 +231,7 @@ cor(fram_data[, c("AGE","SYSBP","DIABP","TOTCHOL","BMI","GLUCOSE")],
 model <- lm(SYSBP ~ AGE, data = fram_data)
 summary(model)
 
-# Coefficients and CI
+# Coefficients and Confidence Intervals
 cat("Intercept (β₀):", round(coef(model)[1], 3), "\n")
 cat("Slope (β₁):    ", round(coef(model)[2], 3), "mmHg/year\n")
 cat("R-squared (R²):", round(summary(model)$r.squared, 4), "\n")
@@ -279,17 +289,19 @@ cat("Log-rank p-value:", round(1 - pchisq(logrank_test$chisq, df=1), 4), "\n")
 ```
 
 **What to examine:**
-- **Regression (Framingham):** What is β₁? For each year of age, how much does predicted SYSBP increase? 
+- **Regression (Framingham):** What is the slope ($\beta_1$)? For each year of age, how much does predicted SYSBP increase? 
 - **Regression (Anorexia):** Look at the $R^2$ value for `model_wt`. What percentage of the variance in a patient's final weight is explained simply by how much they weighed at the start of the trial?
-- **Diagnostic plots:** Do residuals show a pattern? Is the Q-Q plot approximately diagonal?
-- **KM curves:** Do smokers' survival curves separate from non-smokers' over time? Which group has lower median survival?
-- **Log-rank test:** Is p < 0.05? Does smoking significantly reduce survival?
+- **Diagnostic plots:** Do the residuals show a pattern? Is the Q-Q plot approximately diagonal?
+- **KM curves:** Do the smokers' survival curves separate from non-smokers' over time? Which group has the lower median survival?
+- **Log-rank test:** Is $p < 0.05$? Does smoking significantly reduce survival?
+
+---
 
 ### 🧪 Test Your Knowledge
 
-**(a)** Run a regression with `TOTCHOL` as outcome and `AGE` as predictor. Write the regression equation and predict TOTCHOL for a 60-year-old.
+**(a)** Run a regression with `TOTCHOL` as the outcome and `AGE` as the predictor. Write the regression equation and predict TOTCHOL for a 60-year-old.
 
-**(b)** Run KM analysis comparing survival between those with CHD at baseline (`PREVCHD=1`) and those without. State H₀ and H₁ for the log-rank test, run it, and interpret.
+**(b)** Run a KM analysis comparing survival between those with prevalent CHD at baseline (`PREVCHD=1`) and those without. State $H_0$ and $H_1$ for the log-rank test, run it, and interpret the outcome.
 
 ````{dropdown} Show Solution
 ```r
@@ -326,41 +338,39 @@ print(lr2)
 
 | Term | Definition |
 |---|---|
-| **Pearson's r** | Strength and direction of linear association (−1 to +1). Sensitive to outliers. |
-| **Spearman's rho** | Rank-based correlation. Use for skewed or ordinal data. |
-| **Simple linear regression** | Models ŷ = β₀ + β₁x. β₁ = change in y per unit increase in x. |
-| **R² (R-squared)** | Proportion of variance in y explained by x. R² = r² for simple linear regression with one predictor. |
-| **Censored observation** | Participant whose event has not yet occurred by end of follow-up. Time recorded but outcome unknown. |
-| **Kaplan-Meier estimator** | Non-parametric estimate of survival probability over time, correctly handling censoring. |
-| **Log-rank test** | Compares KM survival curves between groups. H₀ = curves are identical. |
+| **Pearson's r** | Strength and direction of a linear association (−1 to +1). Sensitive to outliers. |
+| **Spearman's rho ($\rho$)** | Rank-based correlation. Use for heavily skewed or ordinal data. |
+| **Extrapolation** | Dangerously using a regression model to predict outcomes outside the range of the observed data. |
+| **Simple linear regression** | Models $\hat{y} = \beta_0 + \beta_1x$. $\beta_1$ = the change in $y$ per unit increase in $x$. |
+| **$R^2$ (R-squared)** | The proportion of variance in $y$ explained by $x$ (bounded between 0 and 1). |
+| **Censored observation** | A participant whose event has not yet occurred by the end of follow-up. Time is recorded, but the true outcome time is unknown. |
+| **Kaplan-Meier estimator** | A non-parametric estimate of survival probability over time that correctly handles censored data. |
+| **Log-rank test** | Compares KM survival curves between groups. $H_0$ = curves are identical. |
 
 ## Review Questions
 
-1. Run `cor.test(fram_data$AGE, fram_data$SYSBP)` in R. Report r, p-value, and 95% CI. Write a one-paragraph interpretation including correlation vs causation.
-
-2. Fit `lm(SYSBP ~ AGE)`. Write the regression equation. Predict SYSBP for participants aged 40 and 65. Is it valid to predict for a participant aged 25? Explain.
-
+1. Run `cor.test(fram_data$AGE, fram_data$SYSBP)` in R. Report r, the p-value, and the 95% CI. Write a one-paragraph interpretation including the difference between correlation and causation.
+2. Fit `lm(SYSBP ~ AGE)`. Write the regression equation. Predict SYSBP for participants aged 40 and 65. Is it valid to predict for a participant aged 25? Explain using the concept of extrapolation.
 3. Using the Anorexia dataset, look at the output of `lm(Postwt ~ Prewt)`. If a patient weighed 85 lbs at baseline, what is their predicted weight at follow-up based on this model?
-
-4. Explain why OLS regression (`lm(TIMEDTH ~ CURSMOKE)`) would give a biased, invalid answer for the question "does smoking reduce survival time?" What is the correct method?
-
-5. Run the KM analysis comparing survival by smoking status. Describe the curves: which group has worse survival? What is the approximate median survival time for each group?
-
-6. The log-rank test returns $\chi^2(1) = 3.8$, $p = 0.051$. Interpret this result. At $\alpha = 0.05$, what do you conclude? What would a power analysis suggest about this result?
+4. Explain why OLS regression (`lm(TIMEDTH ~ CURSMOKE)`) would give a biased, invalid answer for the question "does smoking reduce survival time?" What is the correct statistical method to use?
+5. Run the KM analysis comparing survival by smoking status. Describe the visual curves: which group has worse survival? What is the approximate median survival time for each group?
+6. The log-rank test returns $\chi^2(1) = 3.8$, $p = 0.051$. Interpret this result. At $\alpha = 0.05$, what do you conclude? What would a statistical power analysis suggest about this borderline result?
 
 ````{admonition} Key Takeaways
 :class: tip
 
-- **Pearson's r** (−1 to +1): strength and direction of linear association.
-- **Spearman's rho**: use for skewed data (CIGPDAY) or ordinal variables (EDUC).
-- **Regression** $\hat{y} = \beta_0 + \beta_1x$: $\beta_1$ = change in $y$ per unit $x$. $R^2$ = proportion of variance explained.
-- **Do NOT use OLS on censored survival data** — use Kaplan-Meier + log-rank test.
-- **KM curve**: steps down at each death; median survival = time where curve crosses 0.50.
-- **Log-rank test**: tests whether two KM curves are statistically different.
+- **Pearson's r** (−1 to +1): measures the strength and direction of a linear association.
+- **Spearman's rho ($\rho$)**: use for skewed continuous data or ordinal variables.
+- **Regression:** $\hat{y} = \beta_0 + \beta_1x$. $\beta_1$ = change in $y$ per unit of $x$. $R^2$ = proportion of variance explained.
+- **Do NOT use OLS regression on censored survival data** — use the Kaplan-Meier estimator + log-rank test.
+- **KM curve**: steps down at each death; median survival = the time where the curve crosses 0.50.
+- **Log-rank test**: formally tests whether two KM curves are statistically different from one another.
 ````
 
 *Next: **Chapter 9 — The Full Picture** consolidates all methods and provides examination preparation.*
 
 ---
+
+
 
 > Part III — Comparing More Than Two Groups

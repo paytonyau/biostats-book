@@ -84,8 +84,22 @@ biostats-book/
 
 This textbook is released under the [Creative Commons Attribution 4.0 International (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/) licence. You are free to share and adapt the material for any purpose, provided appropriate credit is given.
 
-**Citation:**
-> Payton Yau, Suhirthakumar Puvanendran, and Jarunee Nualyong. (2026). *A Little Bit of Everything in Biostatistics for Health Science Students*. Published online at: https://paytonyau.github.io/biostats-book
+## How to Cite This Book
+
+If you use this book in your teaching, research, or studies, please cite it using the following format:
+
+**Plain Text (APA):**
+> Yau, P., Puvanendran, S., & Nualyong, J. (2026). *A Little Bit of Everything in Biostatistics for Health Science Students*. Published online at: https://paytonyau.github.io/biostats-book
+
+**BibTeX:**
+```bibtex
+@book{yau2026biostatistics,
+  title     = {A Little Bit of Everything in Biostatistics for Health Science Students},
+  author    = {Yau, Payton and Puvanendran, Suhirthakumar and Nualyong, Jarunee},
+  year      = {2026},
+  url       = {[https://paytonyau.github.io/biostats-book](https://paytonyau.github.io/biostats-book)},
+  note      = {Published online}
+}
 
 ---
 

@@ -10,26 +10,29 @@
 
 By the end of this chapter, you will be able to:
 
-- Distinguish between a **population parameter** and a **sample statistic**
-- Calculate the **standard error** of the mean
-- Construct and correctly interpret a **95% confidence interval**
-- Distinguish **random error** from **systematic bias**
+- Distinguish between a **population parameter** and a **sample statistic**.
+- Calculate the **standard error** of the mean.
+- Construct and correctly interpret a **95% confidence interval**.
+- Distinguish **random error** from **systematic bias**.
 ```
 
 ## Before You Begin: From Description to Inference
 
-Chapter 2 described our 500 Framingham participants. The scientific goal is broader: to use this sample to draw conclusions about the wider population — all middle-aged Americans of that era, and by extension, populations at cardiovascular risk today.
+Chapter 2 described our 500 Framingham participants. But the scientific goal is broader: to use this specific sample to draw conclusions about the wider population — all middle-aged Americans of that era, and by extension, populations at cardiovascular risk today.
 
-This is the shift from **descriptive** to **inferential** statistics. It requires accepting one fact: **every sample statistic carries uncertainty.** This chapter gives you the tools to quantify that uncertainty: the **standard error** and the **confidence interval**.
+This is the shift from **descriptive** to **inferential** statistics. It requires accepting one fundamental fact: **every sample statistic carries uncertainty.** This chapter gives you the mathematical tools to quantify that uncertainty: the **standard error** and the **confidence interval**.
+
+---
 
 ## Section 1: Populations and Samples
+
 ### 1.1 Key Definitions
 
-- **Population parameter** — the true value for the entire population (e.g., the true mean systolic BP of all middle-aged Americans in the 1950s). Denoted $\mu$ (mean) and $\sigma$ (SD).
-- **Sample statistic** — the value calculated from our specific 500 participants. Denoted $\bar{x}$ and $s$.
-- **Sampling error** — the inevitable, random difference between a sample statistic and the population parameter it estimates. Not a mistake — a mathematical certainty.
+- **Population parameter** — the true, exact value for the entire population (e.g., the true mean systolic BP of all middle-aged Americans in the 1950s). Denoted by Greek letters like $\mu$ (mean) and $\sigma$ (standard deviation).
+- **Sample statistic** — the value calculated from our specific 500 participants. Denoted by Roman letters like $\bar{x}$ (mean) and $s$ (standard deviation).
+- **Sampling error** — the inevitable, random difference between a sample statistic and the true population parameter it is trying to estimate. This is not a mistake — it is a mathematical certainty of taking a sample.
 
-Our 500 participants are a sample. Their mean SYSBP ($\bar{x}$) estimates the population mean ($\mu$), but $\bar{x} \neq \mu$ exactly. How far off might it be? The standard error answers this.
+Our 500 participants are a sample. Their mean SYSBP ($\bar{x}$) is our best estimate of the population mean ($\mu$), but we know $\bar{x} \neq \mu$ exactly. How far off might our estimate be? The standard error answers this.
 
 ### 1.2 Accuracy vs Precision
 
@@ -41,46 +44,53 @@ Our 500 participants are a sample. Their mean SYSBP ($\bar{x}$) estimates the po
 **Figure 3.1** Accuracy vs precision illustrated with target diagrams. High precision with low accuracy (systematic bias) is more dangerous than low precision alone — it produces confident, reproducible, and consistently wrong results. In epidemiology, a miscalibrated blood pressure cuff produces this pattern.
 ```
 
-**Framingham example:** If the blood pressure cuffs used in the 1950s Framingham exams were systematically over-reading by 5 mmHg (a calibration error), every measurement would be precise but inaccurate. A larger sample would not fix this — it would just give a more precisely wrong answer.
+**Framingham example:** If the blood pressure cuffs used in the 1950s Framingham exams were systematically over-reading by 5 mmHg (a calibration error), every measurement would be highly *precise* (tightly clustered) but completely *inaccurate* (missing the true bullseye). A larger sample size would not fix this — it would just give you a more precisely wrong answer.
+
+---
 
 ## Section 2: The Standard Error
 
 ### 2.1 Standard Deviation vs Standard Error
 
-> 💡 **Plain English first:** If you drew 100 different samples of 500 Framingham participants, each would give a slightly different mean SYSBP. The SE measures how much those sample means typically vary — it is the standard deviation *of the sampling distribution of the mean*.
+> 💡 **Plain English first:** If you drew 100 different random samples of 500 Framingham participants, each sample would give you a slightly different mean SYSBP. The Standard Error (SE) measures how much those sample means typically vary from one another. It is literally the standard deviation *of the sample means*.
 
 | Statistic | What it measures | Formula |
 |---|---|---|
-| SD ($s$) | Spread of individual observations | $s = \sqrt{\frac{\sum(x_i-\bar{x})^2}{n-1}}$ |
-| SE | Precision of the sample mean | $SE = \frac{s}{\sqrt{n}}$ |
+| **Standard Deviation (s)** | The spread of *individual* observations within a single sample. | $$s = \sqrt{\frac{\sum(x_i-\bar{x})^2}{n-1}}$$ |
+| **Standard Error (SE)** | The precision of the *sample mean* as an estimate. | $$SE = \frac{s}{\sqrt{n}}$$ |
 
 **Worked example — SYSBP:**
-- $\bar{x}$ = 131.6 mmHg
-- $s$ = 21.9 mmHg
-- $n$ = 500
+- Mean ($\bar{x}$) = 131.6 mmHg
+- Standard Deviation (s) = 21.9 mmHg
+- Sample Size (n) = 500
 
 $$SE = \frac{21.9}{\sqrt{500}} = \frac{21.9}{22.36} \approx 0.98 \text{ mmHg}$$
 
-Our sample mean of 131.6 mmHg estimates the population mean, and we expect that estimate to be off by about 1 mmHg on average.
+Our sample mean of 131.6 mmHg estimates the true population mean, and we expect that estimate to be off by about 1 mmHg on average due to random sampling error.
 
 ```{figure} ../images/ch03_sample_size_se.png
 :name: fig-se
 :width: 80%
 :align: center
 
-**Figure 3.2** The relationship between sample size and standard error. The Framingham study's large sample (here $n=500$) yields a very small SE, the mean blood pressure estimate is highly precise. Halving the sample to 250 would increase SE by a factor of $\sqrt{2} \approx 1.41$, not by double.
+**Figure 3.2** The relationship between sample size and standard error. The Framingham study's large sample (here n = 500) yields a very small SE; the mean blood pressure estimate is highly precise. Halving the sample to 250 would increase the SE by a factor of $\sqrt{2} \approx 1.41$, not by double.
 ```
 
-> **Key relationship:** SE = s/√n. To halve the SE, you must quadruple n. This has major implications for clinical trial design — precision is expensive.
+> **Key relationship:** SE = s / √n. Because of the square root, to halve your Standard Error, you must *quadruple* your sample size. This mathematical reality has major implications for clinical trial design — buying precision is very expensive.
+
+---
 
 ## Section 3: The 95% Confidence Interval
 
 ### 3.1 Construction
 
+To build a 95% Confidence Interval (CI), we take our sample mean and add/subtract a margin of error. For large samples (n ≥ 30), we use the multiplier 1.96 (derived from the Normal distribution).
+
 $$95\% \text{ CI} = \bar{x} \pm 1.96 \times SE$$
 
 **Worked example — mean SYSBP:**
-$$95\% \text{ CI} = 131.6 \pm 1.96 \times 0.98 = 131.6 \pm 1.92$$
+$$95\% \text{ CI} = 131.6 \pm (1.96 \times 0.98)$$
+$$95\% \text{ CI} = 131.6 \pm 1.92$$
 $$= [129.7 \text{ mmHg}, 133.5 \text{ mmHg}]$$
 
 ### 3.2 Correct Interpretation
@@ -89,34 +99,31 @@ We are 95% confident that the true mean systolic blood pressure in the populatio
 
 > ⚡ **Common mistake — the two most frequent CI misinterpretations:**
 >
-> ❌ "There is a 95% probability the true mean lies in this interval."
-> ✅ The 95% refers to the *procedure* — 95% of intervals constructed this way will contain the true mean. This specific interval either contains it or does not.
->
-> ❌ "95% of individual participants have SYSBP between 129.7 and 133.5 mmHg."
-> ✅ The CI is about the *mean*, not about individuals. The range of individual SYBPs is much wider (86–228 mmHg in our dataset).
+> ❌ *"There is a 95% probability that the true mean lies in this interval."*
+> ✅ The 95% refers to the *procedure*. If we repeated this study 100 times, 95 of the intervals we created would successfully capture the true population mean. This specific interval (129.7 to 133.5) either contains the true mean (100% probability) or it doesn't (0% probability).
+> 
+> ❌ *"95% of individual participants have a SYSBP between 129.7 and 133.5 mmHg."*
+> ✅ The CI is about the precision of the *mean*, not about the spread of *individuals*. The range of individual blood pressures in our dataset is vastly wider (83.5 to 228.0 mmHg).
 
 ### 3.3 What Affects CI Width?
 
-| Factor | Effect on CI | Clinical implication |
+| Factor | Effect on CI | Clinical Implication |
 |---|---|---|
-| Larger n | Narrower | The Framingham study's long run produced very narrow CIs |
-| Smaller SD | Narrower | More homogeneous population → more precise estimate |
-| 99% vs 95% confidence | Wider | More certainty requires a wider net |
+| **Larger sample size (n)** | Narrower | The Framingham study's massive cohort produced incredibly narrow, precise CIs. |
+| **Smaller SD (s)** | Narrower | A more biologically homogeneous population yields a more precise mean estimate. |
+| **99% vs 95% confidence** | Wider | If you want to be *more* certain you caught the true mean, you must cast a *wider* net. |
 
 ### 3.4 Bias: What a CI Cannot Fix
 
-A CI quantifies **random error** — unavoidable sampling variation. It cannot fix **systematic bias**, a consistent, directional error in data collection.
+A Confidence Interval only quantifies **random error** (unavoidable sampling variation). It cannot fix **systematic bias** (a consistent, directional error in how data was collected).
 
-| Error type | Cause | Fixed by more data? | Example |
+| Error Type | Cause | Fixed by a larger sample? | Example |
 |---|---|---|---|
-| Random error | Sampling variation | ✓ Yes — larger n shrinks SE | Different nurses get slightly different BP readings |
-| Selection bias | Unrepresentative sample | ✗ No | Framingham enrolled only White participants |
-| Information bias | Systematic mismeasurement | ✗ No | Miscalibrated BP cuff over-reads by 5 mmHg consistently |
+| **Random error** | Sampling variation | ✓ Yes (SE shrinks) | Different nurses get slightly different BP readings by chance. |
+| **Selection bias** | Unrepresentative sample | ✗ No | The original Framingham cohort enrolled only White participants. |
+| **Information bias**| Systematic mismeasurement| ✗ No | A miscalibrated blood pressure cuff over-reads by 5 mmHg for everyone. |
 
-**Information bias** is a specific form of systematic error where the measurement of exposure or outcome is systematically wrong. In the Framingham study, if participants under-reported cigarettes per day (social desirability bias), the true smoking–CHD association would be underestimated. No sample size correction can fix a recording error that happens for every participant.
-
-**Epidemiological example:** The Framingham cohort was almost entirely White, drawn from one Massachusetts town. The mean SYSBP may be a precise estimate of *this population* whilst being a biased estimate of the broader American — let alone global — population. No amount of additional Framingham participants can fix selection bias.
-
+**Epidemiological example:** The original Framingham cohort was almost entirely White, drawn from one specific Massachusetts town. The mean SYSBP we calculate may be an incredibly precise estimate of *this specific population* while simultaneously being a heavily biased estimate of the broader American population. No amount of additional Framingham participants can fix that selection bias.
 
 ```{figure} ../images/ch03_ci_coverage.png
 :name: fig-ci-coverage
@@ -126,17 +133,19 @@ A CI quantifies **random error** — unavoidable sampling variation. It cannot f
 **Figure 3.3 What '95% Confident' Really Means — CI Coverage Diagram.** Twenty independent samples of n = 40 drawn from the Framingham SYSBP data. Each horizontal line is one 95% CI; the dot marks the sample mean. Blue intervals capture the true mean (red line); red intervals miss it. Over many repetitions, approximately 95% of such intervals will contain μ, but any single interval either does or does not.
 ```
 
+---
+
 ## 🔬 Lab Manual — Chapter 3
 
 ### Objective
-Calculate the SE and 95% CI for mean SYSBP and mean TOTCHOL. Compare CI widths and interpret the results.
+Calculate the Standard Error and 95% Confidence Interval for mean `SYSBP` and `TOTCHOL`. Compare the CI widths and interpret the results.
 
 ### Option A — PSPP
 
-1. Open `framingham_study.sav`.
+1. Open `framingham_teaching.csv`.
 2. **Analyze → Compare Means → One-Sample T Test**.
 3. Move `SYSBP` and `TOTCHOL` to the Test Variables box. Set Test Value = 0.
-4. Click **OK**, the CI appears in the output table.
+4. Click **OK**. The 95% Confidence Interval will appear in the final output table.
 
 ### Option B — R / RStudio
 
@@ -158,9 +167,13 @@ CI_upper <- x_bar + 1.96 * SE
 
 cat("SYSBP: mean =", round(x_bar,2), "| SD =", round(s,2),
     "| SE =", round(SE,3), "\n")
-cat("95% CI: [", round(CI_lower,2), ",", round(CI_upper,2), "] mmHg\n")
+cat("Manual 95% CI: [", round(CI_lower,2), ",", round(CI_upper,2), "] mmHg\n")
 
-# ── Using t.test() — more accurate for any sample size ──
+# ── Using t.test() — the standard R method ────────────
+# Note: t.test() uses the exact T-distribution multiplier (e.g., 1.964) 
+# instead of the rounded 1.96 Normal multiplier, so its CI will be 
+# a tiny fraction wider than our manual calculation above. This is normal!
+
 t.test(fram_data$SYSBP)
 t.test(fram_data$TOTCHOL)
 
@@ -172,20 +185,25 @@ ci_chol  <- t.test(fram_data$TOTCHOL)$conf.int
 cat("SYSBP CI width:  ", round(diff(ci_sysbp), 3), "mmHg\n")
 cat("TOTCHOL CI width:", round(diff(ci_chol),  3), "mg/dL\n")
 
-# ── CI for SYSBP by smoking group ─────────────────────
+# ── CI for SYSBP separated by smoking group ───────────
 by(fram_data$SYSBP,
    factor(fram_data$CURSMOKE, labels=c("Non-smoker","Smoker")),
    function(x) t.test(x)$conf.int)
 ```
 
+---
+
 ### 🧪 Test Your Knowledge
 
-A clinician reads your report and says: "Your 95% CI for mean SYSBP is [129.7, 133.5] mmHg. That means 95% of your participants have blood pressure in that range." **(a)** Identify the error. **(b)** Write the correct interpretation. **(c)** What is the actual range of individual SYSBP values?
+A clinician reads your report and says: *"Your 95% CI for mean SYSBP is [129.7, 133.5] mmHg. That means 95% of your participants have blood pressure in that exact range."* 
+**(a)** Identify the statistical error. 
+**(b)** Write the correct interpretation. 
+**(c)** What is the actual range of individual SYSBP values in this dataset?
 
 ````{dropdown} Show Solution
 ```r
-# (a) The clinician has confused the CI for the MEAN with the
-#     distribution of INDIVIDUAL observations.
+# (a) The clinician has confused the Confidence Interval for the MEAN 
+#     with the distribution of INDIVIDUAL observations.
 
 # (b) Correct interpretation: We are 95% confident that the true mean
 #     systolic blood pressure in the population from which these
@@ -193,7 +211,9 @@ A clinician reads your report and says: "Your 95% CI for mean SYSBP is [129.7, 1
 
 # (c) Range of individual values:
 range(fram_data$SYSBP, na.rm = TRUE)
-# Approximately 86 to 228 mmHg — far wider than the CI for the mean.
+# [1]  83.5 228.0
+# The actual range of individuals is approximately 84 to 228 mmHg — 
+# which is vastly wider than the precise CI for the mean.
 ```
 ````
 
@@ -201,34 +221,30 @@ range(fram_data$SYSBP, na.rm = TRUE)
 
 | Term | Definition |
 |---|---|
-| **Population parameter** | True value for the entire population. Denoted μ, σ. |
-| **Sample statistic** | Value calculated from a specific sample. Denoted x̄, s. |
-| **Sampling error** | Inevitable random difference between a sample statistic and the population parameter. |
-| **Standard error (SE)** | SE = s/√n. How precisely the sample mean estimates the population mean. |
-| **95% Confidence interval** | x̄ ± 1.96 × SE. The plausible range for the true population mean. |
-| **Random error** | Sampling variation — reduced by increasing n. |
-| **Systematic bias** | Consistent directional error — not fixed by larger sample size. |
+| **Population parameter** | The true, exact value for the entire population. Denoted $\mu$, $\sigma$. |
+| **Sample statistic** | The value calculated from a specific sample. Denoted $\bar{x}$, s. |
+| **Sampling error** | The inevitable random difference between a sample statistic and the population parameter. |
+| **Standard error (SE)** | SE = s / √n. Measures how precisely the sample mean estimates the population mean. |
+| **95% Confidence interval** | $\bar{x} \pm 1.96 \times SE$. The plausible range for the true population mean. |
+| **Random error** | Unavoidable sampling variation. Can be reduced by increasing n. |
+| **Systematic bias** | Consistent directional error in data collection. Cannot be fixed by a larger sample size. |
 
 ## Review Questions
 
-1. In the Framingham dataset (n=500), the SD of AGE is 8.7 years. Calculate the SE and construct the 95% CI for mean age. Interpret the result.
-
-2. If the Framingham study had sampled only n=50 participants instead of 500, what would happen to the SE and CI width for mean SYSBP? Show the calculation.
-
-3. Explain in plain English why a narrow CI does not guarantee the estimate is correct.
-
-4. A published study reports a very narrow 95% CI for mean blood pressure measured in a study where all participants were recruited from a single hospital clinic. A critic says this precision is misleading. Explain why.
-
-5. Run `t.test(fram_data$TOTCHOL)` in R. Identify the 95% CI and write a correct one-sentence interpretation.
+1. In the Framingham dataset (n = 500), the mean AGE is 50.0 years and the standard deviation (s) is 8.7 years. Calculate the Standard Error and construct the 95% Confidence Interval for mean age. Interpret your result.
+2. If the Framingham study had sampled only n = 50 participants instead of 500, what exactly would happen to the SE and the CI width for mean SYSBP? Show the calculation.
+3. Explain in plain English why a very narrow Confidence Interval does not guarantee that your estimate is actually correct.
+4. A published study reports a very narrow 95% CI for mean blood pressure, but all participants were recruited from a single cardiology hospital clinic. A critic says this precision is misleading. Explain why, using the concepts of random error and systematic bias.
+5. Run `t.test(fram_data$TOTCHOL)` in R. Identify the 95% CI in the console output and write a correct, one-sentence interpretation of it.
 
 ```{admonition} Key Takeaways
 :class: tip
 
-- **SE** = s/√n — measures precision of the sample mean estimate.
-- **95% CI** = x̄ ± 1.96 × SE — plausible range for the true population mean.
-- Wider CI = less precision. Narrower = more precision (achieved by larger n).
-- **Bias is the silent threat** — a narrow CI around the wrong value is worse than a wide CI around the right one.
-- In R: `t.test(variable)` returns the CI directly.
+- **SE** = s / √n — measures the precision of the sample mean estimate.
+- **95% CI** = $\bar{x} \pm 1.96 \times SE$ — provides a plausible range for the true population mean.
+- Wider CI = less precision. Narrower CI = more precision (achieved by increasing n).
+- **Bias is the silent threat** — a mathematically narrow CI perfectly centered around the wrong value is far more dangerous than a wide CI around the right one.
+- In R, `t.test(variable)` calculates the 95% CI directly for you.
 ```
 
 *Next: **Chapter 4 — The Laws of Chance** introduces the probability distributions that underpin all hypothesis testing.*

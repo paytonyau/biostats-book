@@ -10,41 +10,43 @@
 
 By the end of this chapter, you will be able to:
 
-- Describe the Normal, Binomial, and Poisson distributions and when each applies
-- Apply the Empirical Rule to interpret clinical data
-- Assess Normality using a histogram, Q-Q plot, and Shapiro-Wilk test
-- Explain what an epidemic curve shows and how to read one
+- Describe the Normal, Binomial, and Poisson distributions and when each applies.
+- Apply the Empirical Rule to interpret clinical data.
+- Assess Normality using a histogram, Q-Q plot, and Shapiro-Wilk test.
+- Explain what an epidemic curve shows and how to read one.
 ```
 
 ## Before You Begin: From Outcomes to Probabilities
 
-Chapters 1–3 described data. Now we use mathematical models — **probability distributions** — to ask: *how likely is a given outcome?*
+Chapters 1 through 3 described data. Now we use mathematical models — **probability distributions** — to ask: *how likely is a given outcome?*
 
-In cardiovascular epidemiology, this means: given a population with mean cholesterol of 235 mg/dL, how likely is it that a randomly selected participant has cholesterol above 300 mg/dL? Given a 31% 10-year CHD event rate, how surprising would it be if 45 out of a new sample of 100 patients had events? Those questions are the engine behind every hypothesis test in Chapters 5–8.
+In cardiovascular epidemiology, this means: given a population with a mean cholesterol of 235 mg/dL, how likely is it that a randomly selected participant has cholesterol above 300 mg/dL? Given a 31% 10-year CHD event rate, how surprising would it be if 45 out of a new sample of 100 patients had events? Those questions are the statistical engine behind every hypothesis test you will learn in Chapters 5 through 8.
+
+---
 
 ## Section 1: Three Distributions That Matter
 
 ### 1.1 Properties of the Normal Distribution
 
-> 💡 **Plain English first:** Many biological measurements — height, blood pressure, cholesterol — cluster around a middle value and tail off symmetrically in both directions. That bell-shaped pattern is the Normal distribution.
+> 💡 **Plain English first:** Many biological measurements — height, blood pressure, cholesterol — cluster heavily around a middle value and tail off symmetrically in both directions. That bell-shaped pattern is the Normal distribution.
 
-The **Normal distribution** is completely defined by two parameters: the mean (μ) and the standard deviation (σ).
+The **Normal distribution** is completely defined by two parameters: the mean ($\mu$) and the standard deviation ($\sigma$).
 
 **The Empirical Rule:**
-- 68% of observations fall within μ ± 1σ
-- 95% fall within μ ± 1.96σ
-- 99.7% fall within μ ± 3σ
+- **68%** of observations fall within $\mu \pm 1\sigma$
+- **95%** fall within $\mu \pm 1.96\sigma$
+- **99.7%** fall within $\mu \pm 3\sigma$
 
 **Clinical application — Framingham SYSBP:**
-With μ = 132 mmHg and σ = 22 mmHg:
-- 68% of participants have SYSBP between 110 and 154 mmHg
-- 95% have SYSBP between 89 and 175 mmHg
-- A participant with SYSBP = 190 mmHg sits (190−132)/22 = 2.6 SDs above the mean — in the top 0.5% of the distribution
+With $\mu = 132$ mmHg and $\sigma = 22$ mmHg:
+- 68% of participants have SYSBP between 110 and 154 mmHg.
+- 95% have SYSBP between 89 and 175 mmHg.
+- A participant with SYSBP = 190 mmHg sits $(190-132)/22 = 2.6$ SDs above the mean — placing them in the top 0.5% of the distribution.
 
 **Z-score:**
 $$z = \frac{x - \mu}{\sigma}$$
 
-A z-score expresses how many SDs an observation lies from the mean, enabling comparisons across variables with different units.
+A z-score expresses exactly how many standard deviations an observation lies from the mean, enabling you to compare risk across variables with entirely different units. *A z-score of $0$ is exactly average, a positive score is above average, and a negative score is below average.*
 
 ```{figure} ../images/ch04_normal_distribution.png
 :name: fig-normal
@@ -56,46 +58,54 @@ A z-score expresses how many SDs an observation lies from the mean, enabling com
 
 ### 1.2 The Binomial Distribution
 
-> 💡 **Plain English first:** The Binomial counts how many "successes" occur in a fixed number of yes/no trials. Each trial has the same probability of success.
+> 💡 **Plain English first:** The Binomial distribution counts how many "successes" occur in a fixed number of yes/no trials. Each trial must have the exact same probability of success.
 
-**When to use it:** Fixed number of independent binary trials (n), constant probability of the event (p).
+**When to use it:** A fixed number of independent binary trials ($n$), with a constant probability of the event occurring ($p$).
 
-**Framingham context:** 31% of the 500 participants had a CHD event during follow-up. If we take a new random sample of 50 Framingham-like participants, what is the probability that exactly 15 have CHD events?
+**Framingham context:** 31% of the 500 participants had a CHD event during follow-up. If we take a new random sample of 50 Framingham-like participants, what is the probability that *exactly* 15 of them have CHD events?
 
 $$P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}$$
 
-With n=50, p=0.31: $P(X=15) = \binom{50}{15}(0.31)^{15}(0.69)^{35}$
+With $n = 50$ and $p = 0.31$: 
+$P(X=15) = \binom{50}{15}(0.31)^{15}(0.69)^{35}$
 
-The Binomial answers this precisely without assuming anything about the underlying biology.
+The Binomial formula calculates this precise probability without needing to assume anything about the underlying biology.
 
 ### 1.3 The Poisson Distribution
 
-> 💡 **Plain English first:** The Poisson counts how many times a rare event occurs per unit time or space.
+> 💡 **Plain English first:** The Poisson distribution counts how many times a *rare* event occurs per unit of time or space.
 
-**When to use it:** Rare, independent events occurring at a constant average rate (λ) per unit.
+**When to use it:** Rare, independent events occurring at a constant average rate ($\lambda$) per unit. 
 
-**Cardiovascular epidemiology context:** If heart attacks occur at an average rate of λ = 2.3 per 1,000 person-years in this cohort, the Poisson distribution describes how many heart attacks we would expect in any given year in a clinic of 200 patients.
+$$P(X = k) = \frac{\lambda^k e^{-\lambda}}{k!}$$
+
+**Cardiovascular epidemiology context:** If severe heart attacks occur at an average rate of $\lambda = 2.3$ per 1,000 person-years in this cohort, the Poisson distribution describes exactly how many heart attacks we would expect to see in any given year in a local clinic of 200 patients. 
+
+> ⚡ **Epidemiology Pro-Tip:** A unique property of a true Poisson distribution is that its mean and its variance are exactly identical (both equal $\lambda$). If your data's variance is much larger than its mean, the data is "overdispersed," and a standard Poisson model may not be appropriate.
+
+---
 
 ## Section 2: The Central Limit Theorem
 
 The **Central Limit Theorem (CLT)** is the mathematical foundation of all hypothesis testing:
 
-> *Regardless of the shape of the population distribution, the distribution of sample means approaches Normal as sample size increases — provided n is sufficiently large (typically n ≥ 30).*
+> *Regardless of the shape of the underlying population distribution, the distribution of sample means approaches a Normal distribution as the sample size increases — provided $n$ is sufficiently large (typically $n \geq 30$).*
 
-**Why this matters:** `CIGPDAY` (cigarettes per day) in the Framingham dataset is severely right-skewed — 49% of participants have 0, and a few smoke 40–60 per day. The distribution of individual values is far from Normal. But with n = 500, the CLT guarantees that the *sampling distribution of the mean* is approximately Normal. This is what makes t-tests valid even when individual data is skewed.
-
+**Why this matters:** `CIGPDAY` (cigarettes per day) in the Framingham dataset is severely right-skewed — 49% of participants smoke 0, and a few smoke 40 to 60 per day. The distribution of individual values is far from Normal. But with $n = 500$, the CLT mathematically guarantees that the *sampling distribution of the mean* is approximately Normal. This is the "magic" that makes t-tests valid even when your individual raw data is skewed.
 
 ```{figure} ../images/ch04_clt.png
 :name: fig-clt
 :width: 95%
 :align: center
 
-**Figure 4.4 The Central Limit Theorem in Action.** The Framingham `CIGPDAY` variable is severely right-skewed — 49% of participants are non-smokers. As sample size increases from n = 5 to n = 100, the sampling distribution of the mean progressively approaches a Normal distribution (dashed curve), regardless of the shape of the original population. By n = 30, the distribution is already approximately Normal. this is why t-tests remain valid even when raw data is skewed, provided n ≥ 30.
+**Figure 4.4 The Central Limit Theorem in Action.** The Framingham `CIGPDAY` variable is severely right-skewed — 49% of participants are non-smokers. As sample size increases from n = 5 to n = 100, the sampling distribution of the mean progressively approaches a Normal distribution (dashed curve), regardless of the shape of the original population. By n = 30, the distribution is already approximately Normal. This is why t-tests remain valid even when raw data is skewed, provided n ≥ 30.
 ```
+
+---
 
 ## Section 3: Epidemic Curves — Reading Disease Over Time
 
-An **epidemic curve (Epi Curve)** is a histogram where the x-axis represents time and each bar represents the number of new cases in that period. Reading the shape of the curve tells you how a disease spreads.
+An **epidemic curve (Epi Curve)** is a histogram where the x-axis represents time and each bar represents the number of *new* cases in that specific period. Reading the shape of the curve tells you how a disease spreads.
 
 ```{figure} ../images/ch04_epidemic_curves.png
 :name: fig-epicurves
@@ -105,28 +115,30 @@ An **epidemic curve (Epi Curve)** is a histogram where the x-axis represents tim
 **Figure 4.2** Three epidemic curve shapes: point source (single sharp peak — e.g., a contaminated food event), propagated (successive waves — person-to-person transmission), and endemic (roughly constant background rate). Cardiovascular disease is endemic, a persistent, ongoing cause of morbidity and mortality, not a single outbreak event.
 ```
 
-**The Framingham connection:** Cardiovascular disease is not an outbreak — it is an epidemic in the public health sense: a disease occurring at higher-than-expected rates in a population over a sustained period. The Framingham Study was designed precisely because heart disease had become the leading cause of death in post-war America and no one yet understood why. Plotting incident CHD events by year in the Framingham cohort produces an endemic-pattern curve, a persistent baseline incidence, not a single-source spike.
+**The Framingham connection:** Cardiovascular disease is not an infectious outbreak — it is an epidemic in the broad public health sense: a disease occurring at higher-than-expected rates over a sustained period. The Framingham Study was designed precisely because heart disease had become the leading cause of death in post-war America and no one yet understood why. Plotting incident CHD events by year in the Framingham cohort produces an endemic-pattern curve—a persistent baseline incidence, not a single-source spike.
+
+---
 
 ## Section 4: Normality Assessment
 
-Before applying parametric tests, assess whether the continuous outcome variable is approximately Normally distributed.
+Before applying parametric tests (like t-tests and ANOVA), you must assess whether your continuous outcome variable is approximately Normally distributed.
 
 ### 4.1 The Histogram
 
 A histogram of a Normally distributed variable should appear approximately bell-shaped.
 
-**For `SYSBP`:** Expect an approximately Normal histogram — slightly right-skewed due to hypertensive outliers.
-**For `TOTCHOL`:** Similarly approximately Normal with a right tail.
-**For `CIGPDAY`:** Expect a severely right-skewed histogram — spike at 0, long tail.
-**For `BMI`:** Expect slight right skew — most participants in normal-to-overweight range, a few obese.
+- **For `SYSBP`:** Expect an approximately Normal histogram — slightly right-skewed due to hypertensive outliers.
+- **For `TOTCHOL`:** Similarly approximately Normal with a slight right tail.
+- **For `CIGPDAY`:** Expect a severely right-skewed histogram — a massive spike at 0, with a long right tail.
+- **For `BMI`:** Expect slight right skew — most participants fall in the normal-to-overweight range, with fewer in the obese range.
 
 ### 4.2 The Q-Q Plot
 
-A **Q-Q plot** compares the observed distribution against what a perfect Normal distribution would predict.
+A **Q-Q (Quantile-Quantile) plot** compares your observed data distribution against what a perfect theoretical Normal distribution would predict.
 
-- Points **along the diagonal** → approximately Normal.
-- Points **curving upward at the right** → positive skew (right tail).
-- Points **bowing away at both ends** → heavy tails.
+- Points **hugging the diagonal line** $\rightarrow$ approximately Normal.
+- Points **curving upward at the right** $\rightarrow$ positive skew (right tail).
+- Points **bowing away at both ends** $\rightarrow$ heavy tails.
 
 ```{figure} ../images/ch04_qqplot_interpretation.png
 :name: fig-qqplot
@@ -138,16 +150,20 @@ A **Q-Q plot** compares the observed distribution against what a perfect Normal 
 
 ### 4.3 The Shapiro-Wilk Test
 
-- **H₀:** The data comes from a Normal distribution.
-- **p > 0.05:** No significant departure from Normality detected.
-- **p ≤ 0.05:** Significant departure from Normality.
+The Shapiro-Wilk test is a formal statistical test for Normality.
 
-> ⚡ **Common mistake:** With n = 500, Shapiro-Wilk flags even trivial departures from Normality as "significant." At this sample size, trust the histogram and Q-Q plot over the Shapiro-Wilk p-value. A minor, clinically irrelevant asymmetry will produce p < 0.05 purely because of sample size.
+- **$H_0$:** The data comes from a Normal distribution.
+- **p > 0.05:** No significant departure from Normality detected. We assume it is Normal enough.
+- **p $\leq$ 0.05:** Significant departure from Normality.
+
+> ⚡ **Common mistake:** With $n = 500$, the Shapiro-Wilk test becomes hyper-sensitive and will flag even trivial, microscopic departures from Normality as "statistically significant." At this large sample size, trust the visual evidence of the histogram and Q-Q plot over the Shapiro-Wilk p-value. A minor, clinically irrelevant asymmetry will produce $p < 0.05$ purely because of the large sample size.
+
+---
 
 ## 🔬 Lab Manual — Chapter 4
 
 ### Objective
-Assess the Normality of `SYSBP`, `TOTCHOL`, `BMI`, and `CIGPDAY`. Plot an incidence-over-time chart for CHD events.
+Assess the Normality of `SYSBP`, `TOTCHOL`, `BMI`, and `CIGPDAY`. Plot an incidence-over-time chart for CHD events. Use R to calculate probabilities for the Binomial and Poisson distributions.
 
 ### Option A — PSPP
 
@@ -158,12 +174,22 @@ Assess the Normality of `SYSBP`, `TOTCHOL`, `BMI`, and `CIGPDAY`. Plot an incide
 
 ```r
 # -------------------------------------------------------
-# Chapter 4 Lab: Normality Assessment and Distributions
+# Chapter 4 Lab: Distributions and Normality
 # -------------------------------------------------------
 
 fram_data <- read.csv("data/framingham_teaching.csv")
 
-# ── Histograms ────────────────────────────────────────
+# ── Part 1: Probability Distributions ──────────────────
+
+# Binomial: Probability of exactly 15 events in 50 trials (p=0.31)
+dbinom(x = 15, size = 50, prob = 0.31)
+# Expected output: ~ 0.122 (There is a 12.2% chance)
+
+# Poisson: Probability of exactly 3 heart attacks in a year (λ = 2.3)
+dpois(x = 3, lambda = 2.3)
+# Expected output: ~ 0.203 (There is a 20.3% chance)
+
+# ── Part 2: Histograms ────────────────────────────────
 par(mfrow = c(2, 2))
 
 hist(fram_data$SYSBP,
@@ -184,24 +210,26 @@ hist(fram_data$CIGPDAY,
 
 par(mfrow = c(1, 1))
 
-# ── Q-Q plots ─────────────────────────────────────────
+# ── Part 3: Q-Q plots ─────────────────────────────────
 par(mfrow = c(1, 2))
 qqnorm(fram_data$SYSBP,  main = "Q-Q: SYSBP",   col="#2166AC", pch=16, cex=0.7)
 qqline(fram_data$SYSBP,  col = "#C00000", lwd = 2)
+
 qqnorm(fram_data$CIGPDAY, main = "Q-Q: CIGPDAY", col="#E6550D", pch=16, cex=0.7)
 qqline(fram_data$CIGPDAY, col = "#C00000", lwd = 2)
 par(mfrow = c(1, 1))
 
-# ── Shapiro-Wilk tests ────────────────────────────────
+# ── Part 4: Shapiro-Wilk tests ────────────────────────
 shapiro.test(fram_data$SYSBP)
 shapiro.test(fram_data$TOTCHOL)
 shapiro.test(fram_data$BMI)
 shapiro.test(fram_data$CIGPDAY)
 
-# ── Incidence plot: CHD events over time ──────────────
+# ── Part 5: Incidence plot (CHD events over time) ─────
 # TIMECHD gives days to event — convert to approximate year
 chd_patients <- fram_data[fram_data$ANYCHD == 1, ]
-chd_year <- ceiling(chd_patients$TIMECHD / 365)
+chd_year <- ceiling(chd_patients$TIMECHD / 365.25)
+
 barplot(table(chd_year),
         main = "Incident CHD Events by Follow-Up Year",
         xlab = "Year of Follow-Up",
@@ -211,30 +239,36 @@ barplot(table(chd_year),
 
 **What to examine:**
 
-| Variable | Expected histogram | Expected Q-Q | Expected Shapiro-Wilk |
+| Variable | Expected Histogram | Expected Q-Q Plot | Expected Shapiro-Wilk |
 |---|---|---|---|
 | `SYSBP` | Approximately bell-shaped, slight right skew | Points close to diagonal | p may be borderline |
-| `TOTCHOL` | Approximately Normal, slight right tail | Near diagonal | p may be borderline |
-| `BMI` | Slight right skew | Mild curve at right | p < 0.05 likely |
+| `TOTCHOL` | Approximately Normal, slight right tail | Points near diagonal | p may be borderline |
+| `BMI` | Slight right skew | Mild curve upward at right | p < 0.05 likely |
 | `CIGPDAY` | Severe spike at 0, long right tail | Strong S-curve departure | p << 0.001 |
+
+---
 
 ### 🧪 Test Your Knowledge
 
-`shapiro.test(fram_data$CIGPDAY)` returns p < 0.001. **(a)** State H₀ and H₁. **(b)** Interpret the result. **(c)** Does this mean you cannot run any parametric tests involving `CIGPDAY`? Explain, with reference to the CLT.
+`shapiro.test(fram_data$CIGPDAY)` returns $p < 0.001$. 
+**(a)** State $H_0$ and $H_1$. 
+**(b)** Interpret the result. 
+**(c)** Does this mean you cannot run any parametric tests involving `CIGPDAY`? Explain, with reference to the Central Limit Theorem.
 
 ````{dropdown} Show Solution
 ```r
-# (a) H₀: CIGPDAY comes from a Normal distribution.
-#     H₁: CIGPDAY does not come from a Normal distribution.
+# (a) H_0: CIGPDAY comes from a Normal distribution.
+#     H_1: CIGPDAY does not come from a Normal distribution.
 
-# (b) p < 0.001: Reject H₀. CIGPDAY departs significantly from Normality —
-#     consistent with the severe spike at 0 and long right tail.
+# (b) p < 0.001: Reject H_0. CIGPDAY departs significantly from Normality —
+#     consistent with the severe spike at 0 and the long right tail.
 
-# (c) NOT necessarily — with n = 500, the CLT ensures the SAMPLING
-#     DISTRIBUTION OF THE MEAN is approximately Normal regardless of the
-#     shape of the raw data. A t-test on the mean of CIGPDAY remains
-#     approximately valid. For very small subgroups (n < 30), a
-#     non-parametric alternative (e.g., Mann-Whitney U) should be used.
+# (c) NOT necessarily. With n = 500, the Central Limit Theorem ensures 
+#     that the SAMPLING DISTRIBUTION OF THE MEAN is approximately Normal 
+#     regardless of the shape of the raw data. A t-test on the mean of 
+#     CIGPDAY remains approximately valid. For very small subgroups 
+#     (e.g., n < 30), a non-parametric alternative (like the Mann-Whitney U) 
+#     should be used instead.
 ```
 ````
 
@@ -242,35 +276,31 @@ barplot(table(chd_year),
 
 | Term | Definition |
 |---|---|
-| **Normal distribution** | Symmetric, bell-shaped distribution defined by μ and σ. 95% within ±1.96σ. |
-| **Binomial distribution** | Models count of successes in n binary trials with fixed probability p. |
-| **Poisson distribution** | Models count of rare events at constant rate λ per unit time/space. |
-| **Central Limit Theorem** | Sample means → Normal as n increases, regardless of population shape. |
-| **Epidemic curve** | Histogram of new cases over time; shape reveals transmission pattern. |
-| **Q-Q plot** | Quantile plot comparing observed vs theoretical Normal quantiles. |
-| **Shapiro-Wilk test** | Formal test of Normality. p > 0.05 → no significant departure detected. |
+| **Normal distribution** | Symmetric, bell-shaped distribution defined by $\mu$ and $\sigma$. 95% falls within $\pm 1.96\sigma$. |
+| **Binomial distribution** | Models the count of "successes" in $n$ binary trials with a fixed probability $p$. |
+| **Poisson distribution** | Models the count of rare events at a constant average rate $\lambda$ per unit time/space. |
+| **Central Limit Theorem** | Sample means approach a Normal distribution as $n$ increases, regardless of the population's shape. |
+| **Epidemic curve** | A histogram of new cases over time; its shape reveals transmission patterns. |
+| **Q-Q plot** | A quantile-quantile plot comparing observed data against theoretical Normal quantiles. |
+| **Shapiro-Wilk test** | A formal statistical test of Normality. $p > 0.05 \rightarrow$ no significant departure detected. |
 
 ## Review Questions
 
-1. Using the Empirical Rule and the Framingham SYSBP values (mean = 132, SD = 22), what proportion of participants would you expect to have SYSBP above 176 mmHg? Is a value of 176 mmHg unusual in this cohort?
-
-2. In the Framingham dataset, 31% of participants had a CHD event. If you drew a new sample of 80 participants from the same population, what distribution would you use to model the number of CHD events? Identify n and p.
-
-3. Run `hist(fram_data$CIGPDAY)` in R. Describe the shape. Why is this distribution shaped the way it is, given the sample demographics?
-
-4. Shapiro-Wilk on `SYSBP` returns p = 0.04 with n = 500. Should you conclude that SYSBP is not Normally distributed for practical purposes? Explain, referencing the CLT.
-
-5. Explain the difference between a point-source epidemic curve and a propagated outbreak curve. Which pattern would you expect for cardiovascular disease incidence, and why?
+1. Using the Empirical Rule and the Framingham SYSBP values ($\mu = 132$, $\sigma = 22$), what proportion of participants would you expect to have a SYSBP above 176 mmHg? Is a value of 176 mmHg highly unusual in this cohort?
+2. In the Framingham dataset, 31% of participants had a CHD event. If you drew a new sample of 80 participants from the exact same population, what distribution would you use to model the number of CHD events? Identify $n$ and $p$.
+3. Run `hist(fram_data$CIGPDAY)` in R. Describe the shape. Why is this distribution shaped the exact way it is, given the sample demographics?
+4. A Shapiro-Wilk test on `SYSBP` returns $p = 0.04$ with $n = 500$. Should you conclude that SYSBP is not Normally distributed for practical purposes? Explain, referencing the CLT.
+5. Explain the difference between a point-source epidemic curve and a propagated outbreak curve. Which specific pattern would you expect for cardiovascular disease incidence, and why?
 
 ```{admonition} Key Takeaways
 :class: tip
 
-- **Normal:** bell-shaped; 68/95/99.7% within ±1/2/3σ.
-- **Binomial:** counts successes in n binary trials with fixed p.
-- **Poisson:** counts rare events at rate λ per unit time/space.
-- **CLT:** sample means → Normal for n ≥ 30, even if raw data is skewed.
-- **Normality check:** histogram + Q-Q plot + Shapiro-Wilk. With n > 100, visual tools are more informative than Shapiro-Wilk alone.
-- **Epidemic curve:** shape reveals outbreak source and transmission pattern.
+- **Normal:** bell-shaped; 68/95/99.7% fall within $\pm$ 1/2/3 SDs.
+- **Binomial:** counts successes in $n$ binary trials with fixed $p$.
+- **Poisson:** counts rare events at rate $\lambda$ per unit of time/space.
+- **CLT:** sample means $\rightarrow$ Normal for $n \geq 30$, even if raw data is heavily skewed.
+- **Normality check:** combine histogram + Q-Q plot + Shapiro-Wilk. With large samples ($n > 100$), visual tools are much more informative than the Shapiro-Wilk p-value alone.
+- **Epidemic curve:** shape reveals the outbreak source and transmission pattern.
 ```
 
 *Next: **Chapter 5 — The Hypothesis Gamble** uses these distributions to build formal hypothesis tests.*

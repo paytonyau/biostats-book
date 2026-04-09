@@ -10,19 +10,21 @@
 
 By the end of this chapter, you will be able to:
 
-- Formulate null and alternative hypotheses for a clinical research question
-- Describe probability and non-probability sampling methods
-- Interpret a p-value correctly, and identify the four most common misinterpretations
-- Define Type I and Type II errors and explain the trade-off between them
-- Explain statistical power and the four factors that increase it
-- Run and interpret a one-sample t-test
+- Formulate null and alternative hypotheses for a clinical research question.
+- Describe probability and non-probability sampling methods.
+- Interpret a p-value correctly, and identify the four most common misinterpretations.
+- Define Type I and Type II errors and explain the trade-off between them.
+- Explain statistical power and the four factors that increase it.
+- Run and interpret a one-sample t-test.
 ```
 
 ## Before You Begin: The Logic of the Trial
 
-Chapters 1–4 described data. Hypothesis testing asks: **is this finding real, or could it have occurred by chance?**
+Chapters 1 through 4 described data. Hypothesis testing asks a fundamental new question: **is this finding real, or could it have occurred by chance?**
 
 This framework underpins every clinical trial, every drug approval, and every public health policy decision based on epidemiological evidence. It is also the most widely misunderstood framework in applied science. This chapter aims to teach it correctly.
+
+---
 
 ## Section 1: Sampling — The Foundation of Inference
 
@@ -60,7 +62,7 @@ This framework underpins every clinical trial, every drug approval, and every pu
 
 **The Framingham limitation:** The original cohort was almost entirely White, from one Massachusetts town. This is a form of selection bias. Despite the study's size and rigour, its risk factor estimates may not apply equally to all ethnic and geographic populations, a limitation the investigators acknowledged explicitly.
 
-## Section 1b: Epidemiological Study Designs
+### 1.4 Epidemiological Study Designs
 
 The choice of statistical test depends partly on the study design that generated the data. Three designs appear in most health science research.
 
@@ -74,7 +76,7 @@ The choice of statistical test depends partly on the study design that generated
 
 The Framingham Heart Study is a **prospective cohort study**, the gold standard for identifying risk factors. Risk factors were measured at baseline *before* heart disease developed, which establishes temporal precedence (an important criterion for causality).
 
-> ⚡ **Common mistake:** Cohort studies give **Relative Risk (RR)**. Case-control studies give **Odds Ratio (OR)**. In rare diseases, OR ≈ RR, but for common outcomes like CHD (31% in Framingham), they differ substantially. Always identify the study design before choosing which effect measure to report.
+> ⚡ **Common mistake:** Cohort studies give **Relative Risk (RR)**. Case-control studies give **Odds Ratio (OR)**. In rare diseases, OR $\approx$ RR, but for common outcomes like CHD (31% in Framingham), they differ substantially. Always identify the study design before choosing which effect measure to report.
 
 ---
 
@@ -86,13 +88,13 @@ Hypothesis testing begins from a default position: nothing interesting is happen
 
 ### 2.2 The Two Competing Hypotheses
 
-> 💡 **Plain English first:** Think of hypothesis testing like a court trial. H₀ ("innocent until proven guilty") is assumed true until the data provides sufficient evidence to reject it. H₁ is the prosecution's case.
+> 💡 **Plain English first:** Think of hypothesis testing like a court trial. $H_0$ ("innocent until proven guilty") is assumed true until the data provides sufficient evidence to reject it. $H_1$ is the prosecution's case.
 
-- **Null hypothesis (H₀):** No effect, no difference, no association. Any observed result is due to chance.
-- **Alternative hypothesis (H₁):** A real effect, difference, or association exists.
+- **Null hypothesis ($H_0$):** No effect, no difference, no association. Any observed result is due to chance.
+- **Alternative hypothesis ($H_1$):** A real effect, difference, or association exists.
 
 **Worked example — Framingham SYSBP:**
-The WHO defines normal systolic BP as 120 mmHg. Is the mean SYSBP of our Framingham cohort different from this reference value?
+The WHO defines normal systolic blood pressure as 120 mmHg. Is the mean SYSBP of our Framingham cohort different from this reference value?
 
 - $H_0: \mu_{SYSBP} = 120$ mmHg
 - $H_1: \mu_{SYSBP} \neq 120$ mmHg (two-tailed — we have not specified a direction)
@@ -106,17 +108,19 @@ We assume $H_0$ is true and ask: if the true population mean really were 120 mmH
 
 **Default:** Use two-tailed tests unless there is a pre-registered, theory-driven justification for one direction. In the cardiovascular context, testing whether a cohort from the 1950s has *higher* BP than the modern reference is directionally intuitive, but two-tailed remains the conservative and more defensible choice.
 
+---
+
 ## Section 3: The P-Value
 
 ### 3.1 What It Measures
 
-The **p-value** is the probability of obtaining a result at least as extreme as the one observed, *assuming H₀ is true*.
+The **p-value** is the probability of obtaining a result at least as extreme as the one observed, *assuming $H_0$ is true*.
 
-If the true mean SYSBP were really 120 mmHg, how often would we draw a random sample of 500 participants with a mean as far from 120 as 131.6 mmHg? If this probability is very small, we doubt H₀ is true.
+If the true mean SYSBP were really 120 mmHg, how often would we draw a random sample of 500 participants with a mean as far from 120 as 131.6 mmHg? If this probability is very small, we doubt $H_0$ is true.
 
-### 3.2 The Significance Threshold (α)
+### 3.2 The Significance Threshold ($\alpha$)
 
-The **significance level (α)** is the threshold below which we reject H₀. Conventionally α = 0.05.
+The **significance level ($\alpha$)** is the threshold below which we reject $H_0$. Conventionally $\alpha = 0.05$.
 
 ```{figure} ../images/ch05_pvalue_concept.png
 :name: fig-pvalue
@@ -130,16 +134,18 @@ The **significance level (α)** is the threshold below which we reject H₀. Con
 
 | ❌ Misinterpretation | ✅ What is actually true |
 |---|---|
-| "p is the probability H₀ is true" | p *assumes* H₀ is true — it cannot evaluate whether H₀ is true |
+| "p is the probability $H_0$ is true" | p *assumes* $H_0$ is true — it cannot evaluate whether $H_0$ is true |
 | "p = 0.03 means 3% chance result is due to chance" | Same error, different wording |
-| "p = 0.001 means the effect is large or important" | Small p = strong evidence against H₀, not large effect size |
+| "p = 0.001 means the effect is large or important" | Small p = strong evidence against $H_0$, not large effect size |
 | "p = 0.06 means the result is not real" | It means evidence did not reach threshold — study may be underpowered |
 
-> ⚡ **Common mistake:** Always report an effect size alongside the p-value. In the Framingham context, p < 0.001 for mean SYSBP vs 120 mmHg is not surprising with n = 500 — any small, potentially clinically trivial deviation from 120 will be statistically significant.
+> ⚡ **Common mistake:** Always report an effect size alongside the p-value. In the Framingham context, $p < 0.001$ for mean SYSBP vs 120 mmHg is not surprising with $n = 500$ — any small, potentially clinically trivial deviation from 120 will be statistically significant.
+
+---
 
 ## Section 4: Type I and Type II Errors
 
-Setting α = 0.05 means we accept two possible errors with opposite causes and opposite remedies.
+Setting $\alpha = 0.05$ means we accept two possible errors with opposite causes and opposite remedies.
 
 ```{figure} ../images/ch05_type_errors.png
 :name: fig-errors
@@ -149,10 +155,10 @@ Setting α = 0.05 means we accept two possible errors with opposite causes and o
 **Figure 5.3** Type I and Type II errors. Type I (false positive) = rejecting a true H₀. Type II (false negative) = failing to reject a false H₀.
 ```
 
-| | H₀ actually TRUE | H₀ actually FALSE |
+| | $H_0$ actually TRUE | $H_0$ actually FALSE |
 |---|---|---|
-| **We REJECT H₀** | ❌ Type I error (α) | ✅ Correct (Power = 1−β) |
-| **We FAIL TO REJECT H₀** | ✅ Correct | ❌ Type II error (β) |
+| **We REJECT $H_0$** | ❌ Type I error ($\alpha$) | ✅ Correct (Power = $1-\beta$) |
+| **We FAIL TO REJECT $H_0$** | ✅ Correct | ❌ Type II error ($\beta$) |
 
 **Cardiovascular example:**
 - **Type I error:** A drug trial concludes a new antihypertensive works when it does not. Patients receive an ineffective treatment.
@@ -160,11 +166,13 @@ Setting α = 0.05 means we accept two possible errors with opposite causes and o
 
 The consequences are asymmetric. In the Framingham era, Type II errors were common — underpowered studies missed real associations between smoking and heart disease before the evidence accumulated to irrefutable levels.
 
+---
+
 ## Section 5: Statistical Power
 
-**Statistical power** (1 − β) is the probability of detecting a real effect when one exists.
+**Statistical power** ($1 - \beta$) is the probability of detecting a real effect when one exists.
 
-Conventional minimum: **power ≥ 0.80** (80%).
+Conventional minimum: **power $\geq 0.80$** (80%).
 
 ```{figure} ../images/ch05_power_levers.png
 :name: fig-power
@@ -177,21 +185,23 @@ Conventional minimum: **power ≥ 0.80** (80%).
 **The four levers:**
 1. **Increase n**, the most reliable lever. Framingham's 5,209 original participants gave enormous power to detect modest risk factor effects.
 2. **Increase effect size**; if the true difference is larger, it is easier to detect.
-3. **Decrease σ** — more precise measurements reduce noise.
-4. **Increase α** — raising from 0.05 to 0.10 increases power but also Type I error.
+3. **Decrease $\sigma$** — more precise measurements reduce noise.
+4. **Increase $\alpha$** — raising from 0.05 to 0.10 increases power but also Type I error risk.
+
+---
 
 ## Section 6: The One-Sample T-Test
 
 ### 6.1 When to Use It
 
-The **one-sample t-test** tests whether the mean of a sample differs from a known population value (μ₀).
+The **one-sample t-test** tests whether the mean of a sample differs from a known population value ($\mu_0$).
 
-**Requirements:** Continuous ratio/interval variable; approximately Normal or n ≥ 30; representative sample.
+**Requirements:** Continuous ratio/interval variable; approximately Normal or $n \geq 30$; representative sample.
 
 **Research question:** Is the mean systolic BP of the Framingham cohort significantly different from the reference value of 120 mmHg?
 
-- H₀: μ_SYSBP = 120 mmHg
-- H₁: μ_SYSBP ≠ 120 mmHg
+- $H_0: \mu_{SYSBP} = 120$
+- $H_1: \mu_{SYSBP} \neq 120$
 
 ### 6.2 The T-Statistic
 
@@ -199,12 +209,12 @@ $$t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}}$$
 
 ### 6.3 Reading the Output
 
-1. **t-statistic and df** (degrees of freedom = n − 1)
-2. **p-value** — is the result statistically significant at α = 0.05?
-3. **95% CI for the mean** — does it include μ₀ = 120?
-4. **Sample mean** — is the difference clinically meaningful?
+1. **t-statistic and df** (degrees of freedom = $n - 1$)
+2. **p-value** — is the result statistically significant at $\alpha = 0.05$?
+3. **95% CI for the mean** — does it include $\mu_0 = 120$?
+4. **Sample mean and Cohen's d** — is the difference clinically meaningful?
 
-
+---
 
 ## 🔬 Lab Manual — Chapter 5
 
@@ -227,8 +237,8 @@ Test whether mean SYSBP in the Framingham cohort differs from the reference valu
 fram_data <- read.csv("data/framingham_teaching.csv")
 
 # ── Descriptives first ────────────────────────────────
-mean(fram_data$SYSBP)
-sd(fram_data$SYSBP)
+mean(fram_data$SYSBP, na.rm = TRUE)
+sd(fram_data$SYSBP, na.rm = TRUE)
 
 hist(fram_data$SYSBP,
      main = "Distribution of Systolic Blood Pressure",
@@ -241,29 +251,32 @@ shapiro.test(fram_data$SYSBP)
 t.test(fram_data$SYSBP, mu = 120)
 
 # ── Effect size: Cohen's d ────────────────────────────
-d <- (mean(fram_data$SYSBP) - 120) / sd(fram_data$SYSBP)
+# Using abs() ensures the effect size is positive for easy comparison
+d <- abs(mean(fram_data$SYSBP, na.rm = TRUE) - 120) / sd(fram_data$SYSBP, na.rm = TRUE)
 cat("Cohen's d =", round(d, 3), "\n")
 # d < 0.2 = trivial, 0.2-0.5 = small, 0.5-0.8 = medium, > 0.8 = large
 
 # ── Also test TOTCHOL vs reference of 200 mg/dL ───────
 t.test(fram_data$TOTCHOL, mu = 200)
-d_chol <- (mean(fram_data$TOTCHOL) - 200) / sd(fram_data$TOTCHOL)
+d_chol <- abs(mean(fram_data$TOTCHOL, na.rm = TRUE) - 200) / sd(fram_data$TOTCHOL, na.rm = TRUE)
 cat("TOTCHOL Cohen's d =", round(d_chol, 3), "\n")
 ```
 
 **What to examine:**
-- Is p < 0.05? Almost certainly — with n = 500, even a small deviation from 120 will be significant.
+- Is $p < 0.05$? Almost certainly — with $n = 500$, even a small deviation from 120 will be significant.
 - Does the 95% CI include 120 mmHg? If not, the result is significant.
-- What is Cohen's d? A statistically significant result with d < 0.2 is clinically trivial. A d > 0.5 means the cohort's mean BP is substantially elevated.
+- What is Cohen's d? A statistically significant result with $d < 0.2$ is clinically trivial. A $d > 0.5$ means the cohort's mean BP is substantially elevated.
+
+---
 
 ### 🧪 Test Your Knowledge
 
-The published mean TOTCHOL for "desirable" cardiovascular health is 200 mg/dL. Test whether the Framingham cohort's mean cholesterol differs from this reference. **(a)** State H₀ and H₁. **(b)** Run the test. **(c)** Interpret p-value, 95% CI, and Cohen's d. Is the difference clinically significant as well as statistically significant?
+The published mean TOTCHOL for "desirable" cardiovascular health is 200 mg/dL. Test whether the Framingham cohort's mean cholesterol differs from this reference. **(a)** State $H_0$ and $H_1$. **(b)** Run the test. **(c)** Interpret the p-value, 95% CI, and Cohen's d. Is the difference clinically significant as well as statistically significant?
 
 ````{dropdown} Show Solution
 ```r
-# (a) H₀: μ_TOTCHOL = 200 mg/dL
-#     H₁: μ_TOTCHOL ≠ 200 mg/dL
+# (a) H_0: \mu_{TOTCHOL} = 200 mg/dL
+#     H_1: \mu_{TOTCHOL} \neq 200 mg/dL
 
 # (b) R code:
 t.test(fram_data$TOTCHOL, mu = 200)
@@ -271,11 +284,11 @@ t.test(fram_data$TOTCHOL, mu = 200)
 # (c) Expected result: mean ≈ 235 mg/dL — 35 mg/dL above the reference.
 #     p will be < 0.001 with n=500.
 #     95% CI will not include 200 mg/dL.
-#     Cohen's d = (235-200)/42 ≈ 0.83 — LARGE effect size.
+#     Cohen's d = abs(235-200)/42 ≈ 0.83 — LARGE effect size.
 #     This is both statistically AND clinically significant: the average
 #     Framingham participant had cholesterol in the "borderline high" range.
 #     This finding contributed to cholesterol's identification as a CVD risk factor.
-d_chol <- (mean(fram_data$TOTCHOL) - 200) / sd(fram_data$TOTCHOL)
+d_chol <- abs(mean(fram_data$TOTCHOL, na.rm=TRUE) - 200) / sd(fram_data$TOTCHOL, na.rm=TRUE)
 cat("Cohen's d =", round(d_chol, 3))
 ```
 ````
@@ -284,35 +297,31 @@ cat("Cohen's d =", round(d_chol, 3))
 
 | Term | Definition |
 |---|---|
-| **H₀ (null hypothesis)** | Assumption of no effect. Assumed true until data provides sufficient evidence otherwise. |
-| **H₁ (alternative hypothesis)** | The claim that a real effect exists. |
-| **P-value** | Probability of observing a result as extreme as ours, *assuming H₀ is true*. |
-| **α (significance level)** | Threshold below which H₀ is rejected. Conventionally 0.05. |
-| **Type I error** | Rejecting a true H₀ (false positive). Probability = α. |
-| **Type II error** | Failing to reject a false H₀ (false negative). Probability = β. |
-| **Statistical power** | 1−β. Probability of detecting a real effect when one exists. |
-| **Cohen's d** | Effect size for t-tests. d = (x̄−μ₀)/s. |
+| **$H_0$ (null hypothesis)** | Assumption of no effect. Assumed true until data provides sufficient evidence otherwise. |
+| **$H_1$ (alternative hypothesis)** | The claim that a real effect exists. |
+| **P-value** | Probability of observing a result as extreme as ours, *assuming $H_0$ is true*. |
+| **$\alpha$ (significance level)** | Threshold below which $H_0$ is rejected. Conventionally 0.05. |
+| **Type I error** | Rejecting a true $H_0$ (false positive). Probability = $\alpha$. |
+| **Type II error** | Failing to reject a false $H_0$ (false negative). Probability = $\beta$. |
+| **Statistical power** | $1-\beta$. Probability of detecting a real effect when one exists. |
+| **Cohen's d** | Effect size for t-tests. $d = |\bar{x}-\mu_0|/s$. |
 
 ## Review Questions
 
-1. State H₀ and H₁ for the following: "Is the mean diastolic blood pressure in the Framingham cohort different from the reference value of 80 mmHg?"
-
-2. The one-sample t-test for mean SYSBP vs 120 mmHg returns t(499) = 11.8, p < 0.001. A student writes: "There is less than 0.1% probability that blood pressure is normal in this cohort." Correct this misinterpretation precisely.
-
+1. State $H_0$ and $H_1$ for the following: "Is the mean diastolic blood pressure in the Framingham cohort different from the reference value of 80 mmHg?"
+2. The one-sample t-test for mean SYSBP vs 120 mmHg returns $t(499) = 11.8$, $p < 0.001$. A student writes: "There is less than 0.1% probability that blood pressure is normal in this cohort." Correct this misinterpretation precisely.
 3. Run `t.test(fram_data$AGE, mu = 50)` in R. Interpret the output fully, including the 95% CI and Cohen's d.
-
-4. The Framingham TOTCHOL test returns p < 0.001, Cohen's d = 0.83. Explain why both statistics are needed for a complete interpretation.
-
+4. The Framingham TOTCHOL test returns $p < 0.001$, Cohen's $d = 0.83$. Explain why both statistics are needed for a complete interpretation.
 5. The Framingham original cohort was almost entirely White. How does this affect the Type I and Type II error rates when the findings are applied to diverse populations?
 
 ```{admonition} Key Takeaways
 :class: tip
 
-- **H₀** is assumed true until data provides sufficient evidence to reject it.
-- **p-value:** probability of the data *given* H₀, not the probability H₀ is true.
-- **Type I error (α):** false positive. **Type II error (β):** false negative. They trade off.
-- **Power (1−β):** increased by larger n, larger effect size, lower variance, or higher α.
-- **Effect size (Cohen's d):** essential alongside p-value — statistical significance ≠ clinical importance.
+- **$H_0$** is assumed true until data provides sufficient evidence to reject it.
+- **p-value:** probability of the data *given* $H_0$, not the probability $H_0$ is true.
+- **Type I error ($\alpha$):** false positive. **Type II error ($\beta$):** false negative. They trade off.
+- **Power ($1-\beta$):** increased by larger $n$, larger effect size, lower variance, or higher $\alpha$.
+- **Effect size (Cohen's d):** essential alongside p-value — statistical significance $\neq$ clinical importance.
 ```
 
 *Next: **Chapter 6 — A Tale of Two Groups** extends the t-test to compare two independent or paired groups.*

@@ -10,10 +10,10 @@
 
 By the end of this chapter, you will be able to:
 
-- Calculate and interpret the **mean**, **median**, and **mode**
-- Calculate the **range**, **variance** (with Bessel's correction), and **standard deviation**
-- Choose the correct measure of central tendency based on distribution shape
-- Produce and interpret descriptive statistics in PSPP and R
+- Calculate and interpret the **mean**, **median**, and **mode**.
+- Calculate the **range**, **interquartile range (IQR)**, **variance** (with Bessel's correction), and **standard deviation**.
+- Choose the correct measure of central tendency based on distribution shape.
+- Produce and interpret descriptive statistics in PSPP and R.
 ```
 
 ## Before You Begin: Why Summaries Matter
@@ -23,17 +23,19 @@ By the end of this chapter, you will be able to:
 To make decisions, we compress data into two questions:
 
 1. **Where is the centre?** — *Central tendency* (mean, median, mode)
-2. **How spread out is it?** — *Variability* (range, variance, standard deviation)
+2. **How spread out is it?** — *Variability* (range, IQR, variance, standard deviation)
 
-For the Framingham cohort, these questions have immediate clinical meaning. What is the typical systolic blood pressure of a middle-aged American in the 1950s? How widely does cholesterol vary across the population? These summaries are the foundation of every cardiovascular risk guideline.
+For the Framingham cohort, these questions have immediate clinical meaning. What is the typical systolic blood pressure of a middle-aged American in the 1950s? How widely does cholesterol vary across the population? These statistical summaries form the foundation of every cardiovascular risk guideline used today.
+
+---
 
 ## Section 1: Finding the Centre — Central Tendency
 
 ### 1.1 The Mean
 
-> 💡 **Plain English first:** Add all values together and divide by how many there are. The result is pulled toward any extreme values in the data.
+> 💡 **Plain English first:** Add all the values together and divide by how many there are. The result is heavily pulled toward any extreme values in the data.
 
-The **mean** (x̄, "x-bar") is the arithmetic average.
+The **mean** ($\bar{x}$, pronounced "x-bar") is the arithmetic average.
 
 $$\bar{x} = \frac{\sum x_i}{n}$$
 
@@ -42,9 +44,9 @@ Seven participants have systolic BPs (mmHg): 118, 135, 122, 148, 110, 165, 128.
 
 $$\bar{x} = \frac{118+135+122+148+110+165+128}{7} = \frac{926}{7} \approx 132.3 \text{ mmHg}$$
 
-**When to use the mean:** Continuous, ratio-level data that is approximately symmetrically distributed.
+**When to use the mean:** Continuous, ratio/interval-level data that is approximately symmetrically distributed (bell-shaped).
 
-> **⚠️ Sensitivity to outliers:** A single participant with a hypertensive crisis (e.g., 220 mmHg) would drag the mean upward. In a population where 95% of participants have systolic BP between 100–170 mmHg, that one extreme value makes the "average" appear higher than most people actually experience.
+> ⚠️ **Sensitivity to outliers:** A single participant with a hypertensive crisis (e.g., 220 mmHg) will drag the mean upward. In a population where 95% of participants have a systolic BP between 100 and 170 mmHg, that one extreme value makes the "average" appear higher than what most people actually experience.
 
 ```{figure} ../images/ch02_skewness.png
 :name: fig-skewness
@@ -56,86 +58,100 @@ $$\bar{x} = \frac{118+135+122+148+110+165+128}{7} = \frac{926}{7} \approx 132.3 
 
 ### 1.2 The Median
 
-The **median** is the middle value when all observations are ranked in ascending order.
+The **median** is the exact middle value when all observations are ranked in ascending order.
 
-- If n is **odd**: value at position $\frac{n+1}{2}$
-- If n is **even**: average of the two middle values
+- If $n$ is **odd**: The value at position $\frac{n+1}{2}$
+- If $n$ is **even**: The average of the two middle values
 
 **Worked example:** Seven BPs ranked: 110, 118, 122, **128**, 135, 148, 165.
-n = 7 (odd) → median at position 4 → **128 mmHg**.
+$n = 7$ (odd) $\rightarrow$ median is at position 4 $\rightarrow$ **128 mmHg**.
 
-The outlier of 165 has no effect on the median. It would remain 128 mmHg whether that participant had 165 or 265 mmHg.
+Notice that the outlier of 165 has absolutely no effect on the median. The median would remain 128 mmHg whether that last participant had a BP of 165 or 265. 
 
 **When to use the median in cardiovascular epidemiology:**
-- Cholesterol (right-skewed in population samples)
-- Cigarettes per day (right-skewed — many non-smokers, a few heavy smokers)
-- Glucose levels (right-skewed — most normal, a few diabetic outliers)
-- Time-to-event variables (always use median survival, never mean)
+- Cholesterol (tends to be right-skewed in population samples)
+- Cigarettes per day (heavily right-skewed — many non-smokers, a few heavy smokers)
+- Glucose levels (right-skewed — most are normal, a few are diabetic outliers)
+- Time-to-event variables (always use median survival time, never mean)
 
 ### 1.3 The Mode
 
-The **mode** is the most frequently occurring value. It is the only measure of central tendency valid for nominal categorical data.
+The **mode** is the most frequently occurring value. It is the only measure of central tendency that is valid for nominal (categorical) data.
 
 **Framingham examples:**
 - Modal `SEX` = Female (57% of the sample)
-- Modal `EDUC` = Level 1 (0–11 years of schooling) — 193 of 500 participants
+- Modal `EDUC` = Level 1 (0–11 years of schooling) — 193 out of 500 participants
 - Modal `CURSMOKE` = Smoker (51% at baseline — reflecting 1950s smoking prevalence)
 
-For nominal variables like `ANYCHD`, the mean and median are not appropriate summaries. The mode tells us: the most common outcome in the Framingham cohort was *no CHD event* (69% had no event).
+For a nominal variable like `ANYCHD` (0 = no event, 1 = event), calculating a mean or median is mathematical nonsense. The mode simply tells us: the most common outcome in the Framingham cohort was *no CHD event* (69% of the sample).
 
 ### 1.4 Choosing the Right Measure
 
-| Situation | Measure | Reason |
+| Situation | Best Measure | Reason |
 |---|---|---|
-| Continuous, symmetric data | Mean | Uses all values; most statistically powerful |
-| Continuous, skewed data | Median | Resistant to distortion by outliers |
-| Nominal categorical data | Mode | Mean and median require arithmetic that nominal data cannot support |
-| Ordinal data | Median or mode | Ordinal data has rank but not equal intervals |
+| Continuous, symmetric data | **Mean** | Uses every value; mathematically powerful for later tests. |
+| Continuous, skewed data | **Median** | Resistant to distortion by extreme outliers. |
+| Nominal categorical data | **Mode** | Categories cannot be mathematically added or ranked. |
+| Ordinal data | **Median** or **Mode** | Ordinal data has rank, but the distances between ranks are not equal. |
+
+---
 
 ## Section 2: Measuring the Mess — Variability
 
-Two Framingham cohorts with the same mean systolic BP could have very different clinical implications — one tightly clustered, one with many hypertensive extremes. Variability captures that difference.
+Two different Framingham cohorts with the exact same mean systolic BP could have vastly different clinical implications—one might be tightly clustered around 130 mmHg, while the other contains many dangerous hypertensive extremes. Measures of variability capture that spread.
 
 ### 2.1 The Range
 
 $$\text{Range} = \text{Maximum} - \text{Minimum}$$
 
-**Framingham example:** If the highest SYSBP in the dataset is 228 mmHg and the lowest is 86 mmHg, the range is 142 mmHg.
+**Framingham example:** If the highest SYSBP in the dataset is 228 mmHg and the lowest is 83.5 mmHg, the range is 144.5 mmHg.
 
-**Limitation:** Uses only two data points. If 498 of 500 participants have SYSBP between 100–160 mmHg but two extreme outliers exist, the range exaggerates spread.
+**Limitation:** The range uses only the two most extreme data points. If 498 participants have a SYSBP between 100–160 mmHg, but two extreme outliers exist, the range heavily exaggerates the spread of the data.
 
-### 2.2 Variance
+### 2.2 Quartiles and the Interquartile Range (IQR)
 
-> 💡 **Plain English first:** Variance asks — *on average, how far does each blood pressure reading sit from the mean?* It measures spread in squared units.
+Because the range is so easily distorted, we often divide the ranked data into four equal parts (quartiles). 
+- **Q1 (25th percentile):** 25% of the data falls below this value.
+- **Q2 (50th percentile):** The Median.
+- **Q3 (75th percentile):** 75% of the data falls below this value.
 
-$$s^2 = \frac{\sum (x_i - \bar{x})^2}{n - 1}$$
+The **Interquartile Range (IQR)** is the distance between Q1 and Q3 ($IQR = Q3 - Q1$). It represents the "middle 50%" of your data, making it a highly robust measure of spread that completely ignores extreme outliers. 
 
-**Why (n − 1)?** When working with a sample (our 500 participants are a sample from the population of all middle-aged Americans), dividing by n slightly underestimates the true population variability. Dividing by (n − 1) corrects this. This is **Bessel's correction**.
-
-> ⚡ **Common mistake:** Students ask why we square the deviations rather than take absolute values. Both work mathematically, but squaring has cleaner algebraic properties and is standard across all parametric statistics.
-
-### 2.3 Standard Deviation
-
-The **standard deviation** (s) takes the square root of the variance, returning spread to the original units.
-
-$$s = \sqrt{\frac{\sum (x_i - \bar{x})^2}{n - 1}}$$
-
-- A **small SD** means BPs cluster tightly around the mean, the cohort is homogeneous.
-- A **large SD** means BPs scatter widely, the cohort spans a broad clinical range.
+Epidemiologists use the IQR to mathematically define outliers. Any value that sits more than **1.5 × IQR** above Q3 or below Q1 is flagged as an outlier. This is exactly how the "whiskers" and "dots" on a box plot are drawn.
 
 ```{figure} ../images/ch02_boxplot_anatomy.png
 :name: fig-boxplot
 :width: 85%
 :align: center
 
-**Figure 2.2** Anatomy of a box plot. The box spans the middle 50% of the data (IQR = Q3 − Q1). The red line is the median. Whiskers extend to the most extreme non-outlier values. Dots beyond the whiskers are outliers (> 1.5 × IQR from the box edges). In the Framingham dataset, a box plot of `SYSBP` would show the median around 128 mmHg with a right-skewed distribution.
+**Figure 2.2** Anatomy of a box plot. The box spans the middle 50% of the data (IQR = Q3 − Q1). The red line is the median. Whiskers extend to the maximum and minimum values that are *not* outliers. Dots beyond the whiskers represent true mathematical outliers (> 1.5 × IQR from the box edges). In the Framingham dataset, a box plot of `SYSBP` would show the median around 128 mmHg with a right-skewed distribution.
 ```
 
-### 2.4 Worked Example — Cholesterol
+### 2.3 Variance
 
-Seven participants' total cholesterol readings (mg/dL): 195, 220, 245, 210, 280, 230, 215. Mean = 227.9 mg/dL.
+> 💡 **Plain English first:** Variance asks — *on average, how far does each individual blood pressure reading sit from the overall mean?* It measures spread in "squared" units.
 
-| xᵢ | xᵢ − x̄ | (xᵢ − x̄)² |
+$$s^2 = \frac{\sum (x_i - \bar{x})^2}{n - 1}$$
+
+**Why (n − 1)?** Our 500 participants are just a sample drawn from the larger population of all middle-aged Americans. Mathematically, dividing by $n$ slightly underestimates the true variability of that wider population. Dividing by $(n - 1)$ corrects this underestimation. This is known as **Bessel's correction**.
+
+> ⚡ **Common mistake:** Students often ask why we square the deviations rather than just taking the absolute value. While both work conceptually, squaring the numbers gives variance much cleaner algebraic properties, making it the standard engine behind all advanced parametric statistics (like ANOVA and Regression).
+
+### 2.4 Standard Deviation
+
+The **standard deviation** ($s$) simply takes the square root of the variance, returning the measurement of spread back to the original, readable units (e.g., mmHg instead of mmHg²).
+
+$$s = \sqrt{\frac{\sum (x_i - \bar{x})^2}{n - 1}}$$
+
+- A **small SD** means BPs cluster tightly around the mean; the cohort is homogeneous.
+- A **large SD** means BPs scatter widely; the cohort spans a broad clinical range.
+
+### 2.5 Worked Example — Cholesterol Variance
+
+Seven participants' total cholesterol readings (mg/dL): 195, 220, 245, 210, 280, 230, 215. 
+The Mean ($\bar{x}$) = 227.9 mg/dL.
+
+| $x_i$ | Deviation ($x_i - \bar{x}$) | Squared Deviation $(x_i - \bar{x})^2$ |
 |:---:|:---:|:---:|
 | 195 | −32.9 | 1082.4 |
 | 220 | −7.9 | 62.4 |
@@ -146,23 +162,27 @@ Seven participants' total cholesterol readings (mg/dL): 195, 220, 245, 210, 280,
 | 215 | −12.9 | 166.4 |
 | **Sum** | **0.0** | **4642.8** |
 
-> Note: The sum of deviations always equals zero — positive and negative deviations cancel exactly.
+> *Note: The sum of the raw deviations always equals exactly zero — the positive and negative deviations cancel each other out. This is why we must square them!*
 
 $$s^2 = \frac{4642.8}{6} = 773.8 \text{ (mg/dL)}^2 \qquad s = \sqrt{773.8} \approx 27.8 \text{ mg/dL}$$
 
-**Interpretation:** The typical participant's cholesterol is about 227.9 mg/dL, and individual values typically deviate from that by about 27.8 mg/dL. At the population level, a clinical guideline threshold of 240 mg/dL sits less than one SD above the mean — suggesting that a substantial fraction of the Framingham cohort was at or near elevated risk.
+**Interpretation:** The typical participant's cholesterol is about 227.9 mg/dL, and individual values typically deviate from that mean by about 27.8 mg/dL. At the population level, a clinical guideline threshold of 240 mg/dL sits less than one standard deviation above the mean — suggesting that a substantial fraction of the Framingham cohort was already at or near elevated cardiovascular risk.
+
+---
 
 ## Section 3: Descriptive Statistics and Clinical Interpretation
 
-Descriptive statistics are always reported together. The mean alone is incomplete; the mean with its SD tells the clinical story.
+Descriptive statistics are almost always reported together. A mean alone is incomplete; the mean combined with its standard deviation tells the full clinical story.
 
-| Variable | Mean ± SD | Median | Clinical interpretation |
+| Variable | Mean ± SD | Median | Clinical Interpretation |
 |---|---|---|---|
-| AGE | 48.4 ± 8.7 years | 48 years | Middle-aged cohort; range 32–70 |
-| SYSBP | 131.6 ± 21.9 mmHg | ~128 mmHg | Mean above normal (120); right-skewed |
-| TOTCHOL | 235 ± 42 mg/dL | ~232 mg/dL | Mean approaching "borderline high" threshold of 240 |
-| BMI | 26.0 ± 4.4 kg/m² | ~25.6 | Mean in overweight range (25–29.9) |
-| CIGPDAY | right-skewed | 0 (median = non-smoker) | 51% smoke; among smokers, wide range |
+| **AGE** | 48.4 ± 8.7 years | 48 years | A middle-aged cohort; ages range from 32–70. |
+| **SYSBP** | 131.6 ± 21.9 mmHg | ~128 mmHg | Mean is above normal (120); distribution is right-skewed. |
+| **TOTCHOL** | 235 ± 42 mg/dL | ~232 mg/dL | Mean is approaching the "borderline high" threshold of 240. |
+| **BMI** | 26.0 ± 4.4 kg/m² | ~25.6 kg/m² | Mean sits in the overweight range (25.0–29.9). |
+| **CIGPDAY** | (Right-skewed) | 0 (Non-smoker) | 51% smoke; among the smokers, there is a very wide range. |
+
+---
 
 ## 🔬 Lab Manual — Chapter 2
 
@@ -171,11 +191,13 @@ Calculate descriptive statistics for `SYSBP`, `TOTCHOL`, `AGE`, and `BMI`. Ident
 
 ### Option A — PSPP
 
-1. Open `framingham_study.sav`.
-2. **Analyze → Descriptive Statistics → Descriptives**.
-3. Move `SYSBP`, `TOTCHOL`, `AGE`, `BMI` to the Variables box.
-4. Click **Options** → tick Mean, Std. deviation, Minimum, Maximum → **Continue → OK**.
-5. For median: **Analyze → Descriptive Statistics → Explore** → add the same variables → **OK**.
+To get a complete table of mean, median, standard deviation, and range in one step:
+1. Open `framingham_teaching.csv`.
+2. Go to **Analyze → Descriptive Statistics → Frequencies**.
+3. Move `SYSBP`, `TOTCHOL`, `AGE`, and `BMI` into the Variables box.
+4. Click **Statistics...**
+5. Check the boxes for **Mean**, **Median**, **Mode**, **Std. deviation**, **Minimum**, and **Maximum**.
+6. Click **Continue**, then **OK**.
 
 ### Option B — R / RStudio
 
@@ -189,6 +211,7 @@ fram_data <- read.csv("data/framingham_teaching.csv")
 
 # ── Descriptives for key continuous variables ─────────
 vars <- c("SYSBP", "TOTCHOL", "AGE", "BMI", "CIGPDAY", "GLUCOSE")
+
 for (v in vars) {
   cat("\n──", v, "──\n")
   cat("  Mean:  ", round(mean(fram_data[[v]],   na.rm=TRUE), 2), "\n")
@@ -197,7 +220,7 @@ for (v in vars) {
   cat("  Range: ", range(fram_data[[v]],         na.rm=TRUE), "\n")
 }
 
-# ── Summary for all variables ──────────────────────────
+# ── Summary for all variables (Includes IQR Quartiles) ──
 summary(fram_data)
 
 # ── Mode for categorical variables ───────────────────
@@ -211,7 +234,7 @@ table(fram_data$SEX)
 table(fram_data$CURSMOKE)
 table(fram_data$EDUC)
 
-# ── Descriptives by smoking group ─────────────────────
+# ── Descriptives separated by smoking group ───────────
 tapply(fram_data$SYSBP, fram_data$CURSMOKE, mean,   na.rm=TRUE)
 tapply(fram_data$SYSBP, fram_data$CURSMOKE, median, na.rm=TRUE)
 tapply(fram_data$SYSBP, fram_data$CURSMOKE, sd,     na.rm=TRUE)
@@ -221,13 +244,18 @@ var(fram_data$TOTCHOL, na.rm=TRUE)
 ```
 
 **What to examine:**
-- For `SYSBP` and `TOTCHOL`: is the mean close to the median, or does the mean exceed the median (indicating right skew)?
-- For `CIGPDAY`: the median will be 0 (most people are non-smokers or do not smoke heavily). How does the mean compare?
-- The SD of `SYSBP` (~22 mmHg) means approximately 68% of participants fall within ±22 mmHg of the mean — from about 110 to 154 mmHg.
+- For `SYSBP` and `TOTCHOL`: is the mean close to the median, or does the mean exceed the median (indicating a right skew)?
+- Notice the output from the `summary()` function. It explicitly gives you the `1st Qu.` (Q1) and `3rd Qu.` (Q3). These are the exact values used to draw the box plot from Figure 2.2!
+- The Standard Deviation (SD) of `SYSBP` ($\approx 22$ mmHg) means that approximately 68% of the participants fall within $\pm 22$ mmHg of the mean — from about 110 to 154 mmHg.
+
+---
 
 ### 🧪 Test Your Knowledge
 
-Compute the mean, median, and SD of `TOTCHOL` separately for smokers and non-smokers. **(a)** Write the R code using `tapply()`. **(b)** Is the difference in mean cholesterol clinically meaningful? **(c)** Does smoking appear to be associated with higher cholesterol in this sample?
+Compute the mean, median, and SD of `TOTCHOL` separately for smokers and non-smokers. 
+**(a)** Write the R code using `tapply()`. 
+**(b)** Is the difference in mean cholesterol clinically meaningful? 
+**(c)** Does smoking appear to be associated with higher cholesterol in this sample?
 
 ````{dropdown} Show Solution
 ```r
@@ -243,11 +271,12 @@ tapply(fram_data$TOTCHOL, fram_data$CURSMOKE, sd,     na.rm=TRUE)
 #     is modest but directionally consistent with the Framingham literature.
 #     Whether it is clinically meaningful depends on the absolute values —
 #     if both groups average above 230 mg/dL, the difference matters less
-#     than both groups being above the "borderline high" threshold.
+#     than the fact that BOTH groups are approaching the "borderline high" 
+#     cardiovascular risk threshold.
 
-# (c) We can note an association from descriptives, but we cannot yet
-#     determine if it is statistically significant — that requires a
-#     hypothesis test (Chapter 5/6).
+# (c) We can note a visible association from these descriptive statistics, 
+#     but we cannot yet determine if it is STATISTICALLY SIGNIFICANT. 
+#     That requires a formal hypothesis test, which we will cover in Chapter 6.
 ```
 ````
 
@@ -256,41 +285,37 @@ tapply(fram_data$TOTCHOL, fram_data$CURSMOKE, sd,     na.rm=TRUE)
 | Term | Definition |
 |---|---|
 | **Central tendency** | A single value summarising the "centre" of a distribution: mean, median, or mode. |
-| **Mean (x̄)** | Arithmetic average. Sensitive to outliers; best for symmetric distributions. |
-| **Median** | Middle value when ranked. Resistant to outliers; preferred for skewed health data. |
-| **Mode** | Most frequent value. The only valid central tendency measure for nominal data. |
-| **Variability** | Degree to which values spread around the centre. |
-| **Range** | Maximum − Minimum. Simple but distorted by extreme values. |
-| **Variance (s²)** | Average squared deviation from the mean. Uses (n−1) for unbiased estimation. |
-| **Standard deviation (s)** | √variance. In original units; most interpretable spread measure. |
-| **Bessel's correction** | Using (n−1) rather than n to produce an unbiased sample variance estimate. |
+| **Mean ($\bar{x}$)** | Arithmetic average. Sensitive to outliers; best for symmetric distributions. |
+| **Median** | The exact middle value when ranked. Resistant to outliers; preferred for skewed health data. |
+| **Mode** | The most frequent value. The only valid central tendency measure for nominal data. |
+| **Variability** | The degree to which values spread out around the centre. |
+| **Range** | Maximum − Minimum. Simple to calculate but easily distorted by extreme values. |
+| **Interquartile Range (IQR)** | Q3 − Q1. The spread of the middle 50% of the data. Highly resistant to outliers. |
+| **Variance ($s^2$)** | Average squared deviation from the mean. |
+| **Standard deviation ($s$)** | $\sqrt{\text{variance}}$. Measures spread in the original units; highly interpretable. |
+| **Bessel's correction** | Dividing by $(n-1)$ rather than $n$ to produce an unbiased estimate of population variance. |
 
 ## Review Questions
 
-1. The Framingham dataset shows a mean SYSBP of 131.6 mmHg and a median of approximately 128 mmHg. What does this tell you about the distribution? Would you report the mean or the median as the "typical" systolic BP? Justify your answer.
-
-2. Calculate the mean and SD for these cholesterol values (mg/dL): 180, 210, 225, 240, 195, 310, 220. Show your working. What does the large deviation of 310 tell you about the limitations of the mean?
-
-3. `CIGPDAY` (cigarettes per day) has a median of 0 and a mean well above 0. Explain why, and state which measure better represents the "typical" smoking level in this cohort.
-
+1. The Framingham dataset shows a mean SYSBP of 131.6 mmHg and a median of approximately 128 mmHg. What does this tell you about the shape of the distribution? Would you report the mean or the median as the "typical" systolic BP? Justify your answer.
+2. Calculate the mean and standard deviation for these cholesterol values (mg/dL): 180, 210, 225, 240, 195, 310, 220. Show your working. What does the large deviation of the 310 value tell you about the limitations of the mean?
+3. `CIGPDAY` (cigarettes per day) has a median of 0 and a mean well above 0. Explain why this happens, and state which measure better represents the "typical" smoking level in this specific cohort.
 4. Why is neither the mean nor the median appropriate for summarising `ANYCHD`? What measure should be used, and what does it reveal?
-
-5. The SD of `TOTCHOL` in the Framingham cohort is approximately 42 mg/dL. Using the Empirical Rule (Chapter 4), what range of cholesterol values would contain approximately 95% of participants if cholesterol were normally distributed?
-
-6. In R, run `tapply(fram_data$BMI, fram_data$SEX, summary)`. Compare the mean and median BMI by sex. In which group is BMI more skewed, and how can you tell?
+5. The SD of `TOTCHOL` in the Framingham cohort is approximately 42 mg/dL. Using the Empirical Rule (which you will learn more about in Chapter 4), what range of cholesterol values would contain approximately 95% of the participants if cholesterol were perfectly normally distributed?
+6. In R, run `tapply(fram_data$BMI, fram_data$SEX, summary)`. Compare the mean and median BMI by sex. In which group is the BMI more heavily skewed, and how can you mathematically tell?
 
 ```{admonition} Key Takeaways
 :class: tip
 
-- **Mean** = Σxᵢ/n — sensitive to outliers; best for symmetric distributions (SYSBP, AGE).
-- **Median** = middle value — resistant to outliers; best for skewed data (CIGPDAY, time-to-event).
-- **SD** = √s² — in same units as the variable; most interpretable spread measure.
-- **Bessel's correction** uses (n−1) to give an unbiased sample variance estimate.
-- **Skewness rule:** Mean > Median → right (positive) skew.
-- In R: `mean()`, `median()`, `sd()`, `var()`, `summary()`. In PSPP: Analyze → Descriptive Statistics.
+- **Mean** = $\sum x_i / n$ — sensitive to outliers; best for symmetric distributions (e.g., SYSBP, AGE).
+- **Median** = middle value — resistant to outliers; best for skewed data (e.g., CIGPDAY, time-to-event).
+- **Standard Deviation (SD)** = $\sqrt{s^2}$ — measured in the same units as the variable; the most interpretable measure of spread.
+- **Bessel's correction** uses $(n-1)$ to give an unbiased estimate of the true population variance.
+- **The Skewness Rule:** If the Mean > Median, you likely have a right (positive) skew.
+- In R: `mean()`, `median()`, `sd()`, `var()`, `summary()`. In PSPP: Analyze → Descriptive Statistics → Frequencies.
 ```
 
-*Next: **Chapter 3 — The Margin of Error** asks how confident we can be that our sample statistics reflect the broader population of middle-aged Americans.*
+*Next: **Chapter 3 — The Margin of Error** asks how confident we can be that our specific sample statistics actually reflect the broader population of middle-aged Americans.*
 
 ---
 

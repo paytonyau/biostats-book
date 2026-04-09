@@ -8,7 +8,7 @@ This book is an open-source living textbook, published under the [Creative Commo
 
 If you find a factual error, a typographical error, a broken formula, or a code block that does not run as written, the best way to report it is through the **GitHub Issues tracker**:
 
-1. Go to [https://github.com/yourusername/biostats-book/issues](https://github.com/paytonyau/biostats-book/issues)
+1. Go to [https://github.com/paytonyau/biostats-book/issues](https://github.com/paytonyau/biostats-book/issues)
 2. Click **New Issue**
 3. In the title, state the chapter and the nature of the problem (e.g., "Ch. 5 — incorrect degrees of freedom formula in Section 6.2")
 4. In the body, paste the current text and your suggested correction
@@ -33,7 +33,7 @@ Suggestions that have been particularly valuable in previous revisions include:
 
 If you are comfortable working with GitHub and Markdown, you are welcome to submit corrections or additions directly as a pull request:
 
-1. Fork the repository at [https://github.com/yourusername/biostats-book](https://github.com/paytonyau/biostats-book)
+1. Fork the repository at [https://github.com/paytonyau/biostats-book](https://github.com/paytonyau/biostats-book)
 2. Make your changes in the relevant `.md` file inside `chapters/`, `frontmatter/`, or `backmatter/`
 3. Submit a pull request with a short description of what you changed and why
 4. All pull requests are reviewed before merging
